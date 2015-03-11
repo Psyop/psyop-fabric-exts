@@ -1,0 +1,34 @@
+require Scatter;
+
+
+operator entry() {
+  report("entry!");
+
+  report("");
+  report("");
+  report("Scattering!");
+  PolygonMesh staticMesh();
+  staticMesh.addDisc( Xfo(), 20.0f, TWO_PI, 20, true, true );
+  MeshScatterer scatterer(staticMesh, Mat44());
+  scatterer.setDefaultSize(0.1);
+  scatterer.scatter(10000, 12345);
+  report(scatterer.getPoints().size() + " points added by Scattering.");
+
+
+  report("");
+  report("");
+  report("Dart throwing");
+  MeshScatterer dartThrower(staticMesh, Mat44());
+  dartThrower.setDefaultSize(0.1);
+  dartThrower.throwDarts(100, 50, 12345);
+
+
+
+  report("");
+  report("");
+  report("Dart throwing with Big-to-Small sizer");  
+  bigToSmallDartSizer bssSizer(0.2, 0.03, 0.5, 1234);
+  MeshScatterer dartThrower2(staticMesh, Mat44());
+  dartThrower2.throwDarts(-1, 100, 1234, bssSizer, null);
+
+}

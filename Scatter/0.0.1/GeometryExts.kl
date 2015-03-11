@@ -1,0 +1,117 @@
+
+/////////////////////////////////////////
+//
+//  Geometry Extensions
+//
+/////////////////////////////////////////
+
+function getPolygonTriangles(in PolygonMesh mesh, in UInt32 polygonIndex, io LocalL8UInt32Array returnTriangles ) {
+  LocalL8UInt32Array pointIndices;
+  mesh.getPolygonPoints(polygonIndex, pointIndices);
+
+  UInt32 trianglePoint0 = pointIndices.get(0);
+  for (UInt32 i = 0; i<(pointIndices.size()-2); i++) {
+    UInt32 trianglePoint1 = pointIndices.get(i + 1);
+    UInt32 trianglePoint2 = pointIndices.get(i + 2);
+
+    returnTriangles.push(trianglePoint0);
+    returnTriangles.push(trianglePoint1);
+    returnTriangles.push(trianglePoint2);
+  }
+}
+
+
+function Scalar getTriangleArea(in Vec3 pos0, in Vec3 pos1, in Vec3 pos2) {
+  Scalar triangleArea = 0.0f;
+  if (pos0 != pos1 && pos0 != pos2) {
+    Vec3 dir1 = pos1 - pos0;
+    Vec3 dir2 = pos2 - pos0;
+
+    Scalar angle = dir1.angleTo(dir2);
+    triangleArea = sin(angle) * dir1.length() * dir2.length() * 0.5f;
+  }
+  return triangleArea;
+}
+
+
+operator measurePolygonAreas<<<polygonIndex>>>(io Scalar areas[], in PolygonMesh mesh) {
+  LocalL8UInt32Array triangles;
+  getPolygonTriangles(mesh, polygonIndex, triangles);
+
+  Scalar area = 0.0f;
+  for (UInt32 i = 0; i<(triangles.size()/3); i++) {
+    UInt32 trianglePoint0 = triangles.get((i*3));
+    UInt32 trianglePoint1 = triangles.get((i*3) + 1);
+    UInt32 trianglePoint2 = triangles.get((i*3) + 2);
+
+    Vec3 pos0 = mesh.getPointPosition(trianglePoint0);
+    Vec3 pos1 = mesh.getPointPosition(trianglePoint1);
+    Vec3 pos2 = mesh.getPointPosition(trianglePoint2);
+
+    area += getTriangleArea(pos0, pos1, pos2);
+  }
+  areas[polygonIndex] = area;
+}
+
+
+function getPolygonTriangleAreas(io Scalar areas[], in PolygonMesh mesh, in UInt32 polygonIndex) {
+  LocalL8UInt32Array triangles;
+  getPolygonTriangles(mesh, polygonIndex, triangles);
+  for (UInt32 i = 0; i<(triangles.size()/3); i++) {
+    UInt32 trianglePoint0 = triangles.get((i*3));
+    UInt32 trianglePoint1 = triangles.get((i*3) + 1);
+    UInt32 trianglePoint2 = triangles.get((i*3) + 2);
+    Vec3 pos0 = mesh.getPointPosition(trianglePoint0);
+    Vec3 pos1 = mesh.getPointPosition(trianglePoint1);
+    Vec3 pos2 = mesh.getPointPosition(trianglePoint2);
+
+    areas.push(getTriangleArea(pos0, pos1, pos2));
+  }
+}
+
+
+/////////////////////////////////////////
+//
+//  Polygon Scattering Utilities
+//
+/////////////////////////////////////////
+
+
+operator getRandomPolygonsWeighted<<<index>>>(in Scalar weights[], in UInt32 seed, io UInt32 indices[]) {
+    Scalar rand = mathRandomScalar(G_SCATTERER_SEED, seed + (index * G_SCATTERER_SEED + 0));
+    indices[index] = selectInCumulativeArray(weights, rand);
+}
+
+
+function Vec3 createEvenlySpacedBaryCoord(in Scalar x_sample, in Scalar y_sample) {  
+  /* 
+   * How to uniformly space barycentrics in psuedocode
+   * bary.X = rand();
+   * bary.Y = rand();
+   * bary.Z = 1 - (bary.X + bary.Y);
+   * 
+   * if (bary.Z < 0) {
+   *   bary.X = 1-bary.X;
+   *   bary.Y = 1-bary.Y;
+   *   bary.Z = -bary.Z;
+   * }
+   * 
+   * bary /= (bary.X + bary.Y + bary.Z);
+   */
+  Vec3 coord;
+  coord.x = x_sample;
+  coord.y = y_sample;
+  coord.z = 1.0f - (coord.x + coord.y);
+
+  if (coord.z < 0.0f) {
+    coord.x = 1.0f - coord.x;
+    coord.y = 1.0f - coord.y;
+    coord.z = -coord.z;
+  }
+  
+  Scalar sum = coord.x + coord.y + coord.z;
+  coord = coord / sum;
+  return coord;
+}
+
+
