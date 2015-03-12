@@ -1,0 +1,48 @@
+{
+  "objectType" : "Function",
+  "metadata" : {},
+  "title" : "bigToSmallDartSizer",
+  "cacheRule" : "always",
+  "ports" : [
+    {
+      "metadata" : {},
+      "name" : "result",
+      "portType" : "Out",
+      "metadata" : {},
+      "dataType" : "bigToSmallDartSizer"
+      },
+    {
+      "metadata" : {},
+      "name" : "startValue",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      },
+    {
+      "metadata" : {},
+      "name" : "endValue",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      },
+    {
+      "metadata" : {},
+      "name" : "bias",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      },
+    {
+      "metadata" : {},
+      "name" : "seed",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Size"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "filename" : "",
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = bigToSmallDartSizer(startValue, endValue, bias, seed);\n}\n"
+  }

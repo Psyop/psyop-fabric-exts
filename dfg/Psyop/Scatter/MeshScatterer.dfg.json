@@ -1,0 +1,20 @@
+// {
+//   "objectType" : "Function",
+//   "metadata" : {},
+//   "title" : "MeshScatterer",
+//   "cacheRule" : "always",
+//   "ports" : [
+//     {
+//       "metadata" : {},
+//       "name" : "result",
+//       "portType" : "Out",
+//       "metadata" : {},
+//       "dataType" : "MeshScatterer"
+//       }
+//     ],
+//   "extDeps" : {
+//     "Scatter" : "*"
+//     },
+//   "filename" : "",
+//   "code" : "require Scatter;\n\ndfgEntry {\n  result = MeshScatterer();\n}\n"
+//   }

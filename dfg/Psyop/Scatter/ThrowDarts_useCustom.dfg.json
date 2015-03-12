@@ -1,0 +1,56 @@
+{
+  "objectType" : "Function",
+  "metadata" : {},
+  "title" : "throwDarts",
+  "cacheRule" : "always",
+  "ports" : [
+    {
+      "metadata" : {},
+      "name" : "this",
+      "portType" : "IO",
+      "metadata" : {},
+      "dataType" : "MeshScatterer"
+      },
+    {
+      "metadata" : {},
+      "name" : "quantityPerIteration",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Integer"
+      },
+    {
+      "metadata" : {},
+      "name" : "iterations",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "UInt32"
+      },
+    {
+      "metadata" : {},
+      "name" : "seed",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "UInt32"
+      },
+    {
+      "metadata" : {},
+      "name" : "dartSizerObj",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "DartSizer"
+      },
+    {
+      "metadata" : {},
+      "name" : "dartFiltererObj",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "DartFilterer"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*",
+    },
+  "filename" : "",
+  "code" : "dfgEntry {\n  this.throwDarts(quantityPerIteration, iterations, seed, dartSizerObj, dartFiltererObj);\n}\n"
+  }
+

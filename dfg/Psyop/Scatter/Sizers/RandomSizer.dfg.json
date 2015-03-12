@@ -1,0 +1,48 @@
+{
+  "objectType" : "Function",
+  "metadata" : {},
+  "title" : "randomDartSizer",
+  "cacheRule" : "always",
+  "ports" : [
+    {
+      "metadata" : {},
+      "name" : "result",
+      "portType" : "Out",
+      "metadata" : {},
+      "dataType" : "randomDartSizer"
+      },
+    {
+      "metadata" : {},
+      "name" : "min",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      },
+    {
+      "metadata" : {},
+      "name" : "max",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      },
+    {
+      "metadata" : {},
+      "name" : "bias",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      },
+    {
+      "metadata" : {},
+      "name" : "seed",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Size"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "filename" : "",
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = randomDartSizer(min, max, bias, seed);\n}\n"
+  }

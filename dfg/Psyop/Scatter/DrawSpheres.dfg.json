@@ -1,0 +1,43 @@
+{
+  "objectType" : "Function",
+  "metadata" : {},
+  "title" : "drawSpheres",
+  "cacheRule" : "always",
+  "ports" : [
+    {
+      "metadata" : {},
+      "name" : "this",
+      "portType" : "IO",
+      "metadata" : {},
+      "dataType" : "MeshScatterer"
+      },
+    {
+      "metadata" : {},
+      "name" : "drawingHandle",
+      "portType" : "IO",
+      "metadata" : {},
+      "dataType" : "DrawingHandle"
+      },
+    {
+      "metadata" : {},
+      "name" : "sizeFactor",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      },
+    {
+      "metadata" : {},
+      "name" : "easter",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Boolean"
+      },
+    ],
+  "extDeps" : {
+    "Scatter" : "*",
+    "InlineDrawing" : "*",
+    },
+  "filename" : "",
+  "code" : "dfgEntry {\n  this.drawSpheres(drawingHandle, sizeFactor, easter);\n}\n"
+  }
+

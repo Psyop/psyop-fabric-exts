@@ -2,9 +2,8 @@
 
 function makeCumulativeArray(in Scalar array[], io Scalar cumulativeArrayOut[]) {
   UInt32 array_size = array.size;
-  if (array_size == 0) {
+  if (array_size == 0)
     return;
-  }
   cumulativeArrayOut.resize(array_size);
   cumulativeArrayOut[0] = array[0];
   for (UInt32 i=1; i<array_size; i++) { // Note: starts at index 1
@@ -15,17 +14,14 @@ function makeCumulativeArray(in Scalar array[], io Scalar cumulativeArrayOut[]) 
 
 function makeCumulativeArray(in LocalL4ScalarArray array, io LocalL4ScalarArray cumulativeArrayOut) {
   UInt32 array_size = array.count;
-  if (array_size == 0) {
+  if (array_size == 0)
     return;
-  }
   cumulativeArrayOut.resize(array_size);
   cumulativeArrayOut.set(0, array.get(0));
   for (UInt32 i=1; i<array_size; i++) { // Note: starts at index 1
     cumulativeArrayOut.set(i, cumulativeArrayOut.get(i-1) + array.get(i));
   }
 }
-
-
 
 
 function UInt32 selectInCumulativeArray(in Scalar arrayIn[], Scalar ratio) {

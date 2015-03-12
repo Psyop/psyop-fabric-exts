@@ -1,0 +1,27 @@
+{
+  "objectType" : "Function",
+  "metadata" : {},
+  "title" : "constantDartSizer",
+  "cacheRule" : "always",
+  "ports" : [
+    {
+      "metadata" : {},
+      "name" : "result",
+      "portType" : "Out",
+      "metadata" : {},
+      "dataType" : "constantDartSizer"
+      },
+    {
+      "metadata" : {},
+      "name" : "size",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Scalar"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "filename" : "",
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = constantDartSizer(startValue, endValue, bias, seed);\n}\n"
+  }

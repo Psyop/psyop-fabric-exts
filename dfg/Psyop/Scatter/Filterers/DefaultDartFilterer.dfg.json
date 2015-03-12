@@ -1,0 +1,20 @@
+{
+  "objectType" : "Function",
+  "metadata" : {},
+  "title" : "defaultDartFilterer",
+  "cacheRule" : "always",
+  "ports" : [
+    {
+      "metadata" : {},
+      "name" : "result",
+      "portType" : "Out",
+      "metadata" : {},
+      "dataType" : "defaultDartFilterer"
+      },
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "filename" : "",
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = defaultDartFilterer();\n}\n"
+  }

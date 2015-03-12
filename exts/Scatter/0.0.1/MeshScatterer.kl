@@ -121,7 +121,7 @@ function MeshScatterer.weightmapInit!() {
       this.weightmap.weightMapAttr.values = this.weightmap_persistData;
     }
   } else {
-    // initializing and there is already persistence data
+    // initializing and there is not already persistence data
     this.weightmap_persistData = this.weightmap.weightMapAttr.values;
   }
   this.weightmap.display(true);
@@ -135,15 +135,12 @@ function MeshScatterer.weightMapInitIfNeeded!() {
 }
 
 
-function MeshScatterer.weightmapActivatePainting!() {
+function MeshScatterer.weightmapActivatePainting!(Boolean active) {
   this.weightMapInitIfNeeded();
-  this.weightmap.activateManipulator();  
-}
-
-
-function MeshScatterer.weightmapActivatePainting!(UInt32 index) {
-  this.weightMapInitIfNeeded();
-  this.weightmap.activateManipulator();  
+  if (active)
+    this.weightmap.activateManipulator();
+  else
+    this.weightmap.deactivateManipulator();  
 }
 
 
@@ -176,11 +173,7 @@ inline MeshScatterer.measurePolgyonsIfNeeded!() {
     Scatterer Proper
 */
 
-function MeshScatterer.scatterCore!( 
-                                Integer quantityIn,
-                                UInt32 seed,
-                                Boolean toCandidates
-                              ) {
+function MeshScatterer.scatterCore!(Integer quantityIn, UInt32 seed, Boolean toCandidates) {
   AutoProfilingEvent p("Section_Making");
   this.measurePolgyonsIfNeeded();
 
@@ -203,10 +196,8 @@ function MeshScatterer.scatterCore!(
 
   getRandomPolygonsWeighted<<<quantity>>>(this.sourceMeshPolyCumulativeAreas, seed, selectedIndices );
   
-
   PerPolyScatterInfo info[];
   info.resize(this.sourceMesh.polygonCount());
-  // }  
 
   for(UInt32 i=0; i<quantity; i++) {
     UInt32 polyIndex = selectedIndices[i];
@@ -227,7 +218,6 @@ function MeshScatterer.scatterCore!(
       seed, 
       this.defaultSize, 
       pointCloud);
-  // }
 }
 
 
@@ -330,40 +320,34 @@ function MeshScatterer.dartAddFilteredCandidates!( ) {
 */
 
 function MeshScatterer.throwDarts!(
-                    in UInt32 quantityPerIteration, 
-                    in UInt32 iterations, 
-                    in UInt32 seed,
-                    in DartSizer sizer,
-                    in DartFilterer filterer
-                  ) { 
+    in Integer quantityPerIteration, 
+    in UInt32 iterations, 
+    in UInt32 seed,
+    in DartSizer sizer,
+    in DartFilterer filterer ) { 
   this.dartsIterations = iterations;
 
   DartSizer currentSizer = this.getDartSizer(sizer, this.defaultSize);
   DartFilterer currentFilterer = this.getDartFilterer(filterer);
-
 
   Boolean autoQuantitiy = false;
   UInt32 quantity = quantityPerIteration;
   UInt32 randomOffset = seed;
   UInt32 attemptCount;
 
-  if (quantityPerIteration == -1) {
+  if (quantityPerIteration < 0)
     autoQuantitiy = true;
-  }
 
-  {
-    AutoProfilingEvent p("total");
-    for (UInt32 i = 0; i < iterations; i++ ) {
-      if (autoQuantitiy) { 
-        quantity = this.estimateDartCount(currentSizer.estimateDartSize(this, i)); 
-      }
-      randomOffset += quantity*5;
-      attemptCount += quantity;
-      this.dartScatterCandidates(quantity, randomOffset);
-      this.runDartSizer(currentSizer, i);
-      this.runDartFilterer(currentFilterer, i);
-      this.dartAddFilteredCandidates();
-    }
+  AutoProfilingEvent p("total");
+  for (UInt32 i = 0; i < iterations; i++ ) {
+    if (autoQuantitiy)
+      quantity = this.estimateDartCount(currentSizer.estimateDartSize(this, i)); 
+    randomOffset += quantity*5;
+    attemptCount += quantity;
+    this.dartScatterCandidates(quantity, randomOffset);
+    this.runDartSizer(currentSizer, i);
+    this.runDartFilterer(currentFilterer, i);
+    this.dartAddFilteredCandidates();
   }
   report("Done dart throwing. " + this.points.size() + " points added in " + attemptCount + " attempts over " + iterations + " iterations.");
 }
@@ -375,10 +359,10 @@ function MeshScatterer.throwDarts!(
 */
 
 function MeshScatterer.throwDarts!(
-                    in UInt32 quantityPerIteration, 
-                    in UInt32 iterations, 
-                    in UInt32 seed
-                  ) {
+    in Integer quantityPerIteration, 
+    in UInt32 iterations, 
+    in UInt32 seed
+    ) {
   this.throwDarts(quantityPerIteration, iterations, seed, null, null);
 }
 

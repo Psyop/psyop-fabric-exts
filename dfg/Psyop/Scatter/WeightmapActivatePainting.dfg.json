@@ -1,0 +1,27 @@
+{
+  "objectType" : "Function",
+  "metadata" : {},
+  "title" : "weightmapActivatePainting",
+  "cacheRule" : "always",
+  "ports" : [
+    {
+      "metadata" : {},
+      "name" : "this",
+      "portType" : "IO",
+      "metadata" : {},
+      "dataType" : "MeshScatterer"
+      },
+    {
+      "metadata" : {},
+      "name" : "active",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Boolean"
+      },
+    ],
+  "extDeps" : {
+    "Scatter" : "*",
+    },
+  "filename" : "",
+  "code" : "dfgEntry {\n  this.weightmapActivatePainting(active);\n}\n"
+  }
