@@ -13,13 +13,11 @@ operator entry() {
   scatterer.scatter(10000, 12345);
   report(scatterer.getPoints().size() + " points added by Scattering.");
 
-
   report("");
   report("Dart throwing:");
   MeshScatterer dartThrower(staticMesh, Mat44());
   dartThrower.setDefaultSize(0.1);
   dartThrower.throwDarts(100, 50, 12345);
-
 
   report("");
   report("Dart throwing with Big-to-Small sizer");  
@@ -28,6 +26,5 @@ operator entry() {
   dartThrower2.throwDarts(-1, 100, 1234, bssSizer, null);
 
   DrawingHandle handle();
-  dartThrower2.drawSpheres(handle, 1.0, false);
-  dartThrower2.drawPoints(handle, 1.5);
+  dartThrower2.drawSpheres(true, 1.0, false);
 }
