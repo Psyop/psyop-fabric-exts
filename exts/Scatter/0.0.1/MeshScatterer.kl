@@ -43,10 +43,16 @@ object MeshScatterer : Persistable {
 
   UInt32 dartsIterations;
   UInt32 dartsTried;
+
+  DrawingHandle handle;
 };
 
 function MeshScatterer() {
   this.clearAndInitPoints();
+}
+
+function ~MeshScatterer() {
+  this.handle = null;
 }
 
 function MeshScatterer(PolygonMesh sourceMesh, Mat44 sourceMeshMat44) {

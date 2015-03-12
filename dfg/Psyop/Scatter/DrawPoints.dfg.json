@@ -1,36 +1,29 @@
-{
-  "objectType" : "Function",
-  "metadata" : {},
-  "title" : "drawPoints",
-  "cacheRule" : "always",
-  "ports" : [
-    {
-      "metadata" : {},
-      "name" : "this",
-      "portType" : "IO",
-      "metadata" : {},
-      "dataType" : "MeshScatterer"
-      },
-    {
-      "metadata" : {},
-      "name" : "drawingHandle",
-      "portType" : "IO",
-      "metadata" : {},
-      "dataType" : "DrawingHandle"
-      },
-    {
-      "metadata" : {},
-      "name" : "radius",
-      "portType" : "In",
-      "metadata" : {},
-      "dataType" : "Scalar"
-      },
-    ],
-  "extDeps" : {
-    "Scatter" : "*",
-    "InlineDrawing" : "*",
-    },
-  "filename" : "",
-  "code" : "dfgEntry {\n  this.drawPoints(drawingHandle, radius);\n}\n"
-  }
+// {
+//   "objectType" : "Function",
+//   "metadata" : {},
+//   "title" : "drawPoints",
+//   "cacheRule" : "always",
+//   "ports" : [
+//     {
+//       "metadata" : {},
+//       "name" : "this",
+//       "portType" : "IO",
+//       "metadata" : {},
+//       "dataType" : "MeshScatterer"
+//       },
+//     {
+//       "metadata" : {},
+//       "name" : "radius",
+//       "portType" : "In",
+//       "metadata" : {},
+//       "dataType" : "Scalar"
+//       },
+//     ],
+//   "extDeps" : {
+//     "Scatter" : "*",
+//     "InlineDrawing" : "*",
+//     },
+//   "filename" : "",
+//   "code" : "dfgEntry {\n  this.drawPoints(radius);\n}\n"
+//   }
 

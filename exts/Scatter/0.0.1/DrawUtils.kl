@@ -111,37 +111,42 @@ require Math;
 //   }
 // }
 
+function MeshScatterer.drawClear!() {
+  this.handle = DrawingHandle();
+}
 
 
+function MeshScatterer.drawPoints!(Scalar radius) {
+  this.handle = DrawingHandle();
 
-function MeshScatterer.drawPoints(io DrawingHandle handle, Scalar radius) {
   GeometryAttributes attributes = this.points.getAttributes();
   ColorAttribute vertexColors = attributes.getOrCreateColorAttribute('vertexColors');
   Vec3Attribute normals = attributes.getOrCreateVec3Attribute('normals');
 
-  InlineDrawing draw = handle.getDrawing();
-  if(!draw.hasShader('OGLSurfaceVertexColorShader')) {
-    InlineShader shader = draw.registerShader(OGLSurfaceVertexColorShader());
-    InlineMaterial mat = shader.getOrCreateMaterial('debug');
-  
-    InlineShape shape = draw.getShape('debug');
-    if(shape == null){
-      shape = draw.registerShape(InlinePointsShape('debug', this.points).setPointSize(radius));
-    }
-    mat.addInstance(SimpleInlineInstance('debug', draw.getRoot(), shape));
+  InlineDrawing draw = this.handle.getDrawing();
+  InlineShader shader = draw.registerShader(OGLSurfaceVertexColorShader());
+  InlineMaterial mat = shader.getOrCreateMaterial('debug');
+
+  InlineShape shape = draw.getShape('debug');
+  if(shape == null){
+    shape = draw.registerShape(InlinePointsShape('debug', this.points).setPointSize(radius));
   }
+  mat.addInstance(SimpleInlineInstance('debug', draw.getRoot(), shape));
 }
 
 
-function MeshScatterer.drawSpheres(io DrawingHandle handle, Scalar sizeFactor, Boolean easter) {
-  Points points = this.points;
+function MeshScatterer.drawSpheres!(Boolean enabled, Scalar sizeFactor, Boolean easter) {
+  this.handle = DrawingHandle();
 
-  GeometryAttributes attributes = points.getAttributes();
+  if (!enabled)
+    return;
+
+  GeometryAttributes attributes = this.points.getAttributes();
   ColorAttribute vertexColors = attributes.getOrCreateColorAttribute('vertexColors');
   Vec3Attribute normals = attributes.getOrCreateVec3Attribute('normals');
 
-  InlineDrawing draw = handle.getDrawing();
-  
+  InlineDrawing draw = this.handle.getDrawing();
+
   if(draw.getShapeCount() != 1) {
     PolygonMesh sphere = PolygonMesh();
     sphere.addSphere(Xfo(), 1.0, 3, true, false);
@@ -159,14 +164,14 @@ function MeshScatterer.drawSpheres(io DrawingHandle handle, Scalar sizeFactor, B
   InlineTransform rootTfo = draw.getRoot();
   InlineTransform sphereTfo = rootTfo.getChild('spheresXfo');
   InlineInstance sphereInstance = sphereTfo.getChild('sphereInst');
-  
-  Size count = points.size();
+
+  Size count = this.points.size();
   sphereTfo.setLocalCount(count); 
   
   for(Size i=0;i<count;i++) {
-    Scalar radius = sizeFactor * points.getSize(i);
+    Scalar radius = sizeFactor * this.points.getSize(i);
     Xfo sphere_xfo(
-      points.getPosition(i), 
+      this.points.getPosition(i), 
       Quat(), 
       Vec3(radius, radius, radius)
     );

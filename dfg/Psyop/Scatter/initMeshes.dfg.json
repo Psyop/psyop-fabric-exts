@@ -1,7 +1,7 @@
 {
   "objectType" : "Function",
   "metadata" : {},
-  "title" : "drawSpheres",
+  "title" : "initMeshes",
   "cacheRule" : "always",
   "ports" : [
     {
@@ -13,31 +13,31 @@
       },
     {
       "metadata" : {},
-      "name" : "draw",
+      "name" : "mesh",
       "portType" : "In",
       "metadata" : {},
-      "dataType" : "Boolean"
+      "dataType" : "PolygonMesh"
       },
     {
       "metadata" : {},
-      "name" : "sizeFactor",
+      "name" : "matrix",
+      "portType" : "In",
+      "metadata" : {},
+      "dataType" : "Mat44"
+      },
+    {
+      "metadata" : {},
+      "name" : "defaultSize",
       "portType" : "In",
       "metadata" : {},
       "dataType" : "Scalar"
-      },
-    {
-      "metadata" : {},
-      "name" : "easter",
-      "portType" : "In",
-      "metadata" : {},
-      "dataType" : "Boolean"
-      },
+      }
     ],
   "extDeps" : {
     "Scatter" : "*",
-    "InlineDrawing" : "*",
+    "Geometry" : "*",
+    "Math" : "*"
     },
   "filename" : "",
-  "code" : "dfgEntry {\n  this.drawSpheres(draw, sizeFactor, easter);\n}\n"
+  "code" : "require Scatter;\n\ndfgEntry {\n  this.initMeshes(mesh, matrix);\n  this.setDefaultSize(defaultSize);\n}\n"
   }
-

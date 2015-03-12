@@ -1,20 +1,22 @@
 {
   "objectType" : "Function",
   "metadata" : {},
-  "title" : "MeshScatterer",
+  "title" : "drawClear",
   "cacheRule" : "always",
   "ports" : [
     {
       "metadata" : {},
-      "name" : "result",
-      "portType" : "Out",
+      "name" : "this",
+      "portType" : "IO",
       "metadata" : {},
       "dataType" : "MeshScatterer"
-      }
+      },
     ],
   "extDeps" : {
-    "Scatter" : "*"
+    "Scatter" : "*",
+    "InlineDrawing" : "*",
     },
   "filename" : "",
-  "code" : "require Scatter;\n\ndfgEntry {\n  result = MeshScatterer();\n}\n"
+  "code" : "dfgEntry {\n  this.drawClear();\n}\n"
   }
+
