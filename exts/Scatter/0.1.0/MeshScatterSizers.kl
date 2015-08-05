@@ -1,0 +1,139 @@
+
+
+/*
+    Preset Dart Sizers
+*/
+
+/*
+ * Dart sizers can set any attributes to darts pre-filtering, not just size.
+ * It's expected that they'll set size though, otherwise the sizes will be
+ * whatever the default is.
+ *
+ * estimateDartSize() can be used by the dart thrower to automatically choose how many points to scatter per iteration based on polygon area.
+ * In this way it can also be used to indirectly control the density with which the darts come down each iteration.
+ *
+ */
+
+
+interface DartSizer {
+  setCandidateSizes!(io Points candidates, in MeshScatterer scatterer, UInt32 iteration);
+  Scalar estimateDartSize!(in MeshScatterer scatterer, in UInt32 iteration);
+};
+
+
+
+
+/*
+    Constant dart sizer (default)
+*/
+
+
+
+object constantDartSizer : DartSizer {
+  Scalar size;
+};
+
+/// \dfgPresetDefault Size 0.1
+function constantDartSizer(Scalar size) {
+  this.size = size;
+}
+/// \internal
+function constantDartSizer.setCandidateSizes!(io Points candidates, in MeshScatterer scatterer, UInt32 iteration) {
+  for (UInt32 i = 0; i < candidates.size(); i++ ) {
+    candidates.setSize(i, this.size);
+  }
+}
+/// \internal
+function Scalar constantDartSizer.estimateDartSize!(in MeshScatterer scatterer, in UInt32 iteration) {
+  return this.size;
+}
+
+
+
+
+/*
+    Random dart sizer
+*/
+
+
+
+object randomDartSizer : DartSizer {
+  Scalar min;
+  Scalar max;
+  Scalar bias;
+  Size seed;
+  Size offset;
+};
+
+/// \dfgPresetDefault min 0.1
+/// \dfgPresetDefault max 0.5
+/// \dfgPresetDefault bias 1.0
+/// \dfgPresetRange bias (0.0, 2.0)
+/// \dfgPresetDefault seed 23456
+function randomDartSizer(Scalar min, Scalar max, Scalar bias, Size seed) {
+  this.min = min;
+  this.max = max;
+  this.bias = bias;
+  this.seed = seed;
+  this.offset = 0;
+}
+
+/// \internal
+function randomDartSizer.setCandidateSizes!(io Points candidates, in MeshScatterer scatterer, UInt32 iteration) {
+  this.offset += candidates.size();
+  for (UInt32 i = 0; i < candidates.size(); i++ ) {
+    Scalar rand = mathRandomScalar(this.seed, this.offset + i);
+    Scalar selector = pow(rand, this.bias);
+    Scalar sizeValue = Math_linearInterpolate(this.min, this.max, selector);
+    candidates.setSize(i, sizeValue);
+  }
+}
+/// \internal
+function Scalar randomDartSizer.estimateDartSize!(in MeshScatterer scatterer, in UInt32 iteration) {
+  return (this.min + this.max) / 2.0f;
+}
+
+
+
+
+/*
+    Sequential dart sizer
+*/
+
+object bigToSmallDartSizer : DartSizer {
+  Scalar start;
+  Scalar end;
+  Scalar bias;
+  Size seed;
+};
+
+/// \dfgPresetDefault startValue 0.5
+/// \dfgPresetDefault endValue 0.1
+/// \dfgPresetDefault bias 1.0
+/// \dfgPresetRange bias (0.0, 2.0)
+/// \dfgPresetDefault seed 23456
+function bigToSmallDartSizer(Scalar startValue, Scalar endValue, Scalar bias, Size seed) {
+  this.start = startValue;
+  this.end = endValue;
+  this.bias = bias;
+  this.seed = seed;
+}
+/// \internal
+function Scalar bigToSmallDartSizer.computeSize(UInt32 iteration, in MeshScatterer scatterer) {
+  Scalar iterationFraction = Scalar(iteration) / Scalar((Math_max(scatterer.dartsIterations, 2) - 1));
+  Scalar selector = pow(iterationFraction, this.bias);
+  return Math_linearInterpolate(this.start, this.end, selector);
+}
+/// \internal
+function bigToSmallDartSizer.setCandidateSizes!(io Points candidates, in MeshScatterer scatterer, UInt32 iteration) {
+  Scalar sizeValue = this.computeSize(iteration, scatterer);
+
+  for (UInt32 i = 0; i < candidates.size(); i++ ) {
+    candidates.setSize(i, sizeValue);
+  }
+}
+
+/// \internal
+function Scalar bigToSmallDartSizer.estimateDartSize!(in MeshScatterer scatterer, in UInt32 iteration) {
+  return this.computeSize(iteration, scatterer);
+}

@@ -1,9 +1,6 @@
 
 ## Psyop Extentions
 
-Everything in here is work-in-progress. Nothing should be considered production ready. 
-
-
 ## Scatter
 
 Scatter is an extension that does even point scattering on meshes and dart throwing. 

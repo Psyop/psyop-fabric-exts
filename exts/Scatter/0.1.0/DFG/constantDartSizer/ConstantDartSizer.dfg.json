@@ -1,0 +1,27 @@
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "\n\n Supported by constantDartSizer"
+    },
+  "title" : "ConstantDartSizer",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "size",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "constantDartSizer"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = constantDartSizer(size);\n}\n"
+  }

@@ -1,0 +1,48 @@
+[FABRIC:MT] Fabric Engine version 2.0.0-auto-2015073010
+[FABRIC:MT] Loading DFG presets from w:\development\fabric\distros\win64\2.0.20150730.105835\Presets\DFG
+[FABRIC:MT] Registered extensions {RiggingToolbox,RiggingToolbox:0.0.1,RiggingToolbox:2.0.0,AlembicAsset:0.1.0,FabricArnold:0.0.1,FabricArnold:0.0.2,FabricArnold:0.0.3,FabricArnold:0.0.4,HairLines:0.1.0,HairLinesToArnold:0.1.0,JiggleMush:0.1.0,PsyUtil:0.1.0,Scatter:0.1.0,PsyopPresetExt:0.1.0} in directory: w:\development\fabric\psyop_addons
+[FABRIC:MT] Registered extensions {Alembic:1.0.0,AlembicWrapper:1.2.0,Animation:1.1.0,Bullet:1.0.1,BulletHelpers:1.0.0,Characters:1.1.0,Containers:1.1.0,DFGHelpers,FabricSynchronization:1.1.0,Fbx:1.1.0,FbxHelpers:1.0.2,FileIO:1.2.0,Geometry:1.2.0,Images:1.0.2,InlineDrawing:1.2.0,JSON:1.0.0,Manipulation:1.1.0,Math:1.2.0,FabricOBJ:1.1.0,FabricOGL:1.0.0,OpenImageIO:1.0.2,OSOGL:1.1.0,Parameters:1.0.0,Singletons:1.1.0,SpliceInterfaces:1.0.1,FabricStatistics:1.1.0,Util:1.1.0} in directory: w:\development\fabric\distros\win64\2.0.20150730.105835\Exts
+[FABRIC:MT] IRCache: Not pruning since last prune was less than 24 hours ago
+[FABRIC:MT] Licensed for Interactive use to 'Psyop NY' until 28-sep-2015 (1/125 in use).
+[FABRIC:MT] Loaded extension Math in 148.385ms (cached)
+[FABRIC:MT] Loaded extension FabricSynchronization in 19.708ms (cached)
+[FABRIC:MT] Loaded extension FabricStatistics in 42.014ms (cached)
+[FABRIC:MT] Loaded extension Singletons in 5.783ms (cached)
+[FABRIC:MT] Loaded extension Util in 35.813ms (cached)
+[FABRIC:MT] Loaded extension Containers in 376.712ms (cached)
+[FABRIC:MT] Loaded extension Geometry in 944.743ms (cached)
+[FABRIC:MT] Loaded extension Parameters in 127.866ms (cached)
+[FABRIC:MT] Loaded extension FabricOGL in 63.353ms (cached)
+[FABRIC:MT] Loaded extension OpenImageIO in 28.822ms (cached)
+[FABRIC:MT] Loaded extension SpliceInterfaces in 23.555ms (cached)
+[FABRIC:MT] Loaded extension FileIO in 38.574ms (cached)
+[FABRIC:MT] Loaded extension InlineDrawing in 975.091ms (cached)
+[FABRIC:MT] Loaded extension JSON in 41.029ms (cached)
+[FABRIC:MT] Loaded extension Manipulation in 349.335ms (cached)
+[FABRIC:MT] Loaded extension Animation in 112.991ms (cached)
+[FABRIC:MT] Loaded extension Alembic in 2880.168ms (cached)
+[FABRIC:MT] Loaded extension AlembicWrapper in 295.144ms (cached)
+[FABRIC:MT] Loaded extension RiggingToolbox in 660.955ms (cached)
+[FABRIC:MT] Loaded extension Scatter in 193.202ms (cached)
+Registered function 'drawMeshScattererSpheres', 'drawMeshScattererSpheres'.
+Registered function 'createEvenlySpacedBaryCoord', 'createEvenlySpacedBaryCoord'.
+Registered function 'MeshScatterer.MeshScatterer', 'MeshScatterer.MeshScatterer'.
+Skipped 'function MeshScatterer?()', double declaration, found overload with more parameters.
+Registered function 'MeshScatterer.getPoints', 'getPoints'.
+Registered function 'MeshScatterer.initMeshes', 'initMeshes'.
+Registered function 'MeshScatterer.nuzzle', 'nuzzle'.
+Registered function 'MeshScatterer.scatter', 'scatter'.
+Registered function 'MeshScatterer.setDefaultSize', 'setDefaultSize'.
+Registered function 'MeshScatterer.setUniformSize', 'setUniformSize'.
+Registered function 'MeshScatterer.setVerbose', 'setVerbose'.
+Registered function 'MeshScatterer.throwDarts', 'throwDarts'.
+Registered function 'MeshScatterer.vReport', 'vReport'.
+Registered function 'DartSizer.estimateDartSize', 'estimateDartSize'.
+Registered function 'DartSizer.setCandidateSizes', 'setCandidateSizes'.
+Registered function 'constantDartSizer.constantDartSizer', 'constantDartSizer.constantDartSizer'.
+Registered function 'randomDartSizer.randomDartSizer', 'randomDartSizer.randomDartSizer'.
+Registered function 'bigToSmallDartSizer.bigToSmallDartSizer', 'bigToSmallDartSizer.bigToSmallDartSizer'.
+Registered function 'meshAttrSizeFilter.meshAttrSizeFilter', 'meshAttrSizeFilter.meshAttrSizeFilter'.
+Registered function 'StandAloneWeightmap.StandAloneWeightmap', 'StandAloneWeightmap.StandAloneWeightmap'.
+Registered function 'StandAloneWeightmap.setWeightmapSettings', 'setWeightmapSettings'.
+Registered function 'StandAloneWeightmap.weightmapInit', 'weightmapInit'.

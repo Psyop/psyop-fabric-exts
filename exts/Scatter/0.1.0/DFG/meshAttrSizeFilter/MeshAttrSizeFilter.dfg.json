@@ -1,0 +1,50 @@
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "\n\n Supported by meshAttrSizeFilter"
+    },
+  "title" : "MeshAttrSizeFilter",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.5
+        },
+      "name" : "maxSize",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.1000000014901161
+        },
+      "name" : "minSize",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "String" : "weightmap"
+        },
+      "name" : "attrName",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "meshAttrSizeFilter"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = meshAttrSizeFilter(maxSize, minSize, attrName);\n}\n"
+  }

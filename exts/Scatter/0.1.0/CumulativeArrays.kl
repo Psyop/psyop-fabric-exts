@@ -1,0 +1,123 @@
+
+/// \internal
+inline makeCumulativeArray(in Scalar array[], io Scalar cumulativeArrayOut[]) {
+  UInt32 array_size = array.size;
+  if (array_size == 0)
+    return;
+  cumulativeArrayOut.resize(array_size);
+  cumulativeArrayOut[0] = array[0];
+  for (UInt32 i=1; i<array_size; i++) { // Note: starts at index 1
+    cumulativeArrayOut[i] = cumulativeArrayOut[i-1] + array[i];
+  }
+}
+
+
+/// \internal
+inline makeCumulativeArray(in LocalL4ScalarArray array, io LocalL4ScalarArray cumulativeArrayOut) {
+  UInt32 array_size = array.count;
+  if (array_size == 0)
+    return;
+  cumulativeArrayOut.resize(array_size);
+  cumulativeArrayOut.set(0, array.get(0));
+  for (UInt32 i=1; i<array_size; i++) { // Note: starts at index 1
+    cumulativeArrayOut.set(i, cumulativeArrayOut.get(i-1) + array.get(i));
+  }
+}
+
+
+/// \internal
+inline UInt32 selectInCumulativeArray(in Scalar arrayIn[], Scalar ratio) {
+  /*
+      Cumulative Array Example
+      Indices      0   1   2   3   4   5
+      Start array: 1,  5,  1,  1,  2,  3,
+      Cumulative:  1,  6,  7,  8, 10, 13
+      selectorValue should be between 0-13
+      index 0: 0-1
+      index 1: 1-6
+      index 2: 6-7
+      index 3: 7-8
+      index 4: 8-10
+      index 5: 10-13
+
+      Lets say we're looking for a selector value of 7.5, the correct value is index = 3
+      If we look at index 2 first, we can see that 7 < 7.5. Therefore, the lowest possible index is now 2 + 1, or 3.
+      If we look at Index 4 first, we find that 10 > 7.5. Therefore, the highest possible index is now 4.
+
+      We're trying to find the index that has the first value that's greater than the selectorValue.
+
+      So a search might go like this:
+      lowest possible, highest possible, search index, (possibly the upper bound):
+        Search for 7.5
+        0, 5, 2 (no, 7 is not possible)
+        3, 5, 4 (yes, 10 is possible)
+        3, 4, 3 (yes, 8 is possible)
+        3, 3, 3: correct index is 3 (value of 8)
+
+        Search for 0.2
+        0, 5, 2 (Yes, 7 is possible)
+        0, 2, 1 (Yes, 6 is possible)
+        0, 1, 0 (Yes, 1 is possible)
+        0, 0, 0: correct index is 0 (value of 1)
+
+        Search for 12.9
+        0, 5, 2 (No, 7 is not possible)
+        3, 5, 4 (No, 10 is not possible)
+        5, 5, 5: correct index is 5 (value of 13)
+  */
+
+
+  if (ratio < 0.0f || ratio > 1.0f) {
+    setError("Out of range ratio, should be [0.0:1.0]." + ratio);
+    return -1;
+  }
+
+  UInt32 lastIndex = arrayIn.size() - 1;
+  Scalar selectorValue = ratio * arrayIn[lastIndex];
+
+  UInt32 searchIndex;
+  UInt32 indexLowestPossible = 0;
+  UInt32 indexHighestPossible = lastIndex;
+
+  UInt32 iterations = 0;
+
+  while(indexHighestPossible != indexLowestPossible) {
+    iterations++;
+    if (iterations > arrayIn.size()) {
+      setError("Stuck in an infinite loop trying to select in a cumulative array. It's possible the array does not count upwards properly.");
+    }
+    searchIndex = (indexLowestPossible + indexHighestPossible) / 2;
+    if (indexLowestPossible > searchIndex || indexHighestPossible < searchIndex) {
+      setError("Out of range Index, is " + searchIndex + " and should be between " + indexLowestPossible + " and " + indexHighestPossible);
+      return -1;
+    }
+    Scalar valueUpper = arrayIn[searchIndex];
+
+    if (valueUpper >= selectorValue) {
+      // constrain the upper bound
+      indexHighestPossible = searchIndex;
+      continue;
+    } else {
+      // constrain the lower bound
+      indexLowestPossible = searchIndex + 1;
+      continue;
+    }
+  }
+  UInt32 result_index = indexHighestPossible;
+
+  // A sanity check for this algorithm.
+  // Scalar valueLower = 0.0f;
+  // if (result_index != 0) {
+  //   valueLower =  arrayIn[result_index - 1];
+  // }
+  // Scalar valueUpper = arrayIn[result_index];
+
+  // if (selectorValue < valueLower || selectorValue > valueUpper) {
+  //     setError("Got the wrong answer. " + selectorValue + " should be between " + valueLower + " and " + valueUpper);
+  // }
+
+  // report(iterations);
+  return result_index;
+}
+
+

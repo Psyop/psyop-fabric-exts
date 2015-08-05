@@ -1,0 +1,13 @@
+
+
+
+/// \internal
+inline Scalar mathext_reverseLinearInterpolate(Scalar min, Scalar max, Scalar value) {
+  // between 1 and 3, so 2 should become 0.5
+  //   (max - min) = range
+  //   value - min = value from 0-to range
+  //   value along range / range = value from 0-1
+
+  return ((value - min) / (max - min));
+}
+

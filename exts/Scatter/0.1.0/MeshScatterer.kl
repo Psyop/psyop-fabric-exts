@@ -1,0 +1,413 @@
+require Math;
+require Geometry;
+require FabricStatistics;
+require Manipulation;
+
+/// \internal
+const UInt32 G_SCATTERER_RANDOMS = 5; // Number of random numbers are needed per generated point.
+/// \internal
+const UInt32 G_SCATTERER_SEED = 1234; // The seed for the randoms.
+
+/// \internal
+function Points.addScattererAttributes!() {
+  GeometryAttributes attributes = this.getAttributes();
+  GeometryLocationAttribute geolocations = attributes.getOrCreateGeometryLocationAttribute("emitLocation");
+  attributes.getOrCreateColorAttribute("vertexColors");
+  ScalarAttribute sizes = this.getOrCreateSizesAttribute();
+}
+
+
+interface DartSizer;
+interface DartFilterer;
+
+
+// Redundant definition for backward compatibility
+/// \internal
+interface RTValToJSONEncoder {
+  String convertToString!();
+};
+/// \internal
+interface RTValFromJSONDecoder {
+  Boolean convertFromString!(String data);
+};
+
+
+object MeshScatterer {
+  Boolean initialized;
+  Points points;
+  SpatialQueryable pointsQueryable;
+
+  Ref<PolygonMesh> sourceMeshCache;
+  Size sourceMeshPointCountCache;
+  PolygonMesh sourceMesh;
+  Mat44 sourceMeshMat44;
+
+  Boolean sourceMeshAreasInit;
+
+  Scalar sourceMeshArea;
+  Scalar sourceMeshPolyAreas[];
+  Scalar sourceMeshPolyCumulativeAreas[];
+
+  Scalar defaultSize;
+  Scalar maxSize;
+
+  Points dartCandidates;
+  Boolean dartCandidatesRemove[];
+
+  UInt32 dartsIterations;
+  UInt32 dartsTried;
+
+  Boolean verbose;
+};
+
+function MeshScatterer() {
+  this.clearAndInitPoints();
+}
+
+function MeshScatterer(PolygonMesh sourceMesh, Mat44 sourceMeshMat44) {
+  this = MeshScatterer();
+  this.initMeshes(sourceMesh, sourceMeshMat44);
+}
+
+
+function MeshScatterer.initMeshes!(PolygonMesh sourceMesh, Mat44 sourceMeshMat44) {
+  this.clearAndInitPoints();
+  this.initialized = true;
+  this.sourceMesh = sourceMesh.clone();
+  this.sourceMeshMat44 = sourceMeshMat44;
+  if (this.sourceMeshCache !== Ref<PolygonMesh>(sourceMesh) || this.sourceMeshPointCountCache != sourceMesh.pointCount()) {
+    this.sourceMeshCache = sourceMesh;
+    this.sourceMeshPointCountCache = sourceMesh.pointCount();
+  }
+}
+
+/// \internal
+function MeshScatterer.clearAndInitPoints!() {
+  this.points = Points();
+  this.points.addScattererAttributes();
+  this.pointsQueryable = this.points.prepareForSpatialQueries(1, null);
+
+  this.sourceMeshAreasInit = false;
+
+  this.defaultSize = 0.0f;
+  this.maxSize = 0.0f;
+
+  this.dartCandidates = Points();
+  this.dartCandidates.addScattererAttributes();
+
+  this.dartsTried = 0;
+}
+
+
+/*
+    Settings initialization
+*/
+
+/// \dfgPresetDefault radius 0.5
+function MeshScatterer.setUniformSize!(Scalar radius) {
+  this.defaultSize = radius;
+  this.maxSize = radius;
+
+  for ( UInt32 i=0; i<this.points.size(); i++) {
+    this.points.setSize(i, radius);
+  }
+}
+/// \dfgPresetDefault radius 0.5
+function MeshScatterer.setDefaultSize!(Scalar radius) {
+  this.defaultSize = radius;
+  this.maxSize = Math_max(this.defaultSize, this.maxSize);;
+}
+
+/*
+    member access
+*/
+
+inline Points MeshScatterer.getPoints() {
+  return this.points;
+}
+
+
+/*
+    Scatterer Helpers
+*/
+
+/// \internal
+function MeshScatterer.measurePolygonAreas!() {
+  this.sourceMeshAreasInit = true;
+
+  PolygonMesh mesh = this.sourceMesh;
+
+  UInt32 polyCount = mesh.polygonCount();
+  this.sourceMeshPolyAreas.resize(polyCount);
+  measurePolygonAreas<<<polyCount>>>(this.sourceMeshPolyAreas, mesh);
+  makeCumulativeArray(this.sourceMeshPolyAreas, this.sourceMeshPolyCumulativeAreas);
+  this.sourceMeshArea = this.sourceMeshPolyCumulativeAreas[polyCount - 1];
+}
+
+/// \internal
+inline MeshScatterer.measurePolgyonsIfNeeded!() {
+  if (!this.sourceMeshAreasInit) {
+    this.measurePolygonAreas();
+
+  }
+}
+
+
+/*
+    Scatterer Proper
+*/
+
+/// \internal
+function MeshScatterer.scatterCore!(Integer quantityIn, UInt32 seed, Boolean toCandidates) {
+  AutoProfilingEvent p("Section_Making");
+  this.measurePolgyonsIfNeeded();
+
+  UInt32 quantity = 0;
+  if (quantityIn > 0) {
+    quantity = quantityIn;
+  }
+
+  Points pointCloud = null;
+  if (toCandidates) {
+    pointCloud = this.dartCandidates;
+    pointCloud.resize(quantity);
+  } else {
+    pointCloud = this.points;
+    pointCloud.resize(pointCloud.size() + quantity);
+  }
+
+  UInt32 selectedIndices[];
+  selectedIndices.resize(quantity);
+
+  getRandomPolygonsWeighted<<<quantity>>>(this.sourceMeshPolyCumulativeAreas, seed, selectedIndices );
+
+  PerPolyScatterInfo info[];
+  info.resize(this.sourceMesh.polygonCount());
+
+  for(UInt32 i=0; i<quantity; i++) {
+    UInt32 polyIndex = selectedIndices[i];
+    info[polyIndex].pointsOnPoly++;
+  }
+
+  UInt32 startIndex = 0;
+
+  for(UInt32 i=0; i<this.sourceMesh.polygonCount(); i++) {
+    info[i].startIndex = startIndex;
+    startIndex += info[i].pointsOnPoly;
+  }
+
+  scatterPointsOnPolygons<<<this.sourceMesh.polygonCount()>>>(
+      this.sourceMesh,
+      this.sourceMeshMat44,
+      info,
+      seed,
+      this.defaultSize,
+      pointCloud);
+}
+
+/// \dfgPresetDefault quantity 200
+/// \dfgPresetDefault seed 12345
+/// \dfgPresetRange quantity (0, 2000)
+function MeshScatterer.scatter!(UInt32 quantity, UInt32 seed) {
+  this.scatterCore(quantity, seed, false);
+}
+
+
+/*
+    DART THROWER
+*/
+
+/// \internal
+function MeshScatterer.dartScatterCandidates!(UInt32 quantity, UInt32 seed) {
+  this.scatterCore(quantity, seed, true);
+}
+
+/// \internal
+inline MeshScatterer.runDartSizer!(io DartSizer sizer, UInt32 iteration) {
+  DartSizer currentSizer = sizer;
+  currentSizer.setCandidateSizes(this.dartCandidates, this, iteration);
+
+  for (UInt32 i = 0; i < this.dartCandidates.size(); i++ ) {
+    if (this.dartCandidates.getSize(i) > this.maxSize) {
+      this.maxSize = this.dartCandidates.getSize(i);
+    }
+  }
+}
+/// \internal
+function DartSizer MeshScatterer.getDartSizer!(in DartSizer sizer, Scalar defaultSize) {
+  DartSizer currentSizer = sizer;
+  if (currentSizer == null) {
+    currentSizer = constantDartSizer(defaultSize);
+  } else {
+    currentSizer = sizer;
+  }
+  return currentSizer;
+}
+
+
+/*
+    DART THROWER - filter
+*/
+/// \internal
+inline MeshScatterer.resetCandidateFilter!() {
+  this.dartCandidatesRemove.resize(this.dartCandidates.size);
+  for ( UInt32 i=0; i<this.dartCandidatesRemove.size(); i++) {
+    this.dartCandidatesRemove[i] = false;
+  }
+}
+/// \internal
+function DartFilterer MeshScatterer.getDartFilterer(in DartFilterer filterer) {
+  DartFilterer currentFilterer = filterer;
+  if (filterer == null) {
+    currentFilterer = defaultDartFilterer();
+  }
+  return currentFilterer;
+}
+/// \internal
+inline MeshScatterer.runDartFilterer!(io DartFilterer filterer, UInt32 iteration) {
+  DartFilterer currentFilterer = filterer;
+  this.resetCandidateFilter();
+  currentFilterer.filterCandidates(this, iteration);
+}
+
+
+/*
+    DART THROWER - add filtered
+*/
+/// \internal
+function MeshScatterer.dartAddFilteredCandidates!( ) {
+  AutoProfilingEvent p("Section_Adding");
+  UInt32 newPointsCount = 0;
+  for ( UInt32 i=0; i<this.dartCandidates.size(); i++) {
+    if ( this.dartCandidatesRemove[i] == false) {
+      newPointsCount++;
+    }
+  }
+
+  GeometryLocationAttribute pointEmitLoc = this.points.getAttributes().getOrCreateGeometryLocationAttribute("emitLocation");
+  GeometryLocationAttribute candidateEmitLoc =  this.dartCandidates.getAttributes().getOrCreateGeometryLocationAttribute("emitLocation");
+
+  UInt32 firstNewPoint = this.points.addPoints(newPointsCount);
+  UInt32 pointsAdded = 0;
+  for ( UInt32 i=0; i<this.dartCandidates.size(); i++) {
+    if ( this.dartCandidatesRemove[i] == false) {
+      UInt32 newPointID = firstNewPoint + pointsAdded;
+      pointsAdded++;
+
+      this.points.setPosition(  newPointID, this.dartCandidates.getPosition(i));
+      this.points.setSize(      newPointID, this.dartCandidates.getSize(i));
+
+      pointEmitLoc.values[newPointID] = candidateEmitLoc.values[i];
+    }
+  }
+}
+
+
+
+/*
+    DART THROWER - proper
+*/
+
+/// \dfgPresetTooltip
+///   -1 means automatic quantity, for estimated good coverage based on radius.
+/// \enddfgPresetTooltip
+/// \dfgPresetDefault quantityPerIteration -1
+/// \dfgPresetDefault iterations 2
+/// \dfgPresetRange iterations (0, 1000)
+/// \dfgPresetDefault seed 12345
+function MeshScatterer.throwDarts!(
+    in Integer quantityPerIteration,
+    in UInt32 iterations,
+    in UInt32 seed,
+    in DartSizer sizer,
+    in DartFilterer filterer ) {
+  this.dartsIterations = iterations;
+
+  DartSizer currentSizer = this.getDartSizer(sizer, this.defaultSize);
+  DartFilterer currentFilterer = this.getDartFilterer(filterer);
+
+  Boolean autoQuantitiy = false;
+  UInt32 quantity = quantityPerIteration;
+  UInt32 randomOffset = seed;
+  UInt32 attemptCount;
+
+  if (quantityPerIteration < 0)
+    autoQuantitiy = true;
+
+  AutoProfilingEvent p("total");
+  for (UInt32 i = 0; i < iterations; i++ ) {
+    if (autoQuantitiy)
+      quantity = this.estimateDartCount(currentSizer.estimateDartSize(this, i));
+    randomOffset += quantity*5;
+    attemptCount += quantity;
+    this.dartScatterCandidates(quantity, randomOffset);
+    this.runDartSizer(currentSizer, i);
+    this.runDartFilterer(currentFilterer, i);
+    this.dartAddFilteredCandidates();
+  }
+  this.vReport("Done dart throwing. " + this.points.size() + " points added in " + attemptCount + " attempts over " + iterations + " iterations.");
+}
+
+
+
+/*
+    Dart Throwing Convenience functions
+*/
+/// \internal
+function MeshScatterer.throwDarts!(
+    in Integer quantityPerIteration,
+    in UInt32 iterations,
+    in UInt32 seed
+    ) {
+  this.throwDarts(quantityPerIteration, iterations, seed, null, null);
+}
+
+/// \internal
+inline UInt32 MeshScatterer.estimateDartCount!(Scalar dartSize) {
+  this.measurePolgyonsIfNeeded();
+  Scalar area = this.sourceMeshArea;
+  return (area / dartSize) / 60.0f;
+}
+
+
+/*
+    Nuzzler
+*/
+
+/// \dfgPresetDefault iterations 1
+/// \dfgPresetDefault allowShrink true
+/// \dfgPresetDefault maxSizeFactor 2.0
+/// \dfgPresetRange maxSizeFactor (1.0, 10.0)
+function MeshScatterer.nuzzle!(UInt32 iterations, Boolean allowShrink, Scalar maxSizeFactor) {
+  AutoProfilingEvent pe("nuzzle");
+  UInt32 pointCount = this.points.size();
+  GenericValueContainer options = GenericValueContainer();
+  PrepareForSpatialQueries_setSparseGrid(options);
+  this.pointsQueryable.prepareForSpatialQueries(pointCount, options);
+
+  Scalar nuzzle[];
+  Scalar origSize[];
+  nuzzle.resize(pointCount);
+  origSize.resize(pointCount);
+  for (UInt32 p = 0; p < pointCount; p++) {
+    origSize[p] = this.points.getSize(p);
+  }
+
+  Scalar maxNuzzling = this.maxSize*maxSizeFactor;
+  for (UInt32 i = 0; i < iterations; i++) {
+    nuzzleNeighbors<<<pointCount>>>(nuzzle, this.points, this.pointsQueryable, maxNuzzling);
+
+    for (UInt32 p = 0; p < pointCount; p++) {
+      Scalar nuzzleAmount = nuzzle[p];
+      if (nuzzleAmount) {
+        Scalar pointSize = this.points.getSize(p);
+        Scalar newSize = pointSize + nuzzle[p]/2.0f;
+        newSize = Math_min( newSize, origSize[p] * maxSizeFactor);
+        newSize = Math_min( newSize, maxNuzzling);
+        this.points.setSize(p, newSize);
+        this.maxSize = Math_max( this.maxSize, newSize);
+      }
+    }
+  }
+}
+

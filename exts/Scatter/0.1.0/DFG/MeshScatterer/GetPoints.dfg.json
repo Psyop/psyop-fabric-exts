@@ -1,0 +1,30 @@
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "\n\n Supported by MeshScatterer"
+    },
+  "title" : "GetPoints",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "this",
+      "execPortType" : "In",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+        },
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "Points"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = this.getPoints();\n}\n"
+  }

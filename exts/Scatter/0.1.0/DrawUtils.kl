@@ -1,0 +1,68 @@
+require InlineDrawing;
+require Math;
+
+/// \internal
+function drawMeshScattererSpheres(io DrawingHandle handle, Points points, Boolean enabled, Scalar sizeFactor, Boolean easter) {
+  drawMeshScattererSpheres(handle, points, enabled, sizeFactor, easter, Color(1.0, 1.0, 1.0));
+}
+
+/// \dfgPresetFolder Drawing
+/// \dfgPresetCreate true
+/// \dfgPresetDefault enabled true
+/// \dfgPresetDefault sizeFactor 1.0
+/// \dfgPresetDefault easter true
+/// \dfgPresetDefault color {'r':1.0'g':1.0'b':1.0'a':0.0}
+function drawMeshScattererSpheres(io DrawingHandle handle, Points points, Boolean enabled, Scalar sizeFactor, Boolean easter, Color color) {
+  PolygonMesh mesh = PolygonMesh();
+  mesh.addSphere(Xfo(), 1.0f, 5, 12, true, false);
+
+  String uidName = handle.uid() + '_MeshScatterSphere';
+
+  InlineDrawing draw = handle.getDrawing();
+  OGLWireFrameShader shader = draw.registerShader(OGLWireFrameShader('DrawingHandleSurfaceShader', OGLSurfaceShader()));
+  InlineMeshShape shape = draw.getShape(uidName);
+  if(shape == null)
+    shape = draw.registerShape(InlineMeshShape(uidName, mesh));
+
+  if(shape != null)
+    shape.setMesh(mesh);
+
+  InlineShader sh = shader;
+  InlineMaterial mat = null;
+  {
+    mat = shader.getOrCreateMaterial(uidName);
+    StaticInlineTransform xform = handle.rootTransform.getChild(uidName);
+    if(xform == null)
+    {
+      xform = StaticInlineTransform(uidName);
+      handle.rootTransform.addChild(xform);
+      InlineInstance instance = SimpleInlineInstance(uidName, xform, shape, mat);
+    }
+
+    if(xform) {
+      InlineInstance sphereInstance = xform.getChild(uidName);
+      Size pointCount = points.size();
+      xform.setLocalCount(pointCount);
+      for(Size i=0;i<pointCount;i++) {
+        Scalar radius = points.getSize(i) * sizeFactor;
+        Xfo sphere_xfo(
+          points.getPosition(i),
+          Quat(),
+          Vec3(radius, radius, radius)
+        );
+        xform.setLocalXfo(i, sphere_xfo);
+
+        if (easter) {
+          Color col;
+          col.r = mathRandomScalar(20, i * 5) * 0.75 + 0.25;
+          col.g = mathRandomScalar(21, i * 6) * 0.75 + 0.25;
+          col.b = mathRandomScalar(22, i * 7) * 0.75 + 0.25;
+          sphereInstance.setTransformUniform(InlineUniform('u_diffuseColor', col * color), i);
+        } else {
+          sphereInstance.setTransformUniform(InlineUniform('u_diffuseColor', color), i);
+        }
+      }
+    }
+  }
+  mat.setUniform('u_doubleSided', 0);
+}

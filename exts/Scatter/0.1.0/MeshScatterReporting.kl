@@ -1,0 +1,11 @@
+
+object MeshScatterer;
+
+function MeshScatterer.setVerbose!(Boolean verbose) {
+  this.verbose = verbose;
+}
+
+function MeshScatterer.vReport(String message) {
+  if (this.verbose)
+    report("MeshScatterer: " + message);
+}
