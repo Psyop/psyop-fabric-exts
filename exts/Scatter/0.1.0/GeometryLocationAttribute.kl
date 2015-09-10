@@ -1,6 +1,6 @@
-
-
 require Geometry;
+
+
 object GeometryLocationAttribute : BaseAttribute {
   /// Values array container
   GeometryLocation values[];

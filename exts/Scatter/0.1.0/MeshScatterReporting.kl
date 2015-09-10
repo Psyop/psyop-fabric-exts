@@ -1,6 +1,3 @@
-
-object MeshScatterer;
-
 function MeshScatterer.setVerbose!(Boolean verbose) {
   this.verbose = verbose;
 }

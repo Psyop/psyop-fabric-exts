@@ -1,18 +1,11 @@
-require Math;
-require Geometry;
 require Manipulation;
-require RiggingToolbox;
-require InlineDrawing;
-require FabricStatistics;
-
-
 
 // this is here for backward compatibility to 1.15.2
-/// \internal
+/// \dfgPresetOmit
 interface RTValToJSONEncoder {
   String convertToString!();
 };
-/// \internal
+/// \dfgPresetOmit
 interface RTValFromJSONDecoder {
   Boolean convertFromString!(String data);
 };

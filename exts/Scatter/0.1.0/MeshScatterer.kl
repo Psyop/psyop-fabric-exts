@@ -1,7 +1,5 @@
 require Math;
 require Geometry;
-require FabricStatistics;
-require Manipulation;
 
 /// \internal
 const UInt32 G_SCATTERER_RANDOMS = 5; // Number of random numbers are needed per generated point.

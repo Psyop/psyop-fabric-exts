@@ -1,17 +1,17 @@
 {
   "version": "0.1.0",
   "code": [
-    "MeshScatterReporting.kl",
+    "StandAloneWeightMap.kl",
     "MeshScatterer.kl",
-  	"CumulativeArrays.kl",
-  	"DrawUtils.kl",
+    "MeshScatterReporting.kl",
+    "CumulativeArrays.kl",
+    "DrawUtils.kl",
     "GeometryExts.kl",
     "GeometryLocationAttribute.kl",
     "MathExts.kl",
     "MeshScatterSizers.kl",
     "MeshScatterFilters.kl",
     "ScatterUtils.kl",
-    "StandAloneWeightMap.kl"
   ],
   "dfgPresets": {
     "dir": "DFG",

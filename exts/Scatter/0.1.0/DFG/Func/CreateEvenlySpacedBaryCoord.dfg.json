@@ -33,5 +33,5 @@
   "extDeps" : {
     "Scatter" : "*"
     },
-  "code" : "require Scatter;\n\ndfgEntry {\n  result = createEvenlySpacedBaryCoord(x_sample, y_sample);\n}\n"
+  "code" : "require Scatter;\n\ndfgEntry {\n  result = createEvenlySpacedBaryCoord(xSample, ySample);\n}\n"
   }

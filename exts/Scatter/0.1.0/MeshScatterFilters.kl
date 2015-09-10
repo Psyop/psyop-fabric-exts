@@ -64,7 +64,7 @@ operator filterDartsBySize<<<pointIndex>>>(io Boolean pointsDelete[], in Points 
 /*
     Preset Dart Filterers
 */
-/// \internal
+/// \dfgPresetOmit
 interface DartFilterer {
   filterCandidates!(io Ref<MeshScatterer> scatterer, UInt32 iteration);
 };
@@ -143,7 +143,7 @@ object meshAttrSizeFilter : DartFilterer {
   Scalar minSize;
   String attrName;
 };
-/// \internal
+/// \dfgPresetOmit
 function meshAttrSizeFilter() {
   this.maxSize = 0.5f;
   this.minSize = 0.1f;
@@ -160,7 +160,7 @@ function meshAttrSizeFilter(Scalar maxSize, Scalar minSize, String attrName) {
   this.defaultFilter = defaultDartFilterer();
   this.attrName = attrName;
 }
-/// \internal
+/// \dfgPresetOmit
 function meshAttrSizeFilter.prefilter(io Ref<MeshScatterer> scatterer, UInt32 iteration) {
   GeometryAttributes attributes = scatterer.dartCandidates.getAttributes();
   GeometryLocationAttribute emitLocationAttr = attributes.getOrCreateGeometryLocationAttribute("emitLocation");
@@ -177,7 +177,7 @@ function meshAttrSizeFilter.prefilter(io Ref<MeshScatterer> scatterer, UInt32 it
   }
 }
 
-/// \internal
+/// \dfgPresetOmit
 function meshAttrSizeFilter.filterCandidates!(io Ref<MeshScatterer> scatterer, UInt32 iteration) {
   this.prefilter(scatterer, iteration);
   this.defaultFilter.filterCandidates(scatterer, iteration);
