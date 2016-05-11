@@ -1,0 +1,34 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: AttrTransferOrderParam\n  value: AttrTransferOrder\n"
+    },
+  "title" : "SetValue",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "AttrTransferOrderParam"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "value",
+      "execPortType" : "In",
+      "typeSpec" : "AttrTransferOrder"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "14E84DACC31224AE6673449A264B9E80",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.setValue(value);
+}
+"
+  }

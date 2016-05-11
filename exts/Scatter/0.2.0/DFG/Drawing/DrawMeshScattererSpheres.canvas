@@ -1,0 +1,85 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  handle: DrawingHandle\n  points: Points\n  enabled: Boolean\n  sizeFactor: Scalar\n  easter: Boolean\n  color: Color\n"
+    },
+  "title" : "DrawMeshScattererSpheres",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "handle",
+      "execPortType" : "IO",
+      "typeSpec" : "DrawingHandle"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+        },
+      "nodePortType" : "Out",
+      "name" : "points",
+      "execPortType" : "In",
+      "typeSpec" : "Points"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Boolean" : true
+        },
+      "name" : "enabled",
+      "execPortType" : "In",
+      "typeSpec" : "Boolean"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 1
+        },
+      "name" : "sizeFactor",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Boolean" : true
+        },
+      "name" : "easter",
+      "execPortType" : "In",
+      "typeSpec" : "Boolean"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiColor" : "{\n  \"r\" : 255,\n  \"g\" : 0,\n  \"b\" : 0\n  }"
+        },
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Color" : {
+          "r" : 1,
+          "g" : 1,
+          "b" : 1,
+          "a" : 0
+          }
+        },
+      "name" : "color",
+      "execPortType" : "In",
+      "typeSpec" : "Color"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "A27BDAFE5DD88F46C241C998E80BFE27",
+  "code" : "require Scatter;
+
+dfgEntry {
+  drawMeshScattererSpheres(handle, points, enabled, sizeFactor, easter, color);
+}
+"
+  }

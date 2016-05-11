@@ -1,0 +1,145 @@
+
+/// \internal
+/// semi-isotropic relax. 
+function MeshScatterer.simpleRelax!(Scalar radiusFactor, Size iterations) {
+  this.relaxPoints(radiusFactor, iterations, 0.25, 10, 2);
+}
+
+/*
+This is relax function that takes size of points into account. Bigger points 
+don't get pushed around by little ones easily. Every point considers points in 
+its vicinity, by a multiple of its own radius (Radius factor). The relax operation 
+is run a number of times(Iterations). Each iteration points are pushed away from 
+their neighbors by an amount (Strength), and the points are snapped back to their 
+closest position on the surface. Finding the neighboring points is the slow part, 
+so the list of neighboring points isonly updated every nth iteration 
+(updateNeighborsEveryNthIt), and same with the mesh (updateMeshEveryNthIt).
+*/
+/// \dfgPresetDefault radiusFactor 4.0
+/// \dfgPresetDefault iterations 20
+/// \dfgPresetDefault strength 0.5
+/// \dfgPresetDefault updateNeighborsEveryNthIt 10
+/// \dfgPresetDefault updateMeshEveryNthIt 5
+function MeshScatterer.relaxPoints!(Scalar radiusFactor, Size iterations, 
+  Scalar strength, Size updateNeighborsEveryNthIt, Size updateMeshEveryNthIt) 
+{
+  UInt64 ticks = getCurrentTicks();
+  UInt32 pointCount = this.points.size();
+
+  Size updateNeighbors_n = Math_max(updateNeighborsEveryNthIt, 1);
+  Size updateMesh_n = Math_max(updateMeshEveryNthIt, 1);
+
+  GenericValueContainer options = GenericValueContainer();
+  PrepareForSpatialQueries_setOctree(options);
+  this.sourceMesh.prepareForSpatialQueries(pointCount * (iterations / updateMesh_n), options);
+
+  IndexSet neighborIndices[];
+  neighborIndices.resize(pointCount);
+
+  Vec3 pushes[];
+  pushes.resize(pointCount);
+
+  SpatialQuery perThreadSQ[];
+  perThreadSQ.resize(getThreadCount());
+
+  Ref<GeometryLocationAttribute> emitLocationAttr = this.points.getAttributes().getAttribute("emitLocation");
+
+  for (Size it = 0; it < iterations; it++) {
+    Boolean updateNeighbors = it % updateNeighbors_n == 0;
+    if (updateNeighbors)
+      this.preparePointsForSpatialQueries(pointCount);
+    Size push_batches = 24;
+    MeshScatterer_relax_createPushes_batch<<<push_batches>>>(push_batches, this, 
+      radiusFactor, updateNeighbors, pushes, neighborIndices);
+
+    Size relaxBatches = getThreadCount();
+    Boolean updatePositionOnMesh = it % updateMesh_n == 0 || it == iterations - 1;
+    MeshScatterer_relax_resetToMesh_batch<<<relaxBatches>>>(relaxBatches, 
+      updatePositionOnMesh, pushes, strength, this, emitLocationAttr);
+  }
+
+  Integer elapsed = 1000 * getSecondsBetweenTicks(ticks, getCurrentTicks());
+  this.vReport("Done Relaxing. "+iterations+" iterations, "+elapsed+" ms.");
+}
+
+
+
+operator MeshScatterer_relax_createPushes_batch<<<batchIndex>>>( Size numBatchs, Ref<MeshScatterer> this, Scalar radiusFactor, 
+  Boolean updateNeighbors, io Vec3 pushes[], io IndexSet neighborIndices[]) 
+{
+  Batcher batcher(this.points.size(), numBatchs);
+  if (!batcher.batchHasWork(batchIndex))
+    return;
+  Size batchStart = batcher.getBatchStart(batchIndex);
+  Size batchEnd = batcher.getBatchEnd(batchIndex);
+
+  Ref<SpatialQuery> query = null;
+  if (updateNeighbors)
+    query = this.points.beginSpatialQuery();
+
+  for (Size i = batchStart; i < batchEnd; i++) {
+    Vec3 ppos = this.points.getPosition(i);
+    Scalar prad = this.points.getSize(i);
+    Scalar query_dist = prad * radiusFactor;
+    if (updateNeighbors) {
+      neighborIndices[i].clear();
+      UInt32 againstElements = query.getElementsInBSphere(ppos, query_dist*2.0 );
+      for (UInt32 j = 0; j < againstElements; j++) {
+        UInt32 ti = query.getQueriedElement(j);
+        if (ti == i)
+          continue;
+        neighborIndices[i].add(ti);
+      }
+    }
+    Vec3 ppush;
+    Scalar pArea = prad * prad;
+    Scalar weight;
+    for (UInt32 j = 0; j < neighborIndices[i].size(); j++) {
+      UInt32 ti = neighborIndices[i].getIndices()[j];
+      Vec3 tpos = this.points.getPosition(ti);
+      Scalar trad = this.points.getSize(ti);
+      Vec3 offset = ppos - tpos;
+      Scalar len = offset.length();
+      if (len > query_dist)
+        continue;
+      Scalar norm_dist = len / query_dist;
+      Scalar push_amount = (1.0 - norm_dist) * (1.0 - norm_dist);
+      Scalar tArea = trad * trad;
+      ppush += offset * push_amount * tArea;
+      weight += (tArea + pArea) / 2.0f;
+    }
+    if (weight)
+      pushes[i] = ppush/weight;
+  }
+  if (updateNeighbors)
+    this.points.endSpatialQuery(query);
+}
+
+operator MeshScatterer_relax_resetToMesh_batch<<<batchIndex>>>( Size numBatchs, Boolean updateOnMesh, 
+  Vec3 pushes[], Scalar strength, io Ref<MeshScatterer> this, io Ref<GeometryLocationAttribute> emitLocationAttr ) 
+{
+  Batcher batcher(this.points.size(), numBatchs);
+  if (!batcher.batchHasWork(batchIndex))
+    return;
+  Size batchStart = batcher.getBatchStart(batchIndex);
+  Size batchEnd = batcher.getBatchEnd(batchIndex);
+  Ref<SpatialQuery> query = null;
+  if (updateOnMesh)
+    query = this.sourceMesh.beginSpatialQuery();
+  for (Size i = batchStart; i < batchEnd; i++) {
+    Vec3 ppos = this.points.getPosition(i);
+    Scalar prad = this.points.getSize(i);
+    Vec3 newPos = ppos + (pushes[i] * strength);
+    if (updateOnMesh) {        
+      GeometryLocation location = query.getClosest(newPos, Vec3(1.0, 1.0, 1.0), SCALAR_INFINITE);
+      if (location.isValid()) {
+        this.points.setPosition(i, this.sourceMesh.getPositionAtLocation(location));
+        emitLocationAttr.values[i] = location;
+      }
+    } else {
+        this.points.setPosition(i, newPos);
+    }
+  }
+  if (updateOnMesh)
+    this.sourceMesh.endSpatialQuery(query);
+}

@@ -1,0 +1,142 @@
+/*
+ *  Copyright 2010-2015 Fabric Software Inc. All rights reserved.
+ */
+
+/**
+  Specialized GeometryAttribute containing one Boolean per element.
+  Values can be accessed with the BooleanAttribute.values array member, but its usage might be restricted by the owner Geometry.
+*/
+object BooleanAttribute : BaseAttribute {
+  /// Values array container
+  Boolean values[];
+
+  /// If true, IntegerAttribute.linearCombine and IntegerAttribute.getLinearCombination
+  /// will average the values. Else, an arbitrary source value will be used.
+  Boolean canInterpolate;
+};
+
+/// \dfgPresetOmit
+function StatisticRecord[] BooleanAttribute.getStatistics() {
+  StatisticRecord stats[] = this.parent.getStatistics();
+  stats.push( StatisticRecord( Statistic_MemoryUsage, this.values.size()*4 ) );
+  return stats;
+}
+
+/// \dfgPresetOmit
+BooleanAttribute.cloneMembersTo( io BooleanAttribute that ) {
+  //The difference with default clone() is that new.parent.autoStat will point to 'new' (from constructor)
+  this.parent.cloneMembersTo(that);//Copies all but the values
+  that.copyFrom(this);
+  that.canInterpolate = this.canInterpolate;
+}
+
+/// \dfgPresetOmit
+inline BooleanAttribute.resize!(Size count) {
+  this.parent.resize(count);
+  this.values.resize(count);
+}
+
+/// \dfgPresetOmit
+inline Data BooleanAttribute.data() {
+  return this.values.data();
+}
+
+/// \dfgPresetOmit
+inline UInt32 BooleanAttribute.getElementsMemType( ) {
+  return this.values.getElementsMemType();
+}
+
+/// \dfgPresetOmit
+inline BooleanAttribute.convertToGPU!( ) {
+  this.values.convertToGPU();
+  this.incrementVersion();
+}
+
+/// \dfgPresetOmit
+inline BooleanAttribute.convertToCPU!( ) {
+  this.values.convertToCPU();
+  this.incrementVersion();
+}
+
+
+/// \dfgPresetOmit
+inline BooleanAttribute.copyValue!( Size sourceIndex, Size targetIndex ) {
+  this.values[targetIndex] = this.values[sourceIndex];
+}
+
+/// \dfgPresetOmit
+inline BooleanAttribute.copyValue!( Ref<Object> sourceAttr, Size sourceIndex, Size targetIndex ) {
+  Ref<BooleanAttribute> source = sourceAttr;
+  this.values[targetIndex] = source.values[sourceIndex];
+}
+
+/// \dfgPresetOmit
+inline BooleanAttribute.copyFrom!( Ref<Object> otherAttr ) {
+  this.parent.copyFrom( otherAttr );
+  Ref<BooleanAttribute> other = otherAttr;
+  other.values.copyTo(this.values);
+}
+
+/** Returns a linear combination of source values. If IntegerAttribute.canInterpolate is false, an arbitrary source value will be returned.
+    \param sourceIndices The array of source indices
+    \param sourceWeights The array of source weights, which need to correspond to each sourceIndices. Normally the sum of the weights should be 1.0
+*/
+/// \dfgPresetOmit
+inline Boolean BooleanAttribute.getLinearCombination( LocalL16UInt32Array sourceIndices, LocalL16ScalarArray sourceWeights ) {
+  if( this.canInterpolate ) {
+    Scalar truthyness;
+    Scalar falsyness;
+    for( Size i = 0; i < sourceIndices.size(); ++i ) {      
+      if (this.values[sourceIndices.get(i)])
+        truthyness += sourceWeights.get(i);
+      else
+        falsyness += sourceWeights.get(i);
+    }
+    return truthyness > falsyness;
+  } else if(sourceIndices.size())
+    return this.values[sourceIndices.get(0)];
+  return 0;
+}
+
+/// \dfgPresetOmit
+inline BooleanAttribute.linearCombine!( Ref<Object> sourceAttr, LocalL16UInt32Array sourceIndices, LocalL16ScalarArray sourceWeights, Size targetIndex ) {
+  Ref<BooleanAttribute> source = sourceAttr;
+  this.values[targetIndex] = source.getLinearCombination( sourceIndices, sourceWeights );
+}
+
+/// \dfgPresetOmit
+inline BooleanAttribute.setFromScalar!( Size index, LocalL16ScalarArray value ) {
+  this.values[index] = Boolean(value.get(0));
+}
+
+/// \dfgPresetOmit
+inline Size BooleanAttribute.getScalarValueSize() {
+  return 1;
+}
+
+/// \dfgPresetOmit
+inline Boolean BooleanAttribute.equalValues( Size index1, Size index2 ) {
+  return this.values[index1] == this.values[index2];
+}
+
+/// \dfgPresetOmit
+function String BooleanAttribute.valueDesc( Size index ) {
+  return String(this.values[index]);
+}
+
+/// \dfgPresetOmit
+function String BooleanAttribute.unitTestPrint( Size index ) {
+  return this.valueDesc(index);
+}
+
+/// If it exists, returns the attribute of that name, else creates it.
+/// \dfgPresetOmit
+function Ref<BooleanAttribute> GeometryAttributes.getOrCreateBooleanAttribute!( String name ) {
+  Ref<GeometryAttribute> attr = this.getAttribute( name, BooleanAttribute );
+  if( attr )
+    return attr;
+
+  BooleanAttribute newAttr = BooleanAttribute();
+  newAttr._attachToContainer( name, this );
+  return newAttr;
+}

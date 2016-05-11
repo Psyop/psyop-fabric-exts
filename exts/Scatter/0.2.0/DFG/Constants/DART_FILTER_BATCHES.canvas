@@ -1,0 +1,24 @@
+// Created by kl2dfg (processConstant)
+{
+  "objectType" : "Func",
+  "title" : "DART_FILTER_BATCHES",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "value",
+      "execPortType" : "Out",
+      "typeSpec" : "Size"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "092569D6334E1D31C1DEC4E7D8018587",
+  "code" : "require Scatter;
+
+dfgEntry {
+  value = DART_FILTER_BATCHES;
+}
+"
+  }

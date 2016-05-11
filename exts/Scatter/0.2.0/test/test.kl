@@ -1,0 +1,151 @@
+require Scatter;
+
+
+operator entry() {
+  Size trials = 3;
+  report("entry!");
+  PolygonMesh staticMesh();
+  staticMesh.addDisc( Xfo(), 20.0f, TWO_PI, 20, true, true );
+
+  report("");
+  report("Scattering:");
+  MeshScatterer scatterer(staticMesh);
+  scatterer.setVerbose(true);
+  scatterer.setDefaultRadius(0.1);
+  scatterer.scatter(10000, 12345);
+  report(scatterer.getPoints().size() + " points added by Scattering.");
+
+  report("");
+  report("Dart throwing:");
+  MeshScatterer dartThrower(staticMesh);
+  dartThrower.setVerbose(true);
+  dartThrower.setDefaultRadius(0.1);
+  for (Size i = 0; i < trials; i++)
+    dartThrower.throwDarts(200, 50, 12345);
+
+  report("");
+  report("Just one iteration: ");
+  MeshScatterer solitartyDart(staticMesh);
+  solitartyDart.setVerbose(true);
+  solitartyDart.setDefaultRadius(0.1);
+  solitartyDart.throwDarts(-1, 1, 1234, null, null);
+    
+  report("");
+  report("Dart throwing with good coverage");
+  for (Size i = 0; i < trials; i++) {
+    MeshScatterer simpleDart(staticMesh);
+    simpleDart.setVerbose(true);
+    simpleDart.setDefaultRadius(0.1);
+    simpleDart.throwDarts(-1, 100, 1234, null, null);
+  }
+
+
+  report("");
+  report("Dart throwing with Random sizer");
+  // BigToSmallDartSizer bssSizer(0.2, 0.02, 0.5, 12345);
+
+  for (Size i = 0; i < trials; i++) {
+    RandomDartSizer rssSizer(0.02, 0.2, 0.5, 12345);
+    MeshScatterer dartThrower2(staticMesh);
+    dartThrower2.setVerbose(true);
+    dartThrower2.throwDarts(-1, 85, 1234, rssSizer, null);
+    dartThrower2.simpleRelax(4.0, 50);
+  }
+
+
+  // DrawingHandle handle();
+  // drawMeshScattererSpheres(handle, dartThrower2.getPoints(), true, 1.0f, true);
+}
+
+
+/* 
+
+  Fill / 1000, @ 500
+
+  Just one iteration:
+  [MeshScatterer] Done dart throwing. 116 points, 118 attempts, 1 iterations, 0 ms.
+  [MeshScatterer] Hit rate: +0.98305
+
+  Dart throwing with Random sizer
+  [MeshScatterer] Done dart throwing. 9360 points, 49000 attempts, 500 iterations, 332 ms.
+  [MeshScatterer] Hit rate: +0.19102
+  [MeshScatterer] Done dart throwing. 9246 points, 49000 attempts, 500 iterations, 325 ms.
+  [MeshScatterer] Hit rate: +0.188693
+
+
+Fill / 200, @ 150
+
+  [MeshScatterer] Done dart throwing. 537 points, 593 attempts, 1 iterations, 1 ms.
+  [MeshScatterer] Hit rate: +0.905564
+
+  Dart throwing with Random sizer
+  [MeshScatterer] Done dart throwing. 10211 points, 73500 attempts, 150 iterations, 274 ms.
+  [MeshScatterer] Hit rate: +0.138925
+  [MeshScatterer] Done dart throwing. 10111 points, 73500 attempts, 150 iterations, 255 ms.
+  [MeshScatterer] Hit rate: +0.137564
+  [MeshScatterer] Done dart throwing. 10114 points, 73500 attempts, 150 iterations, 257 ms.
+  [MeshScatterer] Hit rate: +0.137605
+
+
+Fill / 100, @ 85 <--- BEST
+
+  Just one iteration:
+  [MeshScatterer] Done dart throwing. 965 points, 1187 attempts, 1 iterations, 2 ms.
+  [MeshScatterer] Hit rate: +0.812973
+
+  Dart throwing with Random sizer
+  [MeshScatterer] Done dart throwing. 10227 points, 83385 attempts, 85 iterations, 233 ms.
+  [MeshScatterer] Hit rate: +0.122647
+  [MeshScatterer] Done dart throwing. 10210 points, 83385 attempts, 85 iterations, 239 ms.
+  [MeshScatterer] Hit rate: +0.122444
+  [MeshScatterer] Done dart throwing. 10199 points, 83385 attempts, 85 iterations, 238 ms.
+  [MeshScatterer] Hit rate: +0.122312
+  [MeshScatterer] Done dart throwing. 10299 points, 83385 attempts, 85 iterations, 230 ms.
+  [MeshScatterer] Hit rate: +0.123511
+
+
+Fill / 50, @ 70
+
+  Just one iteration:
+  [MeshScatterer] Done dart throwing. 1635 points, 2374 attempts, 1 iterations, 5 ms.
+  [MeshScatterer] Hit rate: +0.688711
+
+  Dart throwing with Random sizer
+  [MeshScatterer] Done dart throwing. 10260 points, 111834 attempts, 57 iterations, 272 ms.
+  [MeshScatterer] Hit rate: +0.091743
+  [MeshScatterer] Done dart throwing. 10260 points, 111834 attempts, 57 iterations, 271 ms.
+  [MeshScatterer] Hit rate: +0.091743
+  [MeshScatterer] Done dart throwing. 10260 points, 111834 attempts, 57 iterations, 270 ms.
+  [MeshScatterer] Hit rate: +0.091743
+
+
+TOO PEXY BATCHY FOR PANTS:
+
+FILL / 100 @ 85 @ 10 batches
+
+Dart throwing with Random sizer
+[MeshScatterer] Done dart throwing. 10227 points, 83385 attempts, 85 iterations, 152 ms.
+[MeshScatterer] Hit rate: +0.122647
+[MeshScatterer] Done dart throwing. 10227 points, 83385 attempts, 85 iterations, 151 ms.
+[MeshScatterer] Hit rate: +0.122647
+[MeshScatterer] Done dart throwing. 10227 points, 83385 attempts, 85 iterations, 150 ms.
+[MeshScatterer] Hit rate: +0.122647
+
+FILL / 100 @ 85 @ 20 batches - 153 ms 
+FILL / 100 @ 85 @ 12 batches - 149 ms 
+FILL / 100 @ 85 @ 10 batches - 150 ms 
+FILL / 100 @ 85 @ 8  batches - 155 ms
+FILL / 100 @ 85 @ 5  batches - 170 ms
+
+
+Moved spatial query making into a thread
+
+Dart throwing with Random sizer
+[MeshScatterer] Done dart throwing. 10147 points, 83385 attempts, 85 iterations, 133 ms.
+[MeshScatterer] Hit rate: +0.121688
+[MeshScatterer] Done dart throwing. 10147 points, 83385 attempts, 85 iterations, 134 ms.
+[MeshScatterer] Hit rate: +0.121688
+
+
+*/
+

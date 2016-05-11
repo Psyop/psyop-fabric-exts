@@ -1,0 +1,44 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Sets the transfer order to an array of strings. Both can be used together.\nName Formatter is how to rename the attribute when they're transfered. If set to \"{name}\",\ntransfered attributes will have the same name as their source. This can also be used to rename\nAttributes in transfer, E.G. \"{name}_xfered\" as the nameFormatter will rename the attribute\n\"normals\" to \"normals_xfered\".\n\nSupported types:\n  this: AttrTransferOrder\n  namesArray: String[]\n  nameFormatter: String\n"
+    },
+  "title" : "SetTransferByNameArray",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "AttrTransferOrder"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "namesArray",
+      "execPortType" : "In",
+      "typeSpec" : "String[]"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "String" : "{name}"
+        },
+      "name" : "nameFormatter",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "19A5853F0BC661AF3A4DAB2A7DDE3058",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.setTransferByNameArray(namesArray, nameFormatter);
+}
+"
+  }

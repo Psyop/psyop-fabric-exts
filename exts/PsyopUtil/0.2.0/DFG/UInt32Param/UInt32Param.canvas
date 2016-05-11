@@ -1,0 +1,41 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  name: String\n  value: UInt32\n  result: UInt32Param\n"
+    },
+  "title" : "UInt32Param",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "name",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "value",
+      "execPortType" : "In",
+      "typeSpec" : "UInt32"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "UInt32Param"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "505E6541269ADD43F077EF08092579CB",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  result = UInt32Param(name, value);
+}
+"
+  }

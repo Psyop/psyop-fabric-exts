@@ -1,0 +1,149 @@
+
+/*
+    Filtering utilities
+*/
+
+const Size DART_FILTER_BATCHES = 12;
+
+operator DefaultDartsFilter_runBatches<<<i>>>(io Points candidates, Points against, 
+  Scalar maxRadius, io Boolean dartCandidatesRemove[]) 
+{
+  if (i == 0) {
+    GenericValueContainer options = GenericValueContainer();
+    PrepareForSpatialQueries_setSparseGrid(options);
+    candidates.prepareForSpatialQueries(candidates.size(), options);
+
+    DefaultDartsFilter_batch(0, candidates.size(), candidates, candidates, maxRadius, dartCandidatesRemove);
+    candidates.removeSpatialQueryAcceleration();
+    return;
+  }
+
+  Batcher batcher(candidates.size(), DART_FILTER_BATCHES - 1);
+  Size batch_ID = i - 1;
+  if (batcher.batchHasWork(batch_ID)) {
+    Size batchStart = batcher.getBatchStart(batch_ID);
+    Size batchEnd = batcher.getBatchEnd(batch_ID);
+    DefaultDartsFilter_batch(batchStart, batchEnd, candidates, against, maxRadius, dartCandidatesRemove);
+  }
+}
+
+/// \internal
+inline DefaultDartsFilter_batch(Size start, Size end, Points candidates, Points against, Scalar maxRadius, io Boolean dartCandidatesRemove[])
+{
+  Ref<SpatialQuery> againstQ = against.beginSpatialQuery();
+  Boolean againstSelf = candidates === against;
+  Size allowable = againstSelf ? 1 : 0;
+  for (Size i = start; i < end; i++) {
+    if (dartCandidatesRemove[i])
+      continue;
+    Scalar pSize = candidates.getSize(i);
+    Vec3 ppos = candidates.getPosition(i);
+
+    UInt32 againstElements = againstQ.getElementsInBSphere(ppos, maxRadius + pSize);
+    if (againstElements > allowable) {
+      for (UInt32 j = 0; j < againstElements; j++) {
+        UInt32 iElement = againstQ.getQueriedElement(j);
+        Vec3 targetPos = against.getPosition(iElement);
+        Scalar targetSize = against.getSize(iElement);
+        if (ppos.distanceLessThan(targetPos, targetSize + pSize)) {
+          dartCandidatesRemove[i] = true; 
+          break;
+        }
+      }
+    }
+  }
+  against.endSpatialQuery(againstQ);
+}
+
+
+/*
+    Preset Dart Filterers
+*/
+/// \dfgPresetOmit
+interface DartFilterer {
+  filterCandidates!(io Ref<MeshScatterer> scatterer, UInt32 iteration);
+};
+
+
+object DefaultDartFilterer : DartFilterer {
+};
+
+
+/// \internal
+function DefaultDartFilterer.filterCandidates!(io Ref<MeshScatterer> scatterer, UInt32 iteration) {  
+  Scalar maxRadius = scatterer.maxRadius;
+  for (UInt32 i = 0; i < scatterer.dartCandidates.size(); i++ )
+    maxRadius = Math_max(maxRadius, scatterer.dartCandidates.getSize(i));
+
+  DefaultDartsFilter_runBatches<<<DART_FILTER_BATCHES + 1>>>(scatterer.dartCandidates, scatterer.points, maxRadius, scatterer.dartCandidatesRemove);
+}
+
+
+
+/*
+    Weightmap filter
+*/
+
+operator filterDartsByScalarAttr<<< pointIndex >>>(
+                          io Ref<MeshScatterer> scatterer, 
+                          Ref<ScalarAttribute> filterAttr, 
+                          Ref<ScalarAttribute> sizeAttr, 
+                          Ref<GeometryLocationAttribute> emitLocationAttr, 
+                          Scalar maxRadius, 
+                          Scalar minRadius
+) {
+  Scalar normalized_size = reverseLinearInterpolate(minRadius, maxRadius, sizeAttr.values[pointIndex]); // from PsyopUtil
+  Scalar wmapValue = GetAttributeAtLocation(scatterer.sourceMesh, emitLocationAttr.values[pointIndex], filterAttr);
+
+  if (normalized_size > wmapValue) {
+    scatterer.dartCandidatesRemove[pointIndex] = true;
+  }
+}
+
+object MeshAttrSizeFilter : DartFilterer {
+  DefaultDartFilterer defaultFilter;
+
+  Scalar maxRadius;
+  Scalar minRadius;
+  String attrName;
+};
+/// \dfgPresetOmit
+function MeshAttrSizeFilter() {
+  this.maxRadius = 0.5f;
+  this.minRadius = 0.1f;
+  this.defaultFilter = DefaultDartFilterer();
+  this.attrName = "weightmap";
+}
+
+/// \dfgPresetDefault maxRadius 0.5
+/// \dfgPresetDefault minRadius 0.1
+/// \dfgPresetDefault attrName "weightmap"
+function MeshAttrSizeFilter(Scalar maxRadius, Scalar minRadius, String attrName) {
+  this.maxRadius = maxRadius;
+  this.minRadius = minRadius;
+  this.defaultFilter = DefaultDartFilterer();
+  this.attrName = attrName;
+}
+/// \dfgPresetOmit
+function MeshAttrSizeFilter.prefilter(io Ref<MeshScatterer> scatterer, UInt32 iteration) {
+  GeometryAttributes attributes = scatterer.dartCandidates.getAttributes();
+  Ref<GeometryLocationAttribute> emitLocationAttr = attributes.getOrCreateGeometryLocationAttribute("emitLocation");
+  Ref<ScalarAttribute> sizeAttr = scatterer.dartCandidates.getOrCreateSizesAttribute();
+  GeometryAttributes geoAttrs = scatterer.sourceMesh.getAttributes();
+  if (geoAttrs.has(this.attrName, ScalarAttribute)) {
+    Ref<ScalarAttribute> filterAttr = scatterer.sourceMesh.getAttribute(this.attrName, ScalarAttribute);
+    filterDartsByScalarAttr<<<scatterer.dartCandidates.size()>>>(scatterer, filterAttr, sizeAttr, emitLocationAttr, this.maxRadius, this.minRadius);
+  } else {
+    if (iteration == 0)
+      report("MeshAttrSizeFilter: No attr of name, removing all points: " + this.attrName);
+    for (Size i = 0; i < scatterer.dartCandidatesRemove.size(); i++)
+      scatterer.dartCandidatesRemove[i] = true;
+  }
+}
+
+/// \dfgPresetOmit
+function MeshAttrSizeFilter.filterCandidates!(io Ref<MeshScatterer> scatterer, UInt32 iteration) {
+  this.prefilter(scatterer, iteration);
+  this.defaultFilter.filterCandidates(scatterer, iteration);
+}
+

@@ -1,0 +1,42 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  category: String\n  result: SimpleTimer\n"
+    },
+  "title" : "SimpleTimer",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "exec",
+      "execPortType" : "IO",
+      "typeSpec" : "Execute"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "category",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "SimpleTimer"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*",
+    "FabricInterfaces" : "*"
+    },
+  "presetGUID" : "803EBCE55D7A313992D121B14A43C35B",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  result = SimpleTimer(category);
+}
+"
+  }

@@ -1,0 +1,41 @@
+
+/// \internal
+struct Batcher {
+  Size workSize;
+  Size numBatches;
+  Size batchSize;
+};
+
+/// \internal
+inline Batcher(Size workSize, Size numBatches) {
+  this.workSize = workSize;
+  this.numBatches = numBatches;
+  this.batchSize = 1 + workSize / numBatches;
+}
+
+/// \internal
+inline Size Batcher.getBatchStart(Size batchID) {
+  Size batchStart = batchID * this.batchSize;
+  if (batchStart >= this.workSize)
+    return 0;
+  else
+    return batchStart;
+}
+
+/// \internal
+inline Size Batcher.getBatchEnd(Size batchID) {
+  Size batchStart = batchID * this.batchSize;
+  if (batchStart >= this.workSize)
+    return 0;
+  Size batchEnd = Math_min(batchStart + this.batchSize, this.workSize);
+  return batchEnd;
+}
+
+/// \internal
+inline Boolean Batcher.batchHasWork(Size batchID) {
+  Size batchStart = batchID * this.batchSize;
+  if (batchStart >= this.workSize)
+    return false;
+  else
+    return true;
+}

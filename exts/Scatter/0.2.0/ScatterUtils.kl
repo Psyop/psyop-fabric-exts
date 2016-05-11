@@ -1,0 +1,93 @@
+require Math;
+require Geometry;
+require Containers;
+require FabricStatistics;
+
+
+/// \internal
+struct PerPolyScatterInfo{
+  UInt32 startIndex;
+  UInt32 pointsOnPoly;
+};
+
+
+operator scatterPointsOnPolygons <<<polygonIndex>>>(PolygonMesh mesh, Ref<ScalarAttribute> biasAttr, PerPolyScatterInfo scatterInfo[], 
+  UInt32 seed, Scalar defaultSize, io Points points) 
+{
+  PerPolyScatterInfo info = scatterInfo[polygonIndex];
+  if (info.pointsOnPoly == 0) {
+    return;
+  }
+
+  GeometryAttributes attributes = points.getAttributes();
+  GeometryLocationAttribute locAttr = attributes.getAttribute("emitLocation", GeometryLocationAttribute);
+
+  LocalL4ScalarArray areas;
+  LocalL4ScalarArray cumulativeAreas;
+
+  getPolygonTriangleAreas(areas, mesh, polygonIndex, biasAttr);
+  makeCumulativeArray(areas, cumulativeAreas);
+
+  for (UInt32 polygonPointIndex = 0; polygonPointIndex < info.pointsOnPoly; polygonPointIndex++) {
+    UInt32 pointIndex = info.startIndex + polygonPointIndex;
+
+    Vec3 rand(mathRandomScalar(G_SCATTERER_SEED, seed + (pointIndex * G_SCATTERER_RANDOMS) + 2),
+              mathRandomScalar(G_SCATTERER_SEED, seed + (pointIndex * G_SCATTERER_RANDOMS) + 3),
+              mathRandomScalar(G_SCATTERER_SEED, seed + (pointIndex * G_SCATTERER_RANDOMS) + 4)
+              );
+    
+    GeometryLocation loc;
+    loc.index = polygonIndex; // everything is in the same polygon
+    loc.subIndex = selectInCumulativeArray(cumulativeAreas, rand.z); // choose a triangle
+    loc.barycentric = createEvenlySpacedBaryCoord(rand.x, rand.y); // pick a place in the triangle
+    // if (biasAttr) {
+      // do something smart
+    // }
+
+    UInt32 indices[3]; // indices are simply loc.subIndex +0; +1; +2, but let LLVM deal with that
+    Scalar weights[3]; // weights are guaranteed to be the same as barycentrics, but let LLVM deal with that
+    mesh.getLocationAttributeIndicesAndWeights( loc, indices, weights );
+
+    Ref<Vec3Attribute> positions = mesh.attributes.positionsAttribute;
+    Vec3 pos =  positions.values[indices[0]] * weights[0]
+              + positions.values[indices[1]] * weights[1]
+              + positions.values[indices[2]] * weights[2];
+
+    locAttr.values[pointIndex] = loc;
+    points.setPosition(pointIndex, pos);
+    points.setSize(pointIndex, defaultSize);
+  }
+}
+
+
+operator nuzzleNeighbors<<<pointIndex>>>(io Scalar nuzzle[], in Points points, in Scalar maxRadius) {
+  Scalar pointSize = points.getSize(pointIndex);
+  Vec3 pointPosition = points.getPosition(pointIndex);
+
+  Ref<SpatialQuery> query = points.beginSpatialQuery();
+  UInt32 elements = query.getElementsInBSphere(points.getPosition(pointIndex), maxRadius + pointSize);
+
+  Scalar spaceAvailable = maxRadius;
+  Boolean neighbors;
+  for (UInt32 i = 0; i < elements; i++) {
+    UInt32 iElement = query.getQueriedElement(i);
+    Vec3 targetPosition = points.getPosition(iElement);
+    if (targetPosition == pointPosition) {
+      continue;
+    }
+
+    Scalar targetSize = points.getSize(iElement);
+    Scalar space = pointPosition.distanceTo(targetPosition) - (targetSize + pointSize);
+
+    spaceAvailable = Math_min(space, spaceAvailable);
+    neighbors = true;
+  }
+
+  if (neighbors) {
+    nuzzle[pointIndex] = spaceAvailable;
+  } else {
+    nuzzle[pointIndex] = maxRadius - pointSize;
+  }
+
+  points.endSpatialQuery(query);
+}

@@ -1,0 +1,251 @@
+
+/// \internal
+struct AttrTransferOrderCore {
+  Size transferRule;
+  Type types[];
+  String names[];
+  Boolean includePositions;
+  Boolean includeNormals;
+  String nameFormatter;
+  Boolean reportWarnings;
+};
+
+/// \internal
+function AttrTransferOrderCore(Boolean includePositions, Boolean includeNormals) {
+  this.transferRule = AttrTransferRule_None;
+  this.includePositions = includePositions;
+  this.includeNormals = includeNormals;
+  this.reportWarnings = true;
+  this.nameFormatter = "{name}";
+}
+
+/// \internal
+inline AttrTransferOrderCore.setReportWarnings!(Boolean warn) {
+  this.reportWarnings = warn;
+}
+
+/// \internal
+inline Boolean AttrTransferOrderCore.hasTransferable(GeometryAttributes source) {
+  if (this.transferRule == AttrTransferRule_None)
+    return false;
+  Ref<GeometryAttribute> attrs[String] = this.getAttributesToTransfer(source, true);
+  if (attrs)
+    return true;
+  else
+    return false;
+}
+
+
+
+
+/// \internal
+function Boolean AttrTransferOrderCore.filterAttribute(Ref<GeometryAttribute> attr) {
+  if (attr == null)
+    return false;
+
+  String name = attr.getName();
+  Type type = attr.type();
+  switch (this.transferRule) {
+    case AttrTransferRule_All: {
+      return true;
+    } 
+    case AttrTransferRule_Named: {
+      for (Size i = 0; i < this.names.size(); i++)
+        if (name == this.names[i]) return true;
+      return false;
+    } 
+    case AttrTransferRule_OmitNamed: {
+      for (Size i = 0; i < this.names.size(); i++)
+        if (name == this.names[i]) return false;
+      return true;
+    } 
+    case AttrTransferRule_Types: {
+      for (Size i = 0; i < this.types.size(); i++)
+        if (type == this.types[i]) return true;
+      return false;
+    } 
+    case AttrTransferRule_OmitTypes: {
+      for (Size i = 0; i < this.types.size(); i++)
+        if (type == this.types[i]) return false;
+      return true;
+    }
+  }
+  return false;
+}
+
+inline AttrTransferOrderCore.warnAboutMissing(Ref<GeometryAttribute> sourceAttrs[String]) { 
+  if (!this.reportWarnings || this.transferRule != AttrTransferRule_Named) {
+    return;
+  }
+  for (Size i = 0; i < this.names.size(); i++) {
+    if (!sourceAttrs.has(this.names[i]))
+      report("[AttrTransfer] No attribute found named "+this.names[i]+", skipping.");
+  }
+}
+
+
+/// \internal
+function Ref<GeometryAttribute>[String] AttrTransferOrderCore.getAttributesToTransfer(GeometryAttributes source, Boolean onlyFirst) {
+  Ref<GeometryAttribute> sourceAttrs[String];
+  for (Size i = 0; i < source.attributes.size(); i++) {
+    Ref<GeometryAttribute> attr = source.attributes[i];
+    if (attr == null)
+      continue;
+    if (!this.includePositions && attr === source.positionsAttribute)
+      continue;
+    if (!this.includeNormals && attr === source.normalsAttribute)
+      continue;
+    if (!this.filterAttribute(attr))
+      continue;
+    // to do: duplicate name check? 
+    sourceAttrs[attr.getName()] = attr;
+    if (onlyFirst)
+      break;
+  }
+  if (!onlyFirst)
+    this.warnAboutMissing(sourceAttrs);
+  return sourceAttrs;
+}
+
+
+
+
+/// \internal
+function Ref<GeometryAttribute>[String] GeometryAttributes.getNameAttrDict( ) {
+  Ref<GeometryAttribute> attrDict[String];
+  for (Size i = 0; i < this.attributes.size(); i++) {
+    Ref<GeometryAttribute> attr = this.attributes[i];
+    if (attr != null)
+      attrDict[attr.getName()] = attr;
+  }
+  return attrDict;
+}
+
+/// \internal
+function AttrTransferOrderCore.setupTransfersFromConvertOrCopy(AttrConversionInfo attrConversionInfo, AttrCopyInfo attrCopyInfo[], 
+  Boolean exactCopy, Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers) 
+{
+  Ref<GeometryAttribute> sourceAttrDict[String] = source.getNameAttrDict();
+  Ref<GeometryAttribute> targetAttrDict[String] = target.getNameAttrDict();
+  Ref<GeometryAttribute> sourceAttrsToTransfer[String] = this.getAttributesToTransfer(source, false);
+
+  if (this.nameFormatter.find("{name}") == -1 && sourceAttrsToTransfer.size() > 1) {
+    report('[AttrTransfer] Rename format string does not contain "{name}" token, so all attributes will have the same name. ');
+  }
+
+  for (sourceName, sourceAttr in sourceAttrsToTransfer) {
+    Type attrType = sourceAttr.type();
+    String targetName = this.nameFormatter.replace("{name}", sourceName);
+
+    if (attrTransfers.hasActive(targetName)) {
+      report( '[AttrTransfer] "'+targetName+'" ('+attrType+') is the target of multiple attribute transfers, removing additional ones.');
+      continue;
+    }
+
+    AttrTransfer at;
+
+    if (targetAttrDict.has(targetName) ) {
+      // check that the type is correct
+      Ref<GeometryAttribute> targetAttr = targetAttrDict[targetName];
+      if (targetAttr.type() == sourceAttr.type()) {        
+        at.sourceAttr = sourceAttr;
+        at.targetAttr = targetAttr;
+      } else {
+        report("[AttrTransfer] Attribute Transfer Type mis-match, skipping: "+sourceName+", "+sourceAttr.type()+"."
+          +"Target Attr: "+targetName+", "+targetAttr.type()+". ");
+        continue;
+      }
+    } else {
+      // create it, of the correct type
+      BaseAttribute newAttr = sourceAttr.type().createNew();
+      newAttr.name = targetName;
+      newAttr.resize(target.size());
+      target.attachNewAttribute(newAttr);
+      at.sourceAttr = sourceAttr;
+      at.targetAttr = newAttr;
+    }
+
+    if (attrConversionInfo)
+      at.conversionInfo = attrConversionInfo;
+    else if (attrCopyInfo)
+      at.copyInfo = attrCopyInfo;
+    else if (exactCopy) {
+      if (at.sourceAttr.size() != at.targetAttr.size()) {        
+        report("[AttrTransfer] No viable conversion method, skipping: "+sourceName+", "+at.sourceAttr.type()+". "
+          +at.sourceAttr.size()+", "+at.targetAttr.size()+".");
+        continue;
+      }
+      at.exactCopy = true;
+    } else {
+      // generic
+    }
+
+    attrTransfers.add(at);
+  }
+}
+
+
+
+/// \internal
+const Size AT_PEX_SIZE_THRESHOLD = 5000;
+/// \internal
+const Size AT_PEX_NUM_THRESHOLD = 2;
+
+operator attrConversion_transferAttributes_ti<<<ai>>>(io AttrTransfer attrTransfers[]) {
+  if (attrTransfers[ai].skip)
+    return;
+  Size attrCount = attrTransfers.size();
+  Ref<GeometryAttribute> sourceAttr = attrTransfers[ai].sourceAttr;
+  Ref<GeometryAttribute> targetAttr = attrTransfers[ai].targetAttr;
+
+  if (attrTransfers[ai].conversionInfo) {
+    AttrConversionInfo aci = attrTransfers[ai].conversionInfo;
+    Size offset = attrTransfers[ai].offset;
+    if (aci.size() > AT_PEX_SIZE_THRESHOLD && attrCount <= AT_PEX_NUM_THRESHOLD) { 
+      // only PEX the contents of each attr if the attrs are big and few. 
+      attrConversion_transferOneAttribute<<<aci.size()>>>(aci, offset, sourceAttr, targetAttr);
+    } else {
+      // if the attrs are small or many, do them straight. 
+      for (Size i = 0; i<aci.size(); i++)
+        attrConversion_transferOneAttribute(i, aci, offset, sourceAttr, targetAttr);
+    }
+    targetAttr.incrementVersion();
+
+  } else if (attrTransfers[ai].copyInfo) {
+    AttrCopyInfo aci[] = attrTransfers[ai].copyInfo;
+    Size offset = attrTransfers[ai].offset;
+    if (aci.size() > AT_PEX_SIZE_THRESHOLD && attrCount <= AT_PEX_NUM_THRESHOLD) { 
+      // only PEX the contents of each attr if the attrs are big and few. 
+      attrConversion_copyOneAttribute<<<aci.size()>>>(aci, offset, sourceAttr, targetAttr);
+    } else {
+      // if the attrs are small or many, do them straight. 
+      for (Size i = 0; i<aci.size(); i++)
+        attrConversion_copyOneAttribute(i, aci, offset, sourceAttr, targetAttr);
+
+    }
+    targetAttr.incrementVersion();
+
+  } else if (attrTransfers[ai].exactCopy) {
+    if (sourceAttr.size() != targetAttr.size()) {
+      report("Source and target attribute are different sizes, unable to exact copy." + targetAttr.getName());
+      return;
+    }
+    targetAttr.copyFrom(sourceAttr);
+    targetAttr.incrementVersion();
+  } else {
+    report("Cannot transfer attribute " + targetAttr.getName());
+  }
+}
+
+operator attrConversion_transferOneAttribute<<<i>>>(AttrConversionInfo aci, Size offset,
+  Ref<GeometryAttribute> sAttr, io Ref<GeometryAttribute> tAttr)
+{
+  tAttr.linearCombine(sAttr, aci.getIndices(i), aci.getWeights(i), i+offset);
+}
+
+operator attrConversion_copyOneAttribute<<<i>>>(AttrCopyInfo aci[], Size offset,
+  Ref<GeometryAttribute> sAttr, io Ref<GeometryAttribute> tAttr)
+{
+  tAttr.copyValue(sAttr, aci[i].index, i+offset);
+}
+

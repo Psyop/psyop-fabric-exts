@@ -1,0 +1,41 @@
+require PsyopUtil;
+
+operator entry() {
+  Scalar array[];
+  stupidSort(array);
+  array.push(6.0);
+  array.push(1.5);
+  array.push(0.2);
+  array.push(0.3);
+  array.push(10.0);
+  array.push(1.3);
+  array.push(1.6);
+  array.push(1.6);
+  array.push(1.6);
+  array.push(1.6);
+  array.push(-1.6);
+  array.push(2.9);
+
+  report("Unsorted: "+array);
+  Size indices[];
+  stupidSortIndices(array, indices);
+  report("Sorted:   "+array);
+  report("Indices:  "+indices);
+
+  for (Size i; i<1000; i+= 100) {
+    Scalar bigArray[];
+    for (Size j = 0; j < i; j++)
+      bigArray.push(mathRandomScalar(1234, j));
+
+    Scalar sortMe[] = bigArray.clone();
+    Scalar sortMeWithIndices[] = bigArray.clone();
+    Scalar sortMeOnlyIndices[] = bigArray.clone();
+    indices.resize(bigArray.size());
+
+    SimpleTimer timer("Sorting ");
+    stupidSort(sortMe);
+    timer.reportUS("sorted " + bigArray.size());
+    stupidSortIndices(sortMeWithIndices, indices);
+    timer.reportUS("sorted with indices " + bigArray.size());
+  }
+}

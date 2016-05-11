@@ -1,0 +1,55 @@
+// Created by kl2dfg (processComposeFunction)
+{
+  "objectType" : "Func",
+  "title" : "-> SimpleTimer",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "start",
+      "execPortType" : "In",
+      "typeSpec" : "UInt64"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "msgCategory",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "trials",
+      "execPortType" : "In",
+      "typeSpec" : "Float64[]"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "baselineTrial",
+      "execPortType" : "In",
+      "typeSpec" : "Float64"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "SimpleTimer"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "AC0CA88F776602D7D7C69439CBE4EE0F",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  result.start = start;
+  result.msgCategory = msgCategory;
+  result.trials = trials;
+  result.baselineTrial = baselineTrial;
+}
+"
+  }

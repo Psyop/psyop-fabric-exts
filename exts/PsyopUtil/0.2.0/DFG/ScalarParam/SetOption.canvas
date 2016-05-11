@@ -1,0 +1,34 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: ScalarParam\n  option: Param\n"
+    },
+  "title" : "SetOption",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "ScalarParam"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "option",
+      "execPortType" : "In",
+      "typeSpec" : "Param"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "4FDB49445E9C1DC1C7079859A9E2AD64",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.setOption(option);
+}
+"
+  }

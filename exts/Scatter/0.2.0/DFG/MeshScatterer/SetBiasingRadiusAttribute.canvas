@@ -1,0 +1,34 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  attrName: String\n"
+    },
+  "title" : "SetBiasingRadiusAttribute",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "attrName",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "989022E2E9594690964E27A1C4E1226C",
+  "code" : "require Scatter;
+
+dfgEntry {
+  this.setBiasingRadiusAttribute(attrName);
+}
+"
+  }

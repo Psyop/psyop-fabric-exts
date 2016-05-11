@@ -1,0 +1,60 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  iterations: UInt32\n  allowShrink: Boolean\n  maxRadiusFactor: Scalar\n"
+    },
+  "title" : "Nuzzle",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "UInt32" : 1
+        },
+      "name" : "iterations",
+      "execPortType" : "In",
+      "typeSpec" : "UInt32"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Boolean" : true
+        },
+      "name" : "allowShrink",
+      "execPortType" : "In",
+      "typeSpec" : "Boolean"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiRange" : "(1.0, 10.0)"
+        },
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 2
+        },
+      "name" : "maxRadiusFactor",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "B8832DDB29BF4EBC3998821BFACAB59C",
+  "code" : "require Scatter;
+
+dfgEntry {
+  this.nuzzle(iterations, allowShrink, maxRadiusFactor);
+}
+"
+  }

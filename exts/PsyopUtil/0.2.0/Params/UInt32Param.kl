@@ -1,0 +1,65 @@
+require Parameters;
+/*
+ *  Copyright 2010-2015 Fabric Software Inc. All rights reserved.
+ */
+/**
+\versionadded 1.12.0
+The :ref:`UInt32param` implements the :ref:`param` interface for UInt32 values.
+
+Example
+---------
+
+.. code-block:: kl
+
+    UInt32Param param = UInt32Param('subdiv', 12);
+    report(param.getValue());
+*/
+object UInt32Param : Param {
+  String name;
+  UInt32 value;
+  Param options[String];
+};
+
+// default constructor
+function UInt32Param(String name) {
+  this.name = name;
+  this.value = 0;
+}
+
+// constructor taking input value
+function UInt32Param(String name, UInt32 value) {
+  this.name = name;
+  this.value = value;
+}
+
+// returns the name of this parameter
+function String UInt32Param.getName() {
+  return this.name;
+}
+
+// returns the value type of this parameter
+function String UInt32Param.getValueType() {
+  return "UInt32";
+}
+
+// getting an option on this param
+function Param UInt32Param.getOption(String name)
+{
+  return this.options.get(name, null);
+}
+
+// setting an option on the parameter
+function UInt32Param.setOption!(Param option)
+{
+  this.options[option.getName()] = option;
+}
+
+// returns the param's value
+function UInt32 UInt32Param.getValue() {
+  return this.value;
+}
+
+// sets the param's value
+function UInt32Param.setValue!(UInt32 value) {
+  this.value = value;
+}

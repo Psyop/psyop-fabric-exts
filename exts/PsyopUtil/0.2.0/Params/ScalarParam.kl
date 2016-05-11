@@ -1,0 +1,65 @@
+require Parameters;
+/*
+ *  Copyright 2010-2015 Fabric Software Inc. All rights reserved.
+ */
+/**
+\versionadded 1.12.0
+The :ref:`Scalarparam` implements the :ref:`param` interface for Scalar values.
+
+Example
+---------
+
+.. code-block:: kl
+
+    ScalarParam param = ScalarParam('subdiv', 12);
+    report(param.getValue());
+*/
+object ScalarParam : Param {
+  String name;
+  Scalar value;
+  Param options[String];
+};
+
+// default constructor
+function ScalarParam(String name) {
+  this.name = name;
+  this.value = 0;
+}
+
+// constructor taking input value
+function ScalarParam(String name, Scalar value) {
+  this.name = name;
+  this.value = value;
+}
+
+// returns the name of this parameter
+function String ScalarParam.getName() {
+  return this.name;
+}
+
+// returns the value type of this parameter
+function String ScalarParam.getValueType() {
+  return "Scalar";
+}
+
+// getting an option on this param
+function Param ScalarParam.getOption(String name)
+{
+  return this.options.get(name, null);
+}
+
+// setting an option on the parameter
+function ScalarParam.setOption!(Param option)
+{
+  this.options[option.getName()] = option;
+}
+
+// returns the param's value
+function Scalar ScalarParam.getValue() {
+  return this.value;
+}
+
+// sets the param's value
+function ScalarParam.setValue!(Scalar value) {
+  this.value = value;
+}

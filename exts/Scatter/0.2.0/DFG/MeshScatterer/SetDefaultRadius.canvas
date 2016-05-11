@@ -1,0 +1,37 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  radius: Scalar\n"
+    },
+  "title" : "SetDefaultRadius",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.5
+        },
+      "name" : "radius",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "9EB2A8C9778A24F055FEFA83B70610FC",
+  "code" : "require Scatter;
+
+dfgEntry {
+  this.setDefaultRadius(radius);
+}
+"
+  }

@@ -1,0 +1,66 @@
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTextColor" : "{\n  \"r\" : 20,\n  \"g\" : 20,\n  \"b\" : 20\n  }",
+    "uiNodeColor" : "{\n  \"r\" : 121,\n  \"g\" : 134,\n  \"b\" : 143\n  }",
+    "uiHeaderColor" : "{\n  \"r\" : 80,\n  \"g\" : 98,\n  \"b\" : 110\n  }",
+    "uiTooltip" : "Node to coerce one type of object to another. Note\nthat this skirts immutability rules. Use this to say \"No\nCanvas, you're wrong, this can connect to that.\" Of\ncourse, if you're wrong instead, prepare for some\nodd errors. "
+    },
+  "title" : "CoerceType",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "objectIn",
+      "execPortType" : "In",
+      "typeSpec" : "$TYPE$"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "objectOut",
+      "execPortType" : "Out",
+      "typeSpec" : "$TYPE2$"
+      }
+    ],
+  "extDeps" : {},
+  "presetGUID" : "72CAA7BDDC824B1B2E45791B18AAF748",
+  "code" : "dfgEntry {
+  objectOut = objectIn;
+}
+",
+  "requiredPresets" : {
+    "Psyop.Exts.PsyopUtil.Compounds.CoerceType" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTextColor" : "{\n  \"r\" : 20,\n  \"g\" : 20,\n  \"b\" : 20\n  }",
+        "uiNodeColor" : "{\n  \"r\" : 121,\n  \"g\" : 134,\n  \"b\" : 143\n  }",
+        "uiHeaderColor" : "{\n  \"r\" : 80,\n  \"g\" : 98,\n  \"b\" : 110\n  }",
+        "uiTooltip" : "Node to coerce one type of object to another. Note\nthat this skirts immutability rules. Use this to say \"No\nCanvas, you're wrong, this can connect to that.\" Of\ncourse, if you're wrong instead, prepare for some\nodd errors. "
+        },
+      "title" : "CoerceType",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "objectIn",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "objectOut",
+          "execPortType" : "Out",
+          "typeSpec" : "$TYPE2$"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "72CAA7BDDC824B1B2E45791B18AAF748",
+      "code" : "dfgEntry {
+  objectOut = objectIn;
+}
+"
+      }
+    }
+  }

@@ -1,0 +1,41 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiDocUrl" : "http://docs.fabric-engine.com/FabricEngine/2.0.1-auto-2016021610/HTML/KLExtensionsGuide/Geometry/PolygonMesh.html",
+    "uiTooltip" : "Creates a Vec3Attribute with tangents, where each tangent points at its\nfirst neighbor. This creates tangents that do not rely on UVs and stay\nstable in animation.\n\nSupported types:\n  this: PolygonMesh\n  attributeName: String\n"
+    },
+  "title" : "RecomputeTangentsFromNeighbors",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+        },
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "PolygonMesh"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "String" : "tangents"
+        },
+      "name" : "attributeName",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "811079B402EF8A204DD43A8F634A5BEF",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.recomputeTangentsFromNeighbors(attributeName);
+}
+"
+  }

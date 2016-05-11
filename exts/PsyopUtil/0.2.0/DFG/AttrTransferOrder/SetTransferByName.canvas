@@ -1,0 +1,44 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Sets the transfer order to a list of comma separated names.\nName Formatter is how to rename the attribute when they're transfered. If set to \"{name}\",\ntransfered attributes will have the same name as their source. This can also be used to rename\nAttributes in transfer, E.G. \"{name}_xfered\" as the nameFormatter will rename the attribute\n\"normals\" to \"normals_xfered\".\n\nSupported types:\n  this: AttrTransferOrder\n  names: String\n  nameFormatter: String\n"
+    },
+  "title" : "SetTransferByName",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "AttrTransferOrder"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "names",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "String" : "{name}"
+        },
+      "name" : "nameFormatter",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "DCD5AD1E9C37C59FA936D1A579005927",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.setTransferByName(names, nameFormatter);
+}
+"
+  }

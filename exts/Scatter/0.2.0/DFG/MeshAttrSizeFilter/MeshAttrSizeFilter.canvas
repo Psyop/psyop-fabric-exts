@@ -1,0 +1,57 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  maxRadius: Scalar\n  minRadius: Scalar\n  attrName: String\n  result: MeshAttrSizeFilter\n"
+    },
+  "title" : "MeshAttrSizeFilter",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.5
+        },
+      "name" : "maxRadius",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.1000000014901161
+        },
+      "name" : "minRadius",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "String" : "weightmap"
+        },
+      "name" : "attrName",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "MeshAttrSizeFilter"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "D8C1F39F4A503112D9EA5453277CA515",
+  "code" : "require Scatter;
+
+dfgEntry {
+  result = MeshAttrSizeFilter(maxRadius, minRadius, attrName);
+}
+"
+  }

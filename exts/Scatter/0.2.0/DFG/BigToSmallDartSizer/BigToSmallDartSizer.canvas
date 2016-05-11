@@ -1,0 +1,70 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  startValue: Scalar\n  endValue: Scalar\n  bias: Scalar\n  seed: Size\n  result: BigToSmallDartSizer\n"
+    },
+  "title" : "BigToSmallDartSizer",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.5
+        },
+      "name" : "startValue",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.1000000014901161
+        },
+      "name" : "endValue",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiRange" : "(0.0, 2.0)"
+        },
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 1
+        },
+      "name" : "bias",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Size" : 23456
+        },
+      "name" : "seed",
+      "execPortType" : "In",
+      "typeSpec" : "Size"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "BigToSmallDartSizer"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "F984D3565C2398E4D7327507F857C03D",
+  "code" : "require Scatter;
+
+dfgEntry {
+  result = BigToSmallDartSizer(startValue, endValue, bias, seed);
+}
+"
+  }

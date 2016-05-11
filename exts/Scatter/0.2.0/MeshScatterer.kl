@@ -1,0 +1,460 @@
+require Math;
+require Geometry;
+require PsyopUtil;
+
+/// \internal
+const UInt32 G_SCATTERER_RANDOMS = 5; // Number of random numbers are needed per generated point.
+/// \internal
+const UInt32 G_SCATTERER_SEED = 1234; // The seed for the randoms.
+
+/// \internal
+function Points.addScattererAttributes!() {
+  GeometryAttributes attributes = this.getAttributes();
+  attributes.getOrCreateGeometryLocationAttribute("emitLocation");
+  attributes.getOrCreateColorAttribute("vertexColors");
+  this.getOrCreateSizesAttribute();
+}
+
+
+interface DartSizer;
+interface DartFilterer;
+
+object MeshScatterer {
+  Points points;
+
+  PolygonMesh sourceMesh;
+  private Ref<ScalarAttribute> sourceMeshBiasAttr;
+  private Scalar sourceMeshArea;
+  private Scalar sourceMeshPolyAreas[];
+  private Scalar sourceMeshPolyCumulativeAreas[];
+
+  Scalar defaultRadius;
+  Scalar maxRadius;
+
+  Points dartCandidates;
+  Boolean dartCandidatesRemove[];
+  UInt32 dartsIterations;
+  UInt32 dartsTried;
+
+  Boolean verbose;
+};
+
+/// \internal
+function MeshScatterer() {
+  this.clearAndInitPoints();
+}
+
+function MeshScatterer(PolygonMesh sourceMesh) {
+  this = MeshScatterer();
+  this.initMeshes(sourceMesh);
+}
+
+
+/// \internal
+function MeshScatterer.initMeshes!(PolygonMesh sourceMesh) {
+  this.clearAndInitPoints();
+  this.sourceMesh = sourceMesh.clone();
+  this.measurePolygonAreas();
+}
+
+/// \internal
+function MeshScatterer.clearAndInitPoints!() {
+  this.points = Points();
+  this.points.addScattererAttributes();
+  this.preparePointsForSpatialQueries(1);
+
+  this.defaultRadius = 0.0f;
+  this.maxRadius = 0.0f;
+
+  this.dartCandidates = Points();
+  this.dartCandidates.addScattererAttributes();
+  this.dartCandidatesRemove.resize(0);
+  this.dartsIterations = 0;
+  this.dartsTried = 0;
+}
+
+
+/*
+    Settings initialization
+*/
+
+/// \dfgPresetDefault radius 0.5
+function MeshScatterer.setUniformSize!(Scalar radius) {
+  this.defaultRadius = radius;
+  this.maxRadius = radius;
+
+  for ( UInt32 i=0; i<this.points.size(); i++) {
+    this.points.setSize(i, radius);
+  }
+}
+
+/// \dfgPresetDefault radius 0.5
+function MeshScatterer.setDefaultRadius!(Scalar radius) {
+  this.defaultRadius = radius;
+  this.updateMaxRadius(radius);
+}
+
+// Invert means you get 1-value instead of value. Also, values are normalized so the highest value is 1.
+function MeshScatterer.setBiasingAttribute!(String attrName, Boolean invert) {
+  Ref<ScalarAttribute> attr = this.sourceMesh.getAttributes().getAttribute(attrName, ScalarAttribute);
+  if (attr) {
+    this.sourceMeshBiasAttr = this.sourceMesh.getOrCreateScalarAttribute("meshScatterer_internal_bias_attr");
+    Scalar max_bias;
+    for (Size i = 0; i < attr.size(); i++) {
+      max_bias = Math_max(attr.values[i], max_bias);
+      this.sourceMeshBiasAttr.values[i] = abs(attr.values[i]);
+    }
+    Scalar quotient = (max_bias > 1.0) ? max_bias : 1.0f;
+    if (quotient > 1.0 || invert) {
+      for (Size i = 0; i < attr.size(); i++) {
+        Scalar val = this.sourceMeshBiasAttr.values[i];
+        val /= quotient;
+        if (invert)
+          val = 1.0 - val;
+        this.sourceMeshBiasAttr.values[i] = val;
+      }
+    }
+
+    if (max_bias == 0.0) {
+      this.sourceMeshBiasAttr = null;
+    }
+  } else {
+    this.sourceMeshBiasAttr = null;
+  }
+  this.measurePolygonAreas();
+}
+
+function MeshScatterer.setBiasingRadiusAttribute!(String attrName) {
+  Ref<ScalarAttribute> attr = this.sourceMesh.getAttributes().getAttribute(attrName, ScalarAttribute);
+  if (!attr) {
+    this.sourceMeshBiasAttr = null;
+  } else{
+    this.sourceMeshBiasAttr = this.sourceMesh.getOrCreateScalarAttribute("meshScatterer_internal_bias_attr");
+    Scalar total, maxArea, minArea = SCALAR_INFINITE;
+    for (Size i = 0; i < this.sourceMeshBiasAttr.size(); i++) {
+      Scalar radius = abs(attr.values[i]);
+      Scalar area = radius * radius;
+      maxArea = Math_max(area, maxArea);
+      if (area > 0.0)
+        minArea = Math_min(area, minArea);
+      this.sourceMeshBiasAttr.values[i] = area;
+    }
+    for (Size i = 0; i < this.sourceMeshBiasAttr.size(); i++) {
+      // alternatively: if the smallest area is 1, and the area of the point we're looking at is 4, we want 1/4 points. Average = 2, so 
+      // if the smallest area is 4, and we're looking at 4, we want 1/1
+      if (!Math_badDivisor(this.sourceMeshBiasAttr.values[i])) {
+        this.sourceMeshBiasAttr.values[i] = ((minArea) / this.sourceMeshBiasAttr.values[i]);
+        total += this.sourceMeshBiasAttr.values[i];
+      } else {
+        this.sourceMeshBiasAttr.values[i] = 1.0f;
+        total += 1.0f;
+      }
+    }
+    Scalar average = total / this.sourceMeshBiasAttr.size();
+    for (Size i = 0; i < this.sourceMeshBiasAttr.size(); i++) {
+      this.sourceMeshBiasAttr.values[i] /= (average * 0.5);
+    }
+    if (maxArea == 0.0)
+      this.sourceMeshBiasAttr = null;
+  }
+
+  this.measurePolygonAreas();
+}
+
+
+/*
+    member access
+*/
+
+inline Points MeshScatterer.getPoints() {
+  return this.points.clone();
+}
+
+
+function Points MeshScatterer.getPoints(AttrTransferOrder attrTransferOrder) {
+  Boolean hasTransferable = attrTransferOrder.hasTransferable(this.sourceMesh.getAttributes());
+  AttrConversionInfo aci();
+  if (hasTransferable) {
+    aci.resize(this.points.size());
+    Ref<GeometryLocationAttribute> emitLocation = this.points.getAttributes().getAttribute("emitLocation");
+    for (Size i = 0; i < this.points.size(); i++) {
+      LocalL16UInt32Array indices;
+      LocalL16ScalarArray weights;
+      this.sourceMesh.getLocationAttributeIndicesAndWeights(emitLocation.values[i], indices, weights);
+      aci.set(i, indices, weights);
+    }
+  }
+  Points outPoints = this.points.clone();
+  if (hasTransferable)
+    attrTransferOrder.convertAttributes(aci, this.sourceMesh.getAttributes(), outPoints.getAttributes());
+  return outPoints;
+}
+
+/*
+    Scatterer Helpers
+*/
+
+/// \internal
+inline MeshScatterer.updateMaxRadius!(Scalar radius) {
+  this.maxRadius = Math_max(this.maxRadius, radius);
+}
+
+/// \internal
+function MeshScatterer.measurePolygonAreas!() {
+  UInt32 polyCount = this.sourceMesh.polygonCount();
+  this.sourceMeshPolyAreas.resize(polyCount);
+  measurePolygonAreas<<<polyCount>>>(this.sourceMeshPolyAreas, this.sourceMesh, this.sourceMeshBiasAttr);
+  makeCumulativeArray(this.sourceMeshPolyAreas, this.sourceMeshPolyCumulativeAreas);
+  this.sourceMeshArea = this.sourceMeshPolyCumulativeAreas[polyCount - 1];
+}
+
+/// \internal
+function MeshScatterer.preparePointsForSpatialQueries!(Size approxNumberOfQueries) {
+  GenericValueContainer options = GenericValueContainer();
+  PrepareForSpatialQueries_setSparseGrid(options);
+  this.points.prepareForSpatialQueries(approxNumberOfQueries, options);
+}
+
+
+/*
+    Scatterer Proper
+*/
+
+/// \internal
+function MeshScatterer.scatterCore!(Integer quantityIn, UInt32 seed, Boolean toCandidates) {
+  UInt32 quantity = Math_max(0, quantityIn);
+
+  Points pointCloud = null;
+  if (toCandidates) {
+    pointCloud = this.dartCandidates;
+    pointCloud.resize(quantity);
+  } else {
+    pointCloud = this.points;
+    pointCloud.resize(pointCloud.size() + quantity);
+  }
+
+  PerPolyScatterInfo ppsinfo[];
+  ppsinfo.resize(this.sourceMesh.polygonCount());
+  incrementRandomWeightedPolygons<<<quantity>>>(this.sourceMeshPolyCumulativeAreas, seed, ppsinfo );
+
+  UInt32 startIndex = 0;
+  for(UInt32 i=0; i<this.sourceMesh.polygonCount(); i++) {
+    ppsinfo[i].startIndex = startIndex;
+    startIndex += ppsinfo[i].pointsOnPoly;
+  }
+
+  scatterPointsOnPolygons<<<ppsinfo.size()>>>(this.sourceMesh, this.sourceMeshBiasAttr, 
+    ppsinfo, seed, this.defaultRadius, pointCloud);
+}
+
+/// \dfgPresetDefault quantity 200
+/// \dfgPresetDefault seed 12345
+/// \dfgPresetRange quantity (0, 2000)
+function MeshScatterer.scatter!(UInt32 quantity, UInt32 seed) {
+  this.scatterCore(quantity, seed, false);
+}
+
+
+/*
+    DART THROWER
+*/
+
+/// \internal
+function MeshScatterer.dartScatterCandidates!(UInt32 quantity, UInt32 seed) {
+  this.scatterCore(quantity, seed, true);
+}
+
+/// \internal
+inline MeshScatterer.runDartSizer!(io DartSizer sizer, UInt32 iteration) {
+  DartSizer currentSizer = sizer;
+  currentSizer.setCandidateSizes(this.dartCandidates, this, iteration);
+}
+
+/// \internal
+function DartSizer MeshScatterer.getDartSizer!(DartSizer sizer, Scalar defaultRadius) {
+  DartSizer currentSizer = sizer;
+  if (currentSizer == null) {
+    currentSizer = ConstantDartSizer(defaultRadius);
+  } else {
+    currentSizer = sizer;
+  }
+  return currentSizer;
+}
+
+
+/*
+    DART THROWER - filter
+*/
+
+/// \internal
+inline MeshScatterer.resetCandidateFilter!() {
+  this.dartCandidatesRemove.resize(this.dartCandidates.size());
+  for ( UInt32 i=0; i<this.dartCandidatesRemove.size(); i++) {
+    this.dartCandidatesRemove[i] = false;
+  }
+}
+
+/// \internal
+function DartFilterer MeshScatterer.getDartFilterer(DartFilterer filterer) {
+  DartFilterer currentFilterer = filterer;
+  if (filterer == null) {
+    currentFilterer = DefaultDartFilterer();
+  }
+  return currentFilterer;
+}
+
+/// \internal
+inline MeshScatterer.runDartFilterer!(io DartFilterer filterer, UInt32 iteration) {
+  DartFilterer currentFilterer = filterer;
+  this.resetCandidateFilter();
+  currentFilterer.filterCandidates(this, iteration);
+}
+
+
+/*
+    DART THROWER - add filtered
+*/
+
+/// \internal
+function MeshScatterer.dartAddFilteredCandidates!( ) {
+  UInt32 newPointsCount = 0;
+  for ( UInt32 i=0; i<this.dartCandidates.size(); i++) {
+    if ( this.dartCandidatesRemove[i] == false) {
+      newPointsCount++;
+    }
+  }
+
+  GeometryLocationAttribute pointEmitLoc = this.points.getAttributes().getAttribute("emitLocation");
+  GeometryLocationAttribute candidateEmitLoc =  this.dartCandidates.getAttributes().getAttribute("emitLocation");
+
+  UInt32 firstNewPoint = this.points.addPoints(newPointsCount);
+  UInt32 pointsAdded = 0;
+  for ( UInt32 i=0; i<this.dartCandidates.size(); i++) {
+    if ( !this.dartCandidatesRemove[i] ) {
+      UInt32 newPointID = firstNewPoint + pointsAdded;
+      pointsAdded++;
+
+      this.points.setPosition(  newPointID, this.dartCandidates.getPosition(i));
+      Scalar radius = this.dartCandidates.getSize(i);
+      this.points.setSize(newPointID, radius);
+      this.updateMaxRadius(radius);
+
+      pointEmitLoc.values[newPointID] = candidateEmitLoc.values[i];
+    }
+  }
+}
+
+
+
+/*
+    DART THROWER - proper
+*/
+
+operator MeshScatterer_scatterAndPrepareForSpace<<<id>>>(io Ref<MeshScatterer> this, 
+  io DartSizer currentSizer, Size quantity, Size randomOffset, Size iteration) 
+{
+  // Does the prep for spatial queries and scattering the next generation in parallel,
+  // as these both take significant time (especially the prep) and do not rely on one another. 
+  if (id == 0) {
+    this.dartScatterCandidates(quantity, randomOffset);
+    this.runDartSizer(currentSizer, iteration);
+  } else if (id == 1) {
+    this.preparePointsForSpatialQueries(quantity);
+  }
+}
+
+///   -1 means automatic quantity, for estimated good coverage based on radius.
+/// \enddfgPresetTooltip
+/// \dfgPresetDefault quantityPerIteration -1
+/// \dfgPresetDefault iterations 2
+/// \dfgPresetRange iterations (0, 1000)
+/// \dfgPresetDefault seed 12345
+function MeshScatterer.throwDarts!(Integer quantityPerIteration, UInt32 iterations, 
+  UInt32 seed, DartSizer sizer, DartFilterer filterer ) 
+{
+  UInt64 ticks = getCurrentTicks();
+  this.dartsIterations = iterations;
+
+  DartSizer currentSizer = this.getDartSizer(sizer, this.defaultRadius);
+  DartFilterer currentFilterer = this.getDartFilterer(filterer);
+
+  Boolean autoQuantitiy = false;
+  UInt32 quantity = quantityPerIteration;
+  UInt32 randomOffset = seed;
+  UInt32 attemptCount;
+
+  if (quantityPerIteration < 0)
+    autoQuantitiy = true;
+
+  for (UInt32 i = 0; i < iterations; i++ ) {
+    if (autoQuantitiy)
+      quantity = this.estimateDartCount(currentSizer.estimateDartSize(this, i));
+    randomOffset += quantity*5;
+    attemptCount += quantity;
+
+    MeshScatterer_scatterAndPrepareForSpace<<<2>>>(this, currentSizer, quantity, randomOffset, i);
+    this.runDartFilterer(currentFilterer, i);
+    this.dartAddFilteredCandidates();
+  }
+  Integer elapsed = 1000 * getSecondsBetweenTicks(ticks, getCurrentTicks());
+  this.vReport("Done dart throwing. "+this.points.size()+" pts, "+attemptCount+" attempts, "
+    +iterations+" iterations, "+elapsed+" ms. "
+    +(Scalar(this.points.size()*100) / attemptCount)+"% hits.");
+}
+
+
+
+/*
+    Dart Throwing Convenience functions
+*/
+/// \internal
+function MeshScatterer.throwDarts!(Integer quantityPerIteration, UInt32 iterations, UInt32 seed) {
+  this.throwDarts(quantityPerIteration, iterations, seed, null, null);
+}
+
+/// \internal
+inline UInt32 MeshScatterer.estimateDartCount!(Scalar dartSize) {
+  Scalar fill_num = this.sourceMeshArea / (dartSize*dartSize);
+  return fill_num / 100;
+}
+
+
+/*
+    Nuzzler
+*/
+
+/// \dfgPresetDefault iterations 1
+/// \dfgPresetDefault allowShrink true
+/// \dfgPresetDefault maxRadiusFactor 2.0
+/// \dfgPresetRange maxRadiusFactor (1.0, 10.0)
+function MeshScatterer.nuzzle!(UInt32 iterations, Boolean allowShrink, Scalar maxRadiusFactor) {
+  UInt32 pointCount = this.points.size();
+  this.preparePointsForSpatialQueries(pointCount);
+  Scalar nuzzle[];
+  Scalar origSize[];
+  nuzzle.resize(pointCount);
+  origSize.resize(pointCount);
+  for (UInt32 p = 0; p < pointCount; p++) {
+    origSize[p] = this.points.getSize(p);
+  }
+
+  Scalar maxNuzzling = this.maxRadius*maxRadiusFactor;
+  for (UInt32 i = 0; i < iterations; i++) {
+    nuzzleNeighbors<<<pointCount>>>(nuzzle, this.points, maxNuzzling);
+
+    for (UInt32 p = 0; p < pointCount; p++) {
+      Scalar nuzzleAmount = nuzzle[p];
+      if (nuzzleAmount) {
+        Scalar pointSize = this.points.getSize(p);
+        Scalar newSize = pointSize + nuzzle[p]/2.0f;
+        newSize = Math_min( newSize, origSize[p] * maxRadiusFactor);
+        newSize = Math_min( newSize, maxNuzzling);
+        this.points.setSize(p, newSize);
+        this.updateMaxRadius(newSize);
+      }
+    }
+  }
+}
+
+
+

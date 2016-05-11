@@ -1,0 +1,357 @@
+
+
+require Geometry;
+require Util;
+
+
+/// \dfgPresetOmit
+const Size AttrTransferRule_None = 0;
+/// \dfgPresetOmit
+const Size AttrTransferRule_All = 1;
+/// \dfgPresetOmit
+const Size AttrTransferRule_Named = 2;
+/// \dfgPresetOmit
+const Size AttrTransferRule_OmitNamed = 3;
+/// \dfgPresetOmit
+const Size AttrTransferRule_Types = 4;
+/// \dfgPresetOmit
+const Size AttrTransferRule_OmitTypes = 5;
+
+
+
+/// \dfgPresetOmit
+struct AttrTransferOrder {
+  AttrTransferOrderCore ato;
+  AttrTransferOrderCore others[];
+};
+
+/// \dfgPresetOmit
+function AttrTransferOrder() {
+  this.ato = AttrTransferOrderCore(false, false);
+}
+
+
+// CANVAS USERS
+
+/// Sets the transfer order to all available attributes. By default, positions and normals are not transfered.
+/// Name Formatter is how to rename the attribute when they're transfered. If set to "{name}", 
+/// transfered attributes will have the same name as their source. This can also be used to rename
+/// Attributes in transfer, E.G. "{name}_xfered" as the nameFormatter will rename the attribute 
+/// "normals" to "normals_xfered". 
+/// \dfgPresetDefault nameFormatter "{name}"
+function AttrTransferOrder.setTransferAll!(Boolean includePositions, Boolean includeNormals, String nameFormatter) 
+{
+  this.ato = AttrTransferOrderCore(includePositions, includeNormals);
+  this.ato.transferRule = AttrTransferRule_All;
+  this.ato.nameFormatter = nameFormatter;
+}
+
+/// Sets the transfer order to a single attribute. The name of the destination attribute will be the same. 
+function AttrTransferOrder.setTransferOne!(String name) {
+  this.ato = AttrTransferOrderCore(true, true);
+  this.ato.transferRule = AttrTransferRule_Named;
+  this.ato.nameFormatter = name;
+
+  this.ato.names.resize(0);
+  this.ato.names = name.replace(" ", "").split(",");
+}
+
+/// Sets the transfer order to a single attribute. 
+/// Name Formatter is how to rename the attribute when they're transfered. If set to "{name}", 
+/// transfered attributes will have the same name as their source. This can also be used to rename
+/// Attributes in transfer, E.G. "{name}_xfered" as the nameFormatter will rename the attribute 
+/// "normals" to "normals_xfered". 
+/// \dfgPresetDefault nameFormatter "{name}". 
+function AttrTransferOrder.setTransferOne!(String name, String nameFormatter) {
+  this.ato = AttrTransferOrderCore(true, true);
+  this.ato.transferRule = AttrTransferRule_Named;
+  this.ato.nameFormatter = nameFormatter;
+
+  this.ato.names.resize(0);
+  this.ato.names = name.replace(" ", "").split(",");
+}
+
+/// Sets the transfer order to a list of comma separated names. 
+/// Name Formatter is how to rename the attribute when they're transfered. If set to "{name}", 
+/// transfered attributes will have the same name as their source. This can also be used to rename
+/// Attributes in transfer, E.G. "{name}_xfered" as the nameFormatter will rename the attribute 
+/// "normals" to "normals_xfered". 
+/// \dfgPresetDefault nameFormatter "{name}"
+function AttrTransferOrder.setTransferByName!(String names, String nameFormatter) {
+  this.ato = AttrTransferOrderCore(true, true);
+  this.ato.transferRule = AttrTransferRule_Named;
+  this.ato.nameFormatter = nameFormatter;
+
+  this.ato.names.resize(0);
+  this.ato.names = names.replace(" ", "").split(",");
+}
+
+/// Sets the transfer order to an array of strings. Both can be used together.
+/// Name Formatter is how to rename the attribute when they're transfered. If set to "{name}", 
+/// transfered attributes will have the same name as their source. This can also be used to rename
+/// Attributes in transfer, E.G. "{name}_xfered" as the nameFormatter will rename the attribute 
+/// "normals" to "normals_xfered". 
+/// \dfgPresetDefault nameFormatter "{name}"
+function AttrTransferOrder.setTransferByNameArray!(String namesArray[], String nameFormatter) {
+  this.ato = AttrTransferOrderCore(true, true);
+  this.ato.transferRule = AttrTransferRule_Named;
+  this.ato.nameFormatter = nameFormatter;
+
+  this.ato.names.resize(0);
+  for (Size i = 0; i < namesArray.size(); i++)
+    this.ato.names.push(namesArray[i]);
+}
+
+/// Combines two attribute transfer orders. They'll go in order, this one first,
+/// other one second. Any number can be combined by daisy chaining or branching. 
+function AttrTransferOrder.merge!(AttrTransferOrder other) {
+  this.others.push( other.ato);
+  Size othersSize = other.others.size(); // cache others.size() to avoid a crash when merging with self.
+  for (Size i = 0; i < othersSize; i++)
+    this.others.push(other.others[i]);
+}
+
+// API USERS - SIMPLE
+/// \dfgPresetOmit
+inline Boolean AttrTransferOrder.hasTransferable(GeometryAttributes source) {
+  if (this.ato.hasTransferable(source))
+    return true;
+  for (Size i = 0; i < this.others.size(); i++)
+    if (this.others[i].hasTransferable(source))
+      return true;
+  return false;
+}
+
+/// \dfgPresetOmit
+inline AttrTransferOrder.convertAttributes(AttrConversionInfo aConvertInfo, Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target) {
+  AttrCopyInfo dummy[];
+  this.transferFromConvertOrCopy(aConvertInfo, dummy, source, target);
+} 
+
+/// \dfgPresetOmit
+inline AttrTransferOrder.copyAttributes(AttrCopyInfo attrCopyInfo[], Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target) {
+  AttrConversionInfo dummy;
+  this.transferFromConvertOrCopy(dummy, attrCopyInfo, source, target);
+} 
+
+
+// API USERS - ADVANCED
+// These commands allow you to combine multiple transfer orders into one transfer - with derivs, for instance
+/// \dfgPresetOmit
+inline AttrTransferOrder.setupConversions(AttrConversionInfo attrConversionInfo, Ref<GeometryAttributes> source, 
+  io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers) 
+{
+  AttrCopyInfo dummy[];
+  this.setupTransfersFromConvertOrCopy(attrConversionInfo, dummy, false, source, target, attrTransfers);
+}
+
+/// \dfgPresetOmit
+inline AttrTransferOrder.setupCopies(AttrCopyInfo attrCopyInfo[], Ref<GeometryAttributes> source, 
+  io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers) 
+{
+  AttrConversionInfo dummy;
+  this.setupTransfersFromConvertOrCopy(dummy, attrCopyInfo, false, source, target, attrTransfers);
+}
+
+/// \dfgPresetOmit
+inline AttrTransferOrder.setupExactCopies(Ref<GeometryAttributes> source, 
+  io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers) 
+{
+  AttrConversionInfo dummy;
+  AttrCopyInfo dummy2[];
+  this.setupTransfersFromConvertOrCopy(dummy, dummy2, true, source, target, attrTransfers);
+}
+
+/// \dfgPresetOmit
+inline AttrTransferOrder.setupGenericTransfer(Ref<GeometryAttributes> source, 
+  io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers) 
+{
+  AttrConversionInfo dummy;
+  AttrCopyInfo dummy2[];
+  this.setupTransfersFromConvertOrCopy(dummy, dummy2, false, source, target, attrTransfers);
+}
+
+/// \dfgPresetOmit
+inline AttrTransferOrder.setReportWarnings!(Boolean warn) {
+  this.ato.setReportWarnings(warn);
+}
+
+
+
+
+
+
+
+/// \internal
+function AttrTransferOrder.setupTransfersFromConvertOrCopy(AttrConversionInfo aConvertInfo, AttrCopyInfo attrCopyInfo[], 
+  Boolean exactCopy, Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers) 
+{
+  this.ato.setupTransfersFromConvertOrCopy(aConvertInfo, attrCopyInfo, exactCopy, source, target, attrTransfers);
+  for (Size i = 0; i < this.others.size(); i++)
+    this.others[i].setupTransfersFromConvertOrCopy(aConvertInfo, attrCopyInfo, exactCopy, source, target, attrTransfers);
+}
+
+/// \internal
+function AttrTransferOrder.transferFromConvertOrCopy(AttrConversionInfo aConvertInfo, AttrCopyInfo attrCopyInfo[], 
+  Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target) 
+{
+  AttrTransferSet attrTransferSet();
+  this.setupTransfersFromConvertOrCopy(aConvertInfo, attrCopyInfo, false, source, target, attrTransferSet);
+  attrTransferSet.executeTransfer();
+}
+
+
+
+
+
+
+/// \dfgPresetOmit
+struct AttrCopyInfo {
+  Size index;
+};
+
+/// \dfgPresetOmit
+inline AttrCopyInfo.set!(Size index) {
+  this.index = index;
+}
+
+/// \dfgPresetOmit
+struct AttrConversionInfo {
+  LocalL16UInt32Array indices[];
+  LocalL16ScalarArray weights[];
+};
+
+/// \dfgPresetOmit
+inline Boolean(AttrConversionInfo aci) {
+  if (aci.indices.size() == 0 && aci.weights.size() == 0)
+    this = false;
+  else
+    this = true;
+}
+
+/// \dfgPresetOmit
+inline AttrConversionInfo.resize!(Size newSize) {
+  this.indices.resize(newSize);
+  this.weights.resize(newSize);
+}
+
+/// \dfgPresetOmit
+inline Size AttrConversionInfo.size() {
+  return this.indices.size();
+}
+
+/// \dfgPresetOmit
+inline AttrConversionInfo.set!(Size i, LocalL16UInt32Array indices, LocalL16ScalarArray weights) {
+  this.indices[i] = indices;
+  this.weights[i] = weights;
+}
+
+/// \dfgPresetOmit
+inline LocalL16UInt32Array AttrConversionInfo.getIndices(Size i) {
+  return this.indices[i];
+}
+
+/// \dfgPresetOmit
+inline LocalL16ScalarArray AttrConversionInfo.getWeights(Size i) {
+  return this.weights[i];
+}
+
+
+/// \dfgPresetOmit
+struct AttrTransfer{
+  Ref<GeometryAttribute> sourceAttr;
+  Ref<GeometryAttribute> targetAttr;
+  AttrConversionInfo conversionInfo;
+  AttrCopyInfo copyInfo[];
+  Boolean exactCopy;
+  Boolean skip;
+  Size offset;
+};
+
+/// \dfgPresetOmit
+object AttrTransferSet{
+  private AttrTransfer ats[String];
+};
+
+/// \dfgPresetOmit
+inline AttrTransferSet.add!(AttrTransfer at) {
+  String targetName = at.targetAttr.getName();
+  if (this.hasActive(targetName)) {    
+    report("[AttrTransfer] - Target attrbibute named "+targetName+"already in transfer list, skipping.");
+    return;
+  } else {
+    this.ats[targetName] = at;
+  }
+}
+
+/// \dfgPresetOmit
+function AttrTransferSet.setIndexOffset!(Size offset) {
+  for (key in this.ats)
+    this.ats[key].offset = offset;
+}
+
+/// \dfgPresetOmit
+inline Boolean AttrTransferSet.has!(String targetName) {
+  return this.ats.has(targetName);
+}
+
+/// \dfgPresetOmit
+inline Boolean AttrTransferSet.hasActive!(String targetName) {
+  return this.ats.has(targetName) && !this.ats[targetName].skip;
+}
+
+/// \dfgPresetOmit
+inline AttrTransferSet.disableByTarget!(String targetName) {
+  if (this.ats.has(targetName)) {
+    this.ats[targetName].skip = true;
+  }
+}
+
+/// \dfgPresetOmit
+inline AttrTransferSet.getSourcesAndTargets(io Ref<GeometryAttribute> sources[], io Ref<GeometryAttribute> targets[]) {
+  sources.resize(0);
+  targets.resize(0);
+  AttrTransfer attrTransfers[];
+  for (key, value in this.ats) {
+    if (value.skip)
+      continue;
+    sources.push(value.sourceAttr);
+    targets.push(value.targetAttr);
+  }
+}
+
+/// \dfgPresetOmit
+function AttrTransferSet.executeTransfer!() {
+  AttrTransfer attrTransfers[];
+  for (key, value in this.ats)
+    attrTransfers.push(value);
+  attrConversion_transferAttributes_ti<<<attrTransfers.size()>>>(attrTransfers);
+}
+
+/// \dfgPresetOmit
+function AttrTransferSet.executeTransferWithOthers!(AttrTransferSet others[]) {
+  AttrTransfer attrTransfers[];
+  for (key, value in this.ats)
+    attrTransfers.push(value);
+  for (Size i = 0; i < others.size(); i++) {
+    if (others[i])
+      for (key, value in others[i].ats)
+        attrTransfers.push(value);
+  }
+
+  attrConversion_transferAttributes_ti<<<attrTransfers.size()>>>(attrTransfers);
+}
+
+/// \internal
+function AttrTransferSet.logTransferInfo() {
+  // to do: enable somehow
+  for (key, attrTransfer in this.ats) {
+    report('[AttrTransfer] [v] Transfered "' + attrTransfer.targetAttr.getName() + '" (' + attrTransfer.targetAttr.type()  + '). '
+       + 'Source name "' + attrTransfer.sourceAttr.getName() + '". '
+    );
+  }
+}
+
+
+
+

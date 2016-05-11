@@ -1,0 +1,507 @@
+[FABRIC:MT] Fabric Engine version 2.0.1-auto-2016021610
+[FABRIC:MT] GPU code will be compiled in guarded mode
+[FABRIC:MT] Loading DFG presets from c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Presets\DFG
+[FABRIC:MT] Loading DFG presets from C:\Users\jfriedman\Fabric\Presets
+[FABRIC:MT] Ignored extension directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Fabruffle\0.0.1': unable to open directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Fabruffle\0.0.1': The system cannot find the path specified. (code 3 [0x3])
+[FABRIC:MT] Ignored extension directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\StrandLines\0.2.0': unable to open directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\StrandLines\0.2.0': The system cannot find the path specified. (code 3 [0x3])
+[FABRIC:MT] Registered extension {Scatter:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Scatter\0.2.0
+[FABRIC:MT] Registered extension {Psyline:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Psyline\0.2.0
+[FABRIC:MT] Registered extension {Entwiner:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Entwiner\0.2.0
+[FABRIC:MT] Registered extensions {RiggingToolbox,RiggingToolbox:0.0.1,RiggingToolbox:2.0.0,emPolygonizer5,emReader,emTools,AlembicAsset:0.1.0,AlembicAsset:0.2.0,Entwiner:0.0.1,FabricArnold:0.0.7,FabricArnold:0.0.8,FabricArnold:0.0.1,FabricArnold:0.0.2,FabricArnold:0.0.3,FabricArnold:0.0.4,FabricArnold:0.0.5,FabricArnold:0.0.6,HairLines:0.1.0,HairLinesToArnold:0.1.0,HairLines:0.2.0,HairLinesToArnold:0.2.0,JiggleMush:0.1.0,JiggleMush:0.2.0,KLProcedural:0.1.0,KLProcedural:0.2.0,Psyline:0.0.1,PsyopUtil:0.2.0,FabricInterfaces,PsyopUtilInternal:0.2.0,SpliceInterfaces,PsyUtil:0.1.0,PsyUtil:0.2.0,Ruffleure,Scatter:0.1.0,PsyopPresetExt:0.1.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons
+[FABRIC:MT] Ignored extensions {Entwiner:0.2.0,FabricArnold:0.0.7,Psyline:0.2.0,FabricInterfaces,SpliceInterfaces,Scatter:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons
+[FABRIC:MT] Registered extensions {Alembic:1.0.0,AlembicWrapper:1.2.0,Animation:1.1.0,Bullet:1.0.1,BulletHelpers:1.0.0,Characters:1.1.0,Containers:1.1.0,DFGHelpers,DFGWrapper,FabricInterfaces:1.0.1,FabricSynchronization:1.1.0,Fbx:1.1.0,FbxHelpers:1.0.2,FileIO:1.2.0,Geometry:1.2.0,Images:1.0.2,InlineDrawing:1.2.0,JSON:1.0.0,Manipulation:1.1.0,Math:1.2.0,FabricOBJ:1.1.0,FabricOGL:1.0.0,OpenImageIO:1.0.2,OSOGL:1.1.0,Parameters:1.0.0,Singletons:1.1.0,FabricStatistics:1.1.0,Util:1.1.0} in directory: c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Exts
+[FABRIC:MT] Ignored extension directory 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Tests\Exts': unable to open directory 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Tests\Exts': The system cannot find the path specified. (code 3 [0x3])
+[FABRIC:MT] IRCache: Not pruning since last prune was less than 24 hours ago
+[FABRIC:MT] Requesting 'Compute' license.
+[FABRIC:MT] Licensed for Compute use to 'Psyop NY VM' until 14-apr-2016 (1/500 in use).
+[FABRIC:MT] Registered core interfaces for extension Math:1.2.0 in 47.148ms
+[FABRIC:MT] Codegenned extension Math:1.2.0 in 28.016ms
+[FABRIC:MT] Loaded extension Math in 214.210ms (cached)
+[FABRIC:MT] Registered core interfaces for extension FabricSynchronization:1.1.0 in 41.293ms
+[FABRIC:MT] Codegenned extension FabricSynchronization:1.1.0 in 1.801ms
+[FABRIC:MT] Loaded extension FabricSynchronization in 52.400ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Exts\Builtin\Statistics\FabricStatistics-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension FabricStatistics:1.1.0 in 43.448ms
+[FABRIC:MT] Codegenned extension FabricStatistics:1.1.0 in 4.101ms
+[FABRIC:MT] Loaded extension FabricStatistics in 67.407ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Exts\Builtin\Singletons\Singletons-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension Singletons:1.1.0 in 8.131ms
+[FABRIC:MT] Codegenned extension Singletons:1.1.0 in 0.543ms
+[FABRIC:MT] Loaded extension Singletons in 14.211ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Exts\Builtin\Util\Util-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension Util:1.1.0 in 30.033ms
+[FABRIC:MT] Codegenned extension Util:1.1.0 in 4.227ms
+[FABRIC:MT] Loaded extension Util in 55.545ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Containers:1.1.0 in 1206.165ms
+[FABRIC:MT] Codegenned extension Containers:1.1.0 in 36.706ms
+[FABRIC:MT] Loaded extension Containers in 1562.901ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Geometry:1.2.0 in 789.930ms
+[FABRIC:MT] Codegenned extension Geometry:1.2.0 in 74.979ms
+[FABRIC:MT] Loaded extension Geometry in 1729.989ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Parameters:1.0.0 in 179.124ms
+[FABRIC:MT] Codegenned extension Parameters:1.0.0 in 10.347ms
+[FABRIC:MT] Loaded extension Parameters in 256.255ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Exts\Builtin\OpenGL\FabricOGL-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension FabricOGL:1.0.0 in 0.008ms
+[FABRIC:MT] Codegenned extension FabricOGL:1.0.0 in 5.627ms
+[FABRIC:MT] Loaded extension FabricOGL in 82.740ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Exts\Builtin\OpenImageIO\OpenImageIO-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension OpenImageIO:1.0.2 in 30.669ms
+[FABRIC:MT] Codegenned extension OpenImageIO:1.0.2 in 1.413ms
+[FABRIC:MT] Loaded extension OpenImageIO in 50.748ms (cached)
+[FABRIC:MT] Registered core interfaces for extension FabricInterfaces:1.0.1 in 20.976ms
+[FABRIC:MT] Codegenned extension FabricInterfaces:1.0.1 in 0.698ms
+[FABRIC:MT] Loaded extension FabricInterfaces in 31.265ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160216.102505\Exts\Builtin\FileIO\FileIO-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension FileIO:1.2.0 in 76.772ms
+[FABRIC:MT] Codegenned extension FileIO:1.2.0 in 4.968ms
+[FABRIC:MT] Loaded extension FileIO in 110.237ms (cached)
+[FABRIC:MT] Registered core interfaces for extension InlineDrawing:1.2.0 in 1299.216ms
+[FABRIC:MT] Codegenned extension InlineDrawing:1.2.0 in 66.323ms
+[FABRIC:MT] Loaded extension InlineDrawing in 2062.435ms (cached)
+[FABRIC:MT] Registered core interfaces for extension JSON:1.0.0 in 33.779ms
+[FABRIC:MT] Codegenned extension JSON:1.0.0 in 3.875ms
+[FABRIC:MT] Loaded extension JSON in 56.238ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Manipulation:1.1.0 in 398.661ms
+[FABRIC:MT] Codegenned extension Manipulation:1.1.0 in 32.280ms
+[FABRIC:MT] Loaded extension Manipulation in 625.876ms (cached)
+[FABRIC:MT] Registered core interfaces for extension PsyopUtil:0.2.0 in 121.760ms
+[FABRIC:MT] Codegenned extension PsyopUtil:0.2.0 in 14.756ms
+[FABRIC:MT] Loaded extension PsyopUtil in 212.549ms (cached)
+registerFunction: thisType='(null)' func='function Ref<GeometryAttribute>[String] GeometryAttributes.getNameAttrDict?()'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function Boolean( in AttrConversionInfo aci )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='(null)' func='function Scalar reverseLinearInterpolate( in Scalar min, in Scalar max, in Scalar value )'
+  Added to bin[normal][Scalar reverseLinearInterpolate]
+registerFunction: thisType='(null)' func='function String paddedInt( in Integer n, in Size places, in String padchar )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam?( in String name )'
+  Added to bin[normal][AttrTransferOrderParam]
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam?( in String name, in AttrTransferOrder value )'
+  Added to bin[normal][AttrTransferOrderParam]
+registerFunction: thisType='AttrTransferOrderParam' func='function String AttrTransferOrderParam.getName?()'
+  Added to bin[normal][String AttrTransferOrderParam.getName]
+registerFunction: thisType='AttrTransferOrderParam' func='function Param AttrTransferOrderParam.getOption?( in String name )'
+  Added to bin[normal][Param AttrTransferOrderParam.getOption]
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrder AttrTransferOrderParam.getValue?()'
+  Added to bin[normal][AttrTransferOrder AttrTransferOrderParam.getValue]
+registerFunction: thisType='AttrTransferOrderParam' func='function String AttrTransferOrderParam.getValueType?()'
+  Added to bin[normal][String AttrTransferOrderParam.getValueType]
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam.setOption!( in Param option )'
+  Added to bin[normal][AttrTransferOrderParam.setOption]
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam.setValue!( in AttrTransferOrder value )'
+  Added to bin[normal][AttrTransferOrderParam.setValue]
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.cloneMembersTo?( io BooleanAttribute that )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.convertToCPU!()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.convertToGPU!()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.copyFrom!( in Ref<Object> otherAttr )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.copyValue!( in Ref<Object> sourceAttr, in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.copyValue!( in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Data BooleanAttribute.data?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Boolean BooleanAttribute.equalValues?( in Size index1, in Size index2 )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function UInt32 BooleanAttribute.getElementsMemType?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Boolean BooleanAttribute.getLinearCombination?( in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Size BooleanAttribute.getScalarValueSize?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function StatisticRecord[] BooleanAttribute.getStatistics?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.linearCombine!( in Ref<Object> sourceAttr, in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.resize!( in Size count )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.setFromScalar!( in Size index, in LocalL16ScalarArray value )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function String BooleanAttribute.unitTestPrint?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function String BooleanAttribute.valueDesc?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.copyFrom!( in Ref<Object> otherAttr )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.copyValue!( in Ref<Object> sourceAttr, in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.copyValue!( in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Data GeometryLocationAttribute.data?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Boolean GeometryLocationAttribute.equalValues?( in Size index1, in Size index2 )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocation GeometryLocationAttribute.getLinearCombination?( in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Size GeometryLocationAttribute.getScalarValueSize?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function StatisticRecord[] GeometryLocationAttribute.getStatistics?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.linearCombine!( in Ref<Object> sourceAttr, in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.resize!( in Size count )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.setFromScalar!( in Size index, in LocalL16ScalarArray value )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Size GeometryLocationAttribute.size?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function String GeometryLocationAttribute.unitTestPrint?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function String GeometryLocationAttribute.valueDesc?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='ScalarParam' func='function ScalarParam?( in String name )'
+  Added to bin[normal][ScalarParam]
+registerFunction: thisType='ScalarParam' func='function ScalarParam?( in String name, in Scalar value )'
+  Added to bin[normal][ScalarParam]
+registerFunction: thisType='ScalarParam' func='function String ScalarParam.getName?()'
+  Added to bin[normal][String ScalarParam.getName]
+registerFunction: thisType='ScalarParam' func='function Param ScalarParam.getOption?( in String name )'
+  Added to bin[normal][Param ScalarParam.getOption]
+registerFunction: thisType='ScalarParam' func='function Scalar ScalarParam.getValue?()'
+  Added to bin[normal][Scalar ScalarParam.getValue]
+registerFunction: thisType='ScalarParam' func='function String ScalarParam.getValueType?()'
+  Added to bin[normal][String ScalarParam.getValueType]
+registerFunction: thisType='ScalarParam' func='function ScalarParam.setOption!( in Param option )'
+  Added to bin[normal][ScalarParam.setOption]
+registerFunction: thisType='ScalarParam' func='function ScalarParam.setValue!( in Scalar value )'
+  Added to bin[normal][ScalarParam.setValue]
+registerFunction: thisType='UInt32Param' func='function UInt32Param?( in String name )'
+  Added to bin[normal][UInt32Param]
+registerFunction: thisType='UInt32Param' func='function UInt32Param?( in String name, in UInt32 value )'
+  Added to bin[normal][UInt32Param]
+registerFunction: thisType='UInt32Param' func='function String UInt32Param.getName?()'
+  Added to bin[normal][String UInt32Param.getName]
+registerFunction: thisType='UInt32Param' func='function Param UInt32Param.getOption?( in String name )'
+  Added to bin[normal][Param UInt32Param.getOption]
+registerFunction: thisType='UInt32Param' func='function UInt32 UInt32Param.getValue?()'
+  Added to bin[normal][UInt32 UInt32Param.getValue]
+registerFunction: thisType='UInt32Param' func='function String UInt32Param.getValueType?()'
+  Added to bin[normal][String UInt32Param.getValueType]
+registerFunction: thisType='UInt32Param' func='function UInt32Param.setOption!( in Param option )'
+  Added to bin[normal][UInt32Param.setOption]
+registerFunction: thisType='UInt32Param' func='function UInt32Param.setValue!( in UInt32 value )'
+  Added to bin[normal][UInt32Param.setValue]
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer?( in String category )'
+  Added to bin[normal][SimpleTimer]
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.endTrials!( in String message )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportMS!( in String message )'
+  Added to bin[normal][SimpleTimer.reportMS]
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportMSfSlowerThan!( in String message, in Scalar threshold )'
+  Added to bin[normal][SimpleTimer.reportMSfSlowerThan]
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportUS!( in String message )'
+  Added to bin[normal][SimpleTimer.reportUS]
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportUSfSlowerThan!( in String message, in Scalar threshold )'
+  Added to bin[normal][SimpleTimer.reportUSfSlowerThan]
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.trial!( in Boolean printDots, in String message )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap?()'
+  Added to bin[normal][StandAloneWeightmap]
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap.setWeightmapSettings!( in Boolean paintAndDisplay, in Boolean display, in Scalar brushStrength, in Color color )'
+  Added to bin[normal][StandAloneWeightmap.setWeightmapSettings]
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap.weightmapInit!( io PolygonMesh sourceMesh, in Xfo sourceMeshXfo, in String attributeName )'
+  Added to bin[normal][StandAloneWeightmap.weightmapInit]
+registerFunction: thisType='AttrTransferOrderCore' func='function AttrTransferOrderCore?( in Boolean includePositions, in Boolean includeNormals )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrderCore' func='function AttrTransferOrderCore.setReportWarnings!( in Boolean warn )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrderCore' func='function Boolean AttrTransferOrderCore.hasTransferable?( in GeometryAttributes source )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrderCore' func='function Boolean AttrTransferOrderCore.filterAttribute?( in Ref<GeometryAttribute> attr )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrderCore' func='function AttrTransferOrderCore.warnAboutMissing?( in Ref<GeometryAttribute> sourceAttrs[String] )'
+  Added to bin[normal][AttrTransferOrderCore.warnAboutMissing]
+registerFunction: thisType='AttrTransferOrderCore' func='function Ref<GeometryAttribute>[String] AttrTransferOrderCore.getAttributesToTransfer?( in GeometryAttributes source, in Boolean onlyFirst )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrderCore' func='function AttrTransferOrderCore.setupTransfersFromConvertOrCopy?( in AttrConversionInfo attrConversionInfo, in AttrCopyInfo attrCopyInfo[], in Boolean exactCopy, in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setTransferAll!( in Boolean includePositions, in Boolean includeNormals, in String nameFormatter )'
+  Added to bin[normal][AttrTransferOrder.setTransferAll]
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setTransferOne!( in String name )'
+  Added to bin[normal][AttrTransferOrder.setTransferOne]
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setTransferOne!( in String name, in String nameFormatter )'
+  Added to bin[normal][AttrTransferOrder.setTransferOne]
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setTransferByName!( in String names, in String nameFormatter )'
+  Added to bin[normal][AttrTransferOrder.setTransferByName]
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setTransferByNameArray!( in String namesArray[], in String nameFormatter )'
+  Added to bin[normal][AttrTransferOrder.setTransferByNameArray]
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.merge!( in AttrTransferOrder other )'
+  Added to bin[normal][AttrTransferOrder.merge]
+registerFunction: thisType='AttrTransferOrder' func='function Boolean AttrTransferOrder.hasTransferable?( in GeometryAttributes source )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.convertAttributes?( in AttrConversionInfo aConvertInfo, in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.copyAttributes?( in AttrCopyInfo attrCopyInfo[], in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setupConversions?( in AttrConversionInfo attrConversionInfo, in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setupCopies?( in AttrCopyInfo attrCopyInfo[], in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setupExactCopies?( in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setupGenericTransfer?( in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setReportWarnings!( in Boolean warn )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.setupTransfersFromConvertOrCopy?( in AttrConversionInfo aConvertInfo, in AttrCopyInfo attrCopyInfo[], in Boolean exactCopy, in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target, io AttrTransferSet attrTransfers )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrder' func='function AttrTransferOrder.transferFromConvertOrCopy?( in AttrConversionInfo aConvertInfo, in AttrCopyInfo attrCopyInfo[], in Ref<GeometryAttributes> source, io Ref<GeometryAttributes> target )'
+  Skipped: isInternal()
+registerFunction: thisType='AttrCopyInfo' func='function AttrCopyInfo.set!( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrConversionInfo' func='function AttrConversionInfo.resize!( in Size newSize )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrConversionInfo' func='function Size AttrConversionInfo.size?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrConversionInfo' func='function AttrConversionInfo.set!( in Size i, in LocalL16UInt32Array indices, in LocalL16ScalarArray weights )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrConversionInfo' func='function LocalL16UInt32Array AttrConversionInfo.getIndices?( in Size i )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrConversionInfo' func='function LocalL16ScalarArray AttrConversionInfo.getWeights?( in Size i )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function AttrTransferSet.add!( in AttrTransfer at )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function Boolean AttrTransferSet.has!( in String targetName )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function Boolean AttrTransferSet.hasActive!( in String targetName )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function AttrTransferSet.disableByTarget!( in String targetName )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function AttrTransferSet.getSourcesAndTargets?( io Ref<GeometryAttribute> sources[], io Ref<GeometryAttribute> targets[] )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function AttrTransferSet.executeTransfer!()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function AttrTransferSet.executeTransferWithOthers!( in AttrTransferSet others[] )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='AttrTransferSet' func='function AttrTransferSet.logTransferInfo?()'
+  Skipped: isInternal()
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam?( in String name )'
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam?( in String name, in AttrTransferOrder value )'
+registerFunction: thisType='AttrTransferOrderParam' func='function String AttrTransferOrderParam.getName?()'
+registerFunction: thisType='AttrTransferOrderParam' func='function String AttrTransferOrderParam.getValueType?()'
+registerFunction: thisType='AttrTransferOrderParam' func='function Param AttrTransferOrderParam.getOption?( in String name )'
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam.setOption!( in Param option )'
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrder AttrTransferOrderParam.getValue?()'
+registerFunction: thisType='AttrTransferOrderParam' func='function AttrTransferOrderParam.setValue!( in AttrTransferOrder value )'
+registerFunction: thisType='Batcher' func='function Batcher?( in Size workSize, in Size numBatches )'
+  Skipped: isInternal()
+registerFunction: thisType='Batcher' func='function Size Batcher.getBatchStart?( in Size batchID )'
+  Skipped: isInternal()
+registerFunction: thisType='Batcher' func='function Size Batcher.getBatchEnd?( in Size batchID )'
+  Skipped: isInternal()
+registerFunction: thisType='Batcher' func='function Boolean Batcher.batchHasWork?( in Size batchID )'
+  Skipped: isInternal()
+registerFunction: thisType='BooleanAttribute' func='function StatisticRecord[] BooleanAttribute.getStatistics?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.cloneMembersTo?( io BooleanAttribute that )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.resize!( in Size count )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Data BooleanAttribute.data?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function UInt32 BooleanAttribute.getElementsMemType?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.convertToGPU!()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.convertToCPU!()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.copyValue!( in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.copyValue!( in Ref<Object> sourceAttr, in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.copyFrom!( in Ref<Object> otherAttr )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Boolean BooleanAttribute.getLinearCombination?( in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.linearCombine!( in Ref<Object> sourceAttr, in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function BooleanAttribute.setFromScalar!( in Size index, in LocalL16ScalarArray value )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Size BooleanAttribute.getScalarValueSize?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function Boolean BooleanAttribute.equalValues?( in Size index1, in Size index2 )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function String BooleanAttribute.valueDesc?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='BooleanAttribute' func='function String BooleanAttribute.unitTestPrint?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryAttributes' func='function Ref<BooleanAttribute> GeometryAttributes.getOrCreateBooleanAttribute!( in String name )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Size GeometryLocationAttribute.size?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.resize!( in Size count )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Data GeometryLocationAttribute.data?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Boolean GeometryLocationAttribute.equalValues?( in Size index1, in Size index2 )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.copyValue!( in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.copyValue!( in Ref<Object> sourceAttr, in Size sourceIndex, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.copyFrom!( in Ref<Object> otherAttr )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocation GeometryLocationAttribute.getLinearCombination?( in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.linearCombine!( in Ref<Object> sourceAttr, in LocalL16UInt32Array sourceIndices, in LocalL16ScalarArray sourceWeights, in Size targetIndex )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function Size GeometryLocationAttribute.getScalarValueSize?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function GeometryLocationAttribute.setFromScalar!( in Size index, in LocalL16ScalarArray value )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function String GeometryLocationAttribute.valueDesc?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function String GeometryLocationAttribute.unitTestPrint?( in Size index )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryLocationAttribute' func='function StatisticRecord[] GeometryLocationAttribute.getStatistics?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='GeometryAttributes' func='function Ref<GeometryLocationAttribute> GeometryAttributes.getOrCreateGeometryLocationAttribute!( in String name )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='Vec2' func='function Vec2.rotate!( in Scalar rotation )'
+  Added to bin[normal][Vec2.rotate]
+registerFunction: thisType='Vec3' func='function Color Vec3.toColor?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='Color' func='function Vec3 Color.toVec3?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='Vec3' func='function Vec3 Vec3.projectOnto?( in Vec3 other )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='Vec3' func='function Vec3 Vec3.arbitraryOrthogonal?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='Vec3' func='function Boolean Vec3.distanceLessThan?( in Vec3 other, in Scalar dist )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='ScalarParam' func='function ScalarParam?( in String name )'
+registerFunction: thisType='ScalarParam' func='function ScalarParam?( in String name, in Scalar value )'
+registerFunction: thisType='ScalarParam' func='function String ScalarParam.getName?()'
+registerFunction: thisType='ScalarParam' func='function String ScalarParam.getValueType?()'
+registerFunction: thisType='ScalarParam' func='function Param ScalarParam.getOption?( in String name )'
+registerFunction: thisType='ScalarParam' func='function ScalarParam.setOption!( in Param option )'
+registerFunction: thisType='ScalarParam' func='function Scalar ScalarParam.getValue?()'
+registerFunction: thisType='ScalarParam' func='function ScalarParam.setValue!( in Scalar value )'
+registerFunction: thisType='UInt32Param' func='function UInt32Param?( in String name )'
+registerFunction: thisType='UInt32Param' func='function UInt32Param?( in String name, in UInt32 value )'
+registerFunction: thisType='UInt32Param' func='function String UInt32Param.getName?()'
+registerFunction: thisType='UInt32Param' func='function String UInt32Param.getValueType?()'
+registerFunction: thisType='UInt32Param' func='function Param UInt32Param.getOption?( in String name )'
+registerFunction: thisType='UInt32Param' func='function UInt32Param.setOption!( in Param option )'
+registerFunction: thisType='UInt32Param' func='function UInt32 UInt32Param.getValue?()'
+registerFunction: thisType='UInt32Param' func='function UInt32Param.setValue!( in UInt32 value )'
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer?( in String category )'
+registerFunction: thisType='SimpleTimer' func='function Float64 SimpleTimer.getSecondsSinceStart?()'
+  Skipped: isInternal()
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.restartTimer!()'
+  Skipped: isInternal()
+registerFunction: thisType='SimpleTimer' func='function String SimpleTimer.getMilisecondsString?( in Float64 seconds )'
+  Skipped: isInternal()
+registerFunction: thisType='SimpleTimer' func='function String SimpleTimer.getMicrosecondsString?( in Float64 seconds )'
+  Skipped: isInternal()
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportMS!( in String message )'
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportUS!( in String message )'
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportMSfSlowerThan!( in String message, in Scalar threshold )'
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.reportUSfSlowerThan!( in String message, in Scalar threshold )'
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.trial!( in Boolean printDots, in String message )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.endTrials!( in String message )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='SimpleTimer' func='function SimpleTimer.resetTrials!()'
+  Skipped: isInternal()
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap?()'
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap.weightmapInit!( io PolygonMesh sourceMesh, in Xfo sourceMeshXfo, in String attributeName )'
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap.setWeightmapSettings!( in Boolean paintAndDisplay, in Boolean display, in Scalar brushStrength, in Color color )'
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap.persistence_prepareData?( io JSONDoc doc, in String namespace )'
+  Skipped: isInternal()
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap.persistence_restoreData!( io JSONDoc doc, in String namespace )'
+  Skipped: isInternal()
+registerFunction: thisType='StandAloneWeightmap' func='function String StandAloneWeightmap.saveDataToString?( in PersistenceContext context )'
+  Skipped: isInternal()
+registerFunction: thisType='StandAloneWeightmap' func='function StandAloneWeightmap.loadDataFromString!( in PersistenceContext context, in String data )'
+  Skipped: isInternal()
+registerFunction: thisType='StandAloneWeightmap' func='function Boolean StandAloneWeightmap.convertFromString!( in String data )'
+  Skipped: isInternal()
+registerFunction: thisType='StandAloneWeightmap' func='function String StandAloneWeightmap.convertToString!()'
+  Skipped: isInternal()
+registerFunction: thisType='PolygonMesh' func='function PolygonMesh.recomputeTangentsFromNeighbors!( in String attributeName )'
+  Added to bin[normal][PolygonMesh.recomputeTangentsFromNeighbors]
+processFunctions
+  bin[normal][Scalar reverseLinearInterpolate][3] (asArray=false)
+    thisType='' code='function Scalar reverseLinearInterpolate( in Scalar min, in Scalar max, in Scalar value )'
+  bin[normal][AttrTransferOrderParam][2] (asArray=false)
+    thisType='AttrTransferOrderParam' code='function AttrTransferOrderParam?( in String name, in AttrTransferOrder value )'
+  bin[normal][String AttrTransferOrderParam.getName][0] (asArray=false)
+    thisType='AttrTransferOrderParam' code='function String AttrTransferOrderParam.getName?()'
+  bin[normal][Param AttrTransferOrderParam.getOption][1] (asArray=false)
+    thisType='AttrTransferOrderParam' code='function Param AttrTransferOrderParam.getOption?( in String name )'
+  bin[normal][AttrTransferOrder AttrTransferOrderParam.getValue][0] (asArray=false)
+    thisType='AttrTransferOrderParam' code='function AttrTransferOrder AttrTransferOrderParam.getValue?()'
+  bin[normal][String AttrTransferOrderParam.getValueType][0] (asArray=false)
+    thisType='AttrTransferOrderParam' code='function String AttrTransferOrderParam.getValueType?()'
+  bin[normal][AttrTransferOrderParam.setOption][1] (asArray=false)
+    thisType='AttrTransferOrderParam' code='function AttrTransferOrderParam.setOption!( in Param option )'
+  bin[normal][AttrTransferOrderParam.setValue][1] (asArray=false)
+    thisType='AttrTransferOrderParam' code='function AttrTransferOrderParam.setValue!( in AttrTransferOrder value )'
+  bin[normal][ScalarParam][2] (asArray=false)
+    thisType='ScalarParam' code='function ScalarParam?( in String name, in Scalar value )'
+  bin[normal][String ScalarParam.getName][0] (asArray=false)
+    thisType='ScalarParam' code='function String ScalarParam.getName?()'
+  bin[normal][Param ScalarParam.getOption][1] (asArray=false)
+    thisType='ScalarParam' code='function Param ScalarParam.getOption?( in String name )'
+  bin[normal][Scalar ScalarParam.getValue][0] (asArray=false)
+    thisType='ScalarParam' code='function Scalar ScalarParam.getValue?()'
+  bin[normal][String ScalarParam.getValueType][0] (asArray=false)
+    thisType='ScalarParam' code='function String ScalarParam.getValueType?()'
+  bin[normal][ScalarParam.setOption][1] (asArray=false)
+    thisType='ScalarParam' code='function ScalarParam.setOption!( in Param option )'
+  bin[normal][ScalarParam.setValue][1] (asArray=false)
+    thisType='ScalarParam' code='function ScalarParam.setValue!( in Scalar value )'
+  bin[normal][UInt32Param][2] (asArray=false)
+    thisType='UInt32Param' code='function UInt32Param?( in String name, in UInt32 value )'
+  bin[normal][String UInt32Param.getName][0] (asArray=false)
+    thisType='UInt32Param' code='function String UInt32Param.getName?()'
+  bin[normal][Param UInt32Param.getOption][1] (asArray=false)
+    thisType='UInt32Param' code='function Param UInt32Param.getOption?( in String name )'
+  bin[normal][UInt32 UInt32Param.getValue][0] (asArray=false)
+    thisType='UInt32Param' code='function UInt32 UInt32Param.getValue?()'
+  bin[normal][String UInt32Param.getValueType][0] (asArray=false)
+    thisType='UInt32Param' code='function String UInt32Param.getValueType?()'
+  bin[normal][UInt32Param.setOption][1] (asArray=false)
+    thisType='UInt32Param' code='function UInt32Param.setOption!( in Param option )'
+  bin[normal][UInt32Param.setValue][1] (asArray=false)
+    thisType='UInt32Param' code='function UInt32Param.setValue!( in UInt32 value )'
+  bin[normal][SimpleTimer][1] (asArray=false)
+    thisType='SimpleTimer' code='function SimpleTimer?( in String category )'
+  bin[normal][SimpleTimer.reportMS][1] (asArray=false)
+    thisType='SimpleTimer' code='function SimpleTimer.reportMS!( in String message )'
+  bin[normal][SimpleTimer.reportMSfSlowerThan][2] (asArray=false)
+    thisType='SimpleTimer' code='function SimpleTimer.reportMSfSlowerThan!( in String message, in Scalar threshold )'
+  bin[normal][SimpleTimer.reportUS][1] (asArray=false)
+    thisType='SimpleTimer' code='function SimpleTimer.reportUS!( in String message )'
+  bin[normal][SimpleTimer.reportUSfSlowerThan][2] (asArray=false)
+    thisType='SimpleTimer' code='function SimpleTimer.reportUSfSlowerThan!( in String message, in Scalar threshold )'
+  bin[normal][StandAloneWeightmap][0] (asArray=false)
+    thisType='StandAloneWeightmap' code='function StandAloneWeightmap?()'
+  bin[normal][StandAloneWeightmap.setWeightmapSettings][4] (asArray=false)
+    thisType='StandAloneWeightmap' code='function StandAloneWeightmap.setWeightmapSettings!( in Boolean paintAndDisplay, in Boolean display, in Scalar brushStrength, in Color color )'
+  bin[normal][StandAloneWeightmap.weightmapInit][3] (asArray=false)
+    thisType='StandAloneWeightmap' code='function StandAloneWeightmap.weightmapInit!( io PolygonMesh sourceMesh, in Xfo sourceMeshXfo, in String attributeName )'
+  bin[normal][AttrTransferOrderCore.warnAboutMissing][1] (asArray=false)
+    thisType='AttrTransferOrderCore' code='function AttrTransferOrderCore.warnAboutMissing?( in Ref<GeometryAttribute> sourceAttrs[String] )'
+  bin[normal][AttrTransferOrder.setTransferAll][3] (asArray=false)
+    thisType='AttrTransferOrder' code='function AttrTransferOrder.setTransferAll!( in Boolean includePositions, in Boolean includeNormals, in String nameFormatter )'
+  bin[normal][AttrTransferOrder.setTransferOne][2] (asArray=false)
+    thisType='AttrTransferOrder' code='function AttrTransferOrder.setTransferOne!( in String name, in String nameFormatter )'
+  bin[normal][AttrTransferOrder.setTransferByName][2] (asArray=false)
+    thisType='AttrTransferOrder' code='function AttrTransferOrder.setTransferByName!( in String names, in String nameFormatter )'
+  bin[normal][AttrTransferOrder.setTransferByNameArray][2] (asArray=false)
+    thisType='AttrTransferOrder' code='function AttrTransferOrder.setTransferByNameArray!( in String namesArray[], in String nameFormatter )'
+  bin[normal][AttrTransferOrder.merge][1] (asArray=false)
+    thisType='AttrTransferOrder' code='function AttrTransferOrder.merge!( in AttrTransferOrder other )'
+  bin[normal][Vec2.rotate][1] (asArray=false)
+    thisType='Vec2' code='function Vec2.rotate!( in Scalar rotation )'
+  bin[normal][PolygonMesh.recomputeTangentsFromNeighbors][1] (asArray=false)
+    thisType='PolygonMesh' code='function PolygonMesh.recomputeTangentsFromNeighbors!( in String attributeName )'

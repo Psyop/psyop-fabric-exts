@@ -1,0 +1,51 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Sets the transfer order to all available attributes. By default, positions and normals are not transfered.\nName Formatter is how to rename the attribute when they're transfered. If set to \"{name}\",\ntransfered attributes will have the same name as their source. This can also be used to rename\nAttributes in transfer, E.G. \"{name}_xfered\" as the nameFormatter will rename the attribute\n\"normals\" to \"normals_xfered\".\n\nSupported types:\n  this: AttrTransferOrder\n  includePositions: Boolean\n  includeNormals: Boolean\n  nameFormatter: String\n"
+    },
+  "title" : "SetTransferAll",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "AttrTransferOrder"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "includePositions",
+      "execPortType" : "In",
+      "typeSpec" : "Boolean"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "includeNormals",
+      "execPortType" : "In",
+      "typeSpec" : "Boolean"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "String" : "{name}"
+        },
+      "name" : "nameFormatter",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "515789A58D61594046CDD4DD2327CF70",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.setTransferAll(includePositions, includeNormals, nameFormatter);
+}
+"
+  }

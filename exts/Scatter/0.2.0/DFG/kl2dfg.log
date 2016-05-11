@@ -1,0 +1,270 @@
+[FABRIC:MT] Fabric Engine version 2.1.0-auto-2016022400
+[FABRIC:MT] GPU code will be compiled in guarded mode
+[FABRIC:MT] Loading DFG presets from c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Presets\DFG
+[FABRIC:MT] Loading DFG presets from C:\Users\jfriedman\Fabric\Presets
+[FABRIC:MT] Ignored extension directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Fabruffle\0.0.1': unable to open directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Fabruffle\0.0.1': The system cannot find the path specified. (code 3 [0x3])
+[FABRIC:MT] Ignored extension directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\StrandLines\0.2.0': unable to open directory 'c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\StrandLines\0.2.0': The system cannot find the path specified. (code 3 [0x3])
+[FABRIC:MT] Registered extension {Scatter:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Scatter\0.2.0
+[FABRIC:MT] Registered extension {Psyline:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Psyline\0.2.0
+[FABRIC:MT] Registered extension {Entwiner:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons\exts\Psyop\Entwiner\0.2.0
+[FABRIC:MT] Registered extensions {RiggingToolbox,RiggingToolbox:0.0.1,RiggingToolbox:2.0.0,emPolygonizer5,emReader,emTools,AlembicAsset:0.1.0,AlembicAsset:0.2.0,Entwiner:0.0.1,FabricArnold:0.0.7,FabricArnold:0.0.8,FabricArnold:0.0.1,FabricArnold:0.0.2,FabricArnold:0.0.3,FabricArnold:0.0.4,FabricArnold:0.0.5,FabricArnold:0.0.6,HairLines:0.1.0,HairLinesToArnold:0.1.0,HairLines:0.2.0,HairLinesToArnold:0.2.0,JiggleMush:0.1.0,JiggleMush:0.2.0,KLProcedural:0.1.0,KLProcedural:0.2.0,Psyline:0.0.1,PsyopUtil:0.2.0,FabricInterfaces,PsyopUtilInternal:0.2.0,SpliceInterfaces,PsyUtil:0.1.0,PsyUtil:0.2.0,Ruffleure,Scatter:0.1.0,PsyopPresetExt:0.1.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons
+[FABRIC:MT] Ignored extensions {Entwiner:0.2.0,FabricArnold:0.0.7,Psyline:0.2.0,FabricInterfaces,SpliceInterfaces,Scatter:0.2.0} in directory: c:\Users\jfriedman\development\fabric\psyop_addons
+[FABRIC:MT] Registered extensions {Alembic:1.0.0,AlembicWrapper:1.2.0,Animation:1.1.0,AttributeHelpers:1.0.0,Bullet:1.0.1,BulletHelpers:1.0.0,Characters:1.1.0,Containers:1.1.0,DFGHelpers,DFGWrapper,FabricInterfaces:1.0.1,FabricSynchronization:1.1.0,Fbx:1.1.0,FbxHelpers:1.0.2,FileIO:1.2.0,Geometry:1.2.0,Images:1.0.2,InlineDrawing:1.2.0,JSON:1.0.0,Manipulation:1.1.0,Math:1.2.0,FabricOBJ:1.1.0,FabricOGL:1.0.0,OpenImageIO:1.0.2,OSOGL:1.1.0,Parameters:1.0.0,Singletons:1.1.0,FabricStatistics:1.1.0,Util:1.1.0} in directory: c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Exts
+[FABRIC:MT] Ignored extension directory 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Tests\Exts': unable to open directory 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Tests\Exts': The system cannot find the path specified. (code 3 [0x3])
+[FABRIC:MT] IRCache: Not pruning since last prune was less than 24 hours ago
+[FABRIC:MT] Requesting 'Compute' license.
+[FABRIC:MT] Licensed for Compute use to 'Psyop NY VM' until 14-apr-2016 (1/500 in use).
+[FABRIC:MT] Registered core interfaces for extension Math:1.2.0 in 46.013ms
+[FABRIC:MT] Codegenned extension Math:1.2.0 in 19.114ms
+[FABRIC:MT] Loaded extension Math in 194.368ms (cached)
+[FABRIC:MT] Registered core interfaces for extension FabricSynchronization:1.1.0 in 16.357ms
+[FABRIC:MT] Codegenned extension FabricSynchronization:1.1.0 in 1.674ms
+[FABRIC:MT] Loaded extension FabricSynchronization in 24.338ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Exts\Builtin\Statistics\FabricStatistics-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension FabricStatistics:1.1.0 in 36.697ms
+[FABRIC:MT] Codegenned extension FabricStatistics:1.1.0 in 3.724ms
+[FABRIC:MT] Loaded extension FabricStatistics in 56.350ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Exts\Builtin\Singletons\Singletons-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension Singletons:1.1.0 in 4.696ms
+[FABRIC:MT] Codegenned extension Singletons:1.1.0 in 0.448ms
+[FABRIC:MT] Loaded extension Singletons in 8.297ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Exts\Builtin\Util\Util-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension Util:1.1.0 in 22.456ms
+[FABRIC:MT] Codegenned extension Util:1.1.0 in 3.471ms
+[FABRIC:MT] Loaded extension Util in 43.014ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Containers:1.1.0 in 1244.803ms
+[FABRIC:MT] Codegenned extension Containers:1.1.0 in 36.361ms
+[FABRIC:MT] Loaded extension Containers in 1597.854ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Geometry:1.2.0 in 689.519ms
+[FABRIC:MT] Codegenned extension Geometry:1.2.0 in 64.576ms
+[FABRIC:MT] Loaded extension Geometry in 1483.527ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Parameters:1.0.0 in 122.381ms
+[FABRIC:MT] Codegenned extension Parameters:1.0.0 in 8.561ms
+[FABRIC:MT] Loaded extension Parameters in 171.782ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Exts\Builtin\OpenGL\FabricOGL-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension FabricOGL:1.0.0 in 0.006ms
+[FABRIC:MT] Codegenned extension FabricOGL:1.0.0 in 4.792ms
+[FABRIC:MT] Loaded extension FabricOGL in 66.894ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Exts\Builtin\OpenImageIO\OpenImageIO-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension OpenImageIO:1.0.2 in 20.270ms
+[FABRIC:MT] Codegenned extension OpenImageIO:1.0.2 in 1.144ms
+[FABRIC:MT] Loaded extension OpenImageIO in 32.967ms (cached)
+[FABRIC:MT] Registered core interfaces for extension FabricInterfaces:1.0.1 in 15.985ms
+[FABRIC:MT] Codegenned extension FabricInterfaces:1.0.1 in 0.650ms
+[FABRIC:MT] Loaded extension FabricInterfaces in 22.144ms (cached)
+[FABRIC:MT] Trying to load 'c:\Users\jfriedman\development\fabric\builds\2.0.1.20160224.002027\Exts\Builtin\FileIO\FileIO-Windows-x86_64.dll'
+[FABRIC:MT] Registered core interfaces for extension FileIO:1.2.0 in 82.256ms
+[FABRIC:MT] Codegenned extension FileIO:1.2.0 in 4.856ms
+[FABRIC:MT] Loaded extension FileIO in 110.894ms (cached)
+[FABRIC:MT] Registered core interfaces for extension InlineDrawing:1.2.0 in 1121.966ms
+[FABRIC:MT] Codegenned extension InlineDrawing:1.2.0 in 52.639ms
+[FABRIC:MT] Loaded extension InlineDrawing in 1759.298ms (cached)
+[FABRIC:MT] Registered core interfaces for extension JSON:1.0.0 in 26.492ms
+[FABRIC:MT] Codegenned extension JSON:1.0.0 in 3.339ms
+[FABRIC:MT] Loaded extension JSON in 45.586ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Manipulation:1.1.0 in 327.932ms
+[FABRIC:MT] Codegenned extension Manipulation:1.1.0 in 21.518ms
+[FABRIC:MT] Loaded extension Manipulation in 498.409ms (cached)
+[FABRIC:MT] Registered core interfaces for extension PsyopUtil:0.2.0 in 104.196ms
+[FABRIC:MT] Codegenned extension PsyopUtil:0.2.0 in 10.446ms
+[FABRIC:MT] Loaded extension PsyopUtil in 179.044ms (cached)
+[FABRIC:MT] Registered core interfaces for extension Scatter:0.2.0 in 899.040ms
+[FABRIC:MT] Compiled extension Scatter:0.2.0 in 212.794ms
+[FABRIC:MT] Codegenned extension Scatter:0.2.0 in 695.729ms
+[FABRIC:MT] Loaded extension Scatter in 1888.644ms (first time)
+registerFunction: thisType='(null)' func='function makeCumulativeArray( in Scalar array[], io Scalar cumulativeArrayOut[] )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function makeCumulativeArray( in LocalL4ScalarArray array, io LocalL4ScalarArray cumulativeArrayOut )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function UInt32 selectInCumulativeArray( in Scalar arrayIn[], in Scalar ratio )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function UInt32 selectInCumulativeArray( in LocalL4ScalarArray arrayIn, in Scalar ratio )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function drawMeshScattererSpheres( io DrawingHandle handle, in Points points, in Boolean enabled, in Scalar sizeFactor, in Boolean easter )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function drawMeshScattererSpheres( io DrawingHandle handle, in Points points, in Boolean enabled, in Scalar sizeFactor, in Boolean easter, in Color color )'
+  Added to bin[normal][drawMeshScattererSpheres]
+registerFunction: thisType='(null)' func='function getPolygonTriangles( in PolygonMesh mesh, in UInt32 polygonIndex, io LocalL8UInt32Array returnTriangles )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function Scalar getTriangleArea( in Vec3 pos0, in Vec3 pos1, in Vec3 pos2 )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function getPolygonTriangleAreas( io LocalL4ScalarArray areas, in PolygonMesh mesh, in UInt32 polygonIndex, in Ref<ScalarAttribute> biasAttr )'
+  Skipped: isInternal()
+registerFunction: thisType='(null)' func='function Vec3 createEvenlySpacedBaryCoord( in Scalar x_sample, in Scalar y_sample )'
+  Added to bin[normal][Vec3 createEvenlySpacedBaryCoord]
+registerFunction: thisType='(null)' func='function DefaultDartsFilter_batch( in Size start, in Size end, in Points candidates, in Points against, in Scalar maxRadius, io Boolean dartCandidatesRemove[] )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer?( in PolygonMesh sourceMesh )'
+  Added to bin[normal][MeshScatterer]
+registerFunction: thisType='MeshScatterer' func='function Points MeshScatterer.getPoints?( in AttrTransferOrder attrTransferOrder )'
+  Added to bin[normal][Points MeshScatterer.getPoints]
+registerFunction: thisType='MeshScatterer' func='function Points MeshScatterer.getPoints?()'
+  Added to bin[normal][Points MeshScatterer.getPoints]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.nuzzle!( in UInt32 iterations, in Boolean allowShrink, in Scalar maxRadiusFactor )'
+  Added to bin[normal][MeshScatterer.nuzzle]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.relaxPoints!( in Scalar radiusFactor, in Size iterations, in Scalar strength, in Size updateNeighborsEveryNthIt, in Size updateMeshEveryNthIt )'
+  Added to bin[normal][MeshScatterer.relaxPoints]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.scatter!( in UInt32 quantity, in UInt32 seed )'
+  Added to bin[normal][MeshScatterer.scatter]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setBiasingAttribute!( in String attrName, in Boolean invert )'
+  Added to bin[normal][MeshScatterer.setBiasingAttribute]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setBiasingRadiusAttribute!( in String attrName )'
+  Added to bin[normal][MeshScatterer.setBiasingRadiusAttribute]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setDefaultRadius!( in Scalar radius )'
+  Added to bin[normal][MeshScatterer.setDefaultRadius]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setUniformSize!( in Scalar radius )'
+  Added to bin[normal][MeshScatterer.setUniformSize]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setVerbose!( in Boolean verbose )'
+  Added to bin[normal][MeshScatterer.setVerbose]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.throwDarts!( in Integer quantityPerIteration, in UInt32 iterations, in UInt32 seed, in DartSizer sizer, in DartFilterer filterer )'
+  Added to bin[normal][MeshScatterer.throwDarts]
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.vReport?( in String message )'
+  Added to bin[normal][MeshScatterer.vReport]
+registerFunction: thisType='DartSizer' func='function Scalar DartSizer.estimateDartSize!( in MeshScatterer scatterer, in UInt32 iteration )'
+  Added to bin[normal][Scalar DartSizer.estimateDartSize]
+registerFunction: thisType='DartSizer' func='function DartSizer.setCandidateSizes!( io Points candidates, in MeshScatterer scatterer, in UInt32 iteration )'
+  Added to bin[normal][DartSizer.setCandidateSizes]
+registerFunction: thisType='ConstantDartSizer' func='function ConstantDartSizer?( in Scalar radius )'
+  Added to bin[normal][ConstantDartSizer]
+registerFunction: thisType='RandomDartSizer' func='function RandomDartSizer?( in Scalar min, in Scalar max, in Scalar bias, in Size seed )'
+  Added to bin[normal][RandomDartSizer]
+registerFunction: thisType='BigToSmallDartSizer' func='function BigToSmallDartSizer?( in Scalar startValue, in Scalar endValue, in Scalar bias, in Size seed )'
+  Added to bin[normal][BigToSmallDartSizer]
+registerFunction: thisType='ScalarAttributeDartSizer' func='function ScalarAttributeDartSizer?( in String attributeName )'
+  Added to bin[normal][ScalarAttributeDartSizer]
+registerFunction: thisType='ScalarAttributeDartSizer' func='function ScalarAttributeDartSizer.getMeshAttr!( in MeshScatterer scatterer )'
+  Added to bin[normal][ScalarAttributeDartSizer.getMeshAttr]
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter?( in Scalar maxRadius, in Scalar minRadius, in String attrName )'
+  Added to bin[normal][MeshAttrSizeFilter]
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter.filterCandidates!( io Ref<MeshScatterer> scatterer, in UInt32 iteration )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter.prefilter?( io Ref<MeshScatterer> scatterer, in UInt32 iteration )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='Points' func='function Points.addScattererAttributes!()'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer?()'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer?( in PolygonMesh sourceMesh )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.initMeshes!( in PolygonMesh sourceMesh )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.clearAndInitPoints!()'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setUniformSize!( in Scalar radius )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setDefaultRadius!( in Scalar radius )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setBiasingAttribute!( in String attrName, in Boolean invert )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setBiasingRadiusAttribute!( in String attrName )'
+registerFunction: thisType='MeshScatterer' func='function Points MeshScatterer.getPoints?()'
+registerFunction: thisType='MeshScatterer' func='function Points MeshScatterer.getPoints?( in AttrTransferOrder attrTransferOrder )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.updateMaxRadius!( in Scalar radius )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.measurePolygonAreas!()'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.preparePointsForSpatialQueries!( in Size approxNumberOfQueries )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.scatterCore!( in Integer quantityIn, in UInt32 seed, in Boolean toCandidates )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.scatter!( in UInt32 quantity, in UInt32 seed )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.dartScatterCandidates!( in UInt32 quantity, in UInt32 seed )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.runDartSizer!( io DartSizer sizer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function DartSizer MeshScatterer.getDartSizer!( in DartSizer sizer, in Scalar defaultRadius )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.resetCandidateFilter!()'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function DartFilterer MeshScatterer.getDartFilterer?( in DartFilterer filterer )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.runDartFilterer!( io DartFilterer filterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.dartAddFilteredCandidates!()'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.throwDarts!( in Integer quantityPerIteration, in UInt32 iterations, in UInt32 seed, in DartSizer sizer, in DartFilterer filterer )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.throwDarts!( in Integer quantityPerIteration, in UInt32 iterations, in UInt32 seed )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function UInt32 MeshScatterer.estimateDartCount!( in Scalar dartSize )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.nuzzle!( in UInt32 iterations, in Boolean allowShrink, in Scalar maxRadiusFactor )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.simpleRelax!( in Scalar radiusFactor, in Size iterations )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.relaxPoints!( in Scalar radiusFactor, in Size iterations, in Scalar strength, in Size updateNeighborsEveryNthIt, in Size updateMeshEveryNthIt )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.setVerbose!( in Boolean verbose )'
+registerFunction: thisType='MeshScatterer' func='function MeshScatterer.vReport?( in String message )'
+registerFunction: thisType='ConstantDartSizer' func='function ConstantDartSizer?( in Scalar radius )'
+registerFunction: thisType='ConstantDartSizer' func='function ConstantDartSizer.setCandidateSizes!( io Points candidates, in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='ConstantDartSizer' func='function Scalar ConstantDartSizer.estimateDartSize!( in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='RandomDartSizer' func='function RandomDartSizer?( in Scalar min, in Scalar max, in Scalar bias, in Size seed )'
+registerFunction: thisType='RandomDartSizer' func='function RandomDartSizer.setCandidateSizes!( io Points candidates, in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='RandomDartSizer' func='function Scalar RandomDartSizer.estimateDartSize!( in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='BigToSmallDartSizer' func='function BigToSmallDartSizer?( in Scalar startValue, in Scalar endValue, in Scalar bias, in Size seed )'
+registerFunction: thisType='BigToSmallDartSizer' func='function Scalar BigToSmallDartSizer.computeSize?( in UInt32 iteration, in MeshScatterer scatterer )'
+  Skipped: isInternal()
+registerFunction: thisType='BigToSmallDartSizer' func='function BigToSmallDartSizer.setCandidateSizes!( io Points candidates, in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='BigToSmallDartSizer' func='function Scalar BigToSmallDartSizer.estimateDartSize!( in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='ScalarAttributeDartSizer' func='function ScalarAttributeDartSizer?( in String attributeName )'
+registerFunction: thisType='ScalarAttributeDartSizer' func='function ScalarAttributeDartSizer.getMeshAttr!( in MeshScatterer scatterer )'
+registerFunction: thisType='ScalarAttributeDartSizer' func='function ScalarAttributeDartSizer.setCandidateSizes!( io Points candidates, in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='ScalarAttributeDartSizer' func='function Scalar ScalarAttributeDartSizer.estimateDartSize!( in MeshScatterer scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='DefaultDartFilterer' func='function DefaultDartFilterer.filterCandidates!( io Ref<MeshScatterer> scatterer, in UInt32 iteration )'
+  Skipped: isInternal()
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter?()'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter?( in Scalar maxRadius, in Scalar minRadius, in String attrName )'
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter.prefilter?( io Ref<MeshScatterer> scatterer, in UInt32 iteration )'
+  Skipped: hasQualifier(dfgPresetOmit)
+registerFunction: thisType='MeshAttrSizeFilter' func='function MeshAttrSizeFilter.filterCandidates!( io Ref<MeshScatterer> scatterer, in UInt32 iteration )'
+  Skipped: hasQualifier(dfgPresetOmit)
+processFunctions
+  bin[normal][drawMeshScattererSpheres][6] (asArray=false)
+    thisType='' code='function drawMeshScattererSpheres( io DrawingHandle handle, in Points points, in Boolean enabled, in Scalar sizeFactor, in Boolean easter, in Color color )'
+  bin[normal][Vec3 createEvenlySpacedBaryCoord][2] (asArray=false)
+    thisType='' code='function Vec3 createEvenlySpacedBaryCoord( in Scalar x_sample, in Scalar y_sample )'
+  bin[normal][MeshScatterer][1] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer?( in PolygonMesh sourceMesh )'
+  bin[normal][Points MeshScatterer.getPoints][1] (asArray=false)
+    thisType='MeshScatterer' code='function Points MeshScatterer.getPoints?( in AttrTransferOrder attrTransferOrder )'
+  bin[normal][MeshScatterer.nuzzle][3] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.nuzzle!( in UInt32 iterations, in Boolean allowShrink, in Scalar maxRadiusFactor )'
+  bin[normal][MeshScatterer.relaxPoints][5] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.relaxPoints!( in Scalar radiusFactor, in Size iterations, in Scalar strength, in Size updateNeighborsEveryNthIt, in Size updateMeshEveryNthIt )'
+  bin[normal][MeshScatterer.scatter][2] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.scatter!( in UInt32 quantity, in UInt32 seed )'
+  bin[normal][MeshScatterer.setBiasingAttribute][2] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.setBiasingAttribute!( in String attrName, in Boolean invert )'
+  bin[normal][MeshScatterer.setBiasingRadiusAttribute][1] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.setBiasingRadiusAttribute!( in String attrName )'
+  bin[normal][MeshScatterer.setDefaultRadius][1] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.setDefaultRadius!( in Scalar radius )'
+  bin[normal][MeshScatterer.setUniformSize][1] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.setUniformSize!( in Scalar radius )'
+  bin[normal][MeshScatterer.setVerbose][1] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.setVerbose!( in Boolean verbose )'
+  bin[normal][MeshScatterer.throwDarts][5] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.throwDarts!( in Integer quantityPerIteration, in UInt32 iterations, in UInt32 seed, in DartSizer sizer, in DartFilterer filterer )'
+  bin[normal][MeshScatterer.vReport][1] (asArray=false)
+    thisType='MeshScatterer' code='function MeshScatterer.vReport?( in String message )'
+  bin[normal][Scalar DartSizer.estimateDartSize][2] (asArray=false)
+    thisType='DartSizer' code='function Scalar DartSizer.estimateDartSize!( in MeshScatterer scatterer, in UInt32 iteration )'
+  bin[normal][DartSizer.setCandidateSizes][3] (asArray=false)
+    thisType='DartSizer' code='function DartSizer.setCandidateSizes!( io Points candidates, in MeshScatterer scatterer, in UInt32 iteration )'
+  bin[normal][ConstantDartSizer][1] (asArray=false)
+    thisType='ConstantDartSizer' code='function ConstantDartSizer?( in Scalar radius )'
+  bin[normal][RandomDartSizer][4] (asArray=false)
+    thisType='RandomDartSizer' code='function RandomDartSizer?( in Scalar min, in Scalar max, in Scalar bias, in Size seed )'
+  bin[normal][BigToSmallDartSizer][4] (asArray=false)
+    thisType='BigToSmallDartSizer' code='function BigToSmallDartSizer?( in Scalar startValue, in Scalar endValue, in Scalar bias, in Size seed )'
+  bin[normal][ScalarAttributeDartSizer][1] (asArray=false)
+    thisType='ScalarAttributeDartSizer' code='function ScalarAttributeDartSizer?( in String attributeName )'
+  bin[normal][ScalarAttributeDartSizer.getMeshAttr][1] (asArray=false)
+    thisType='ScalarAttributeDartSizer' code='function ScalarAttributeDartSizer.getMeshAttr!( in MeshScatterer scatterer )'
+  bin[normal][MeshAttrSizeFilter][3] (asArray=false)
+    thisType='MeshAttrSizeFilter' code='function MeshAttrSizeFilter?( in Scalar maxRadius, in Scalar minRadius, in String attrName )'

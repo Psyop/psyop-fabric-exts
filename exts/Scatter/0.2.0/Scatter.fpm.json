@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "code": [
+    "MeshScatterer.kl",
+    "MeshScatterRelax.kl",
+    "MeshScatterReporting.kl",
+    "CumulativeArrays.kl",
+    "DrawUtils.kl",
+    "GeometryExts.kl",
+    "MeshScatterSizers.kl",
+    "MeshScatterFilters.kl",
+    "ScatterUtils.kl",
+  ],
+  "dfgPresets": {
+    "dir": "DFG",
+    "presetPath": "Psyop.Exts.Scatter"
+  }
+}

@@ -1,0 +1,51 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: DartSizer\n  candidates: Points\n  scatterer: MeshScatterer\n  iteration: UInt32\n"
+    },
+  "title" : "SetCandidateSizes",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "DartSizer"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+        },
+      "nodePortType" : "IO",
+      "name" : "candidates",
+      "execPortType" : "IO",
+      "typeSpec" : "Points"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "scatterer",
+      "execPortType" : "In",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "iteration",
+      "execPortType" : "In",
+      "typeSpec" : "UInt32"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "303804D83B81770C06B60DB6626A16BC",
+  "code" : "require Scatter;
+
+dfgEntry {
+  this.setCandidateSizes(candidates, scatterer, iteration);
+}
+"
+  }

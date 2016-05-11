@@ -1,0 +1,77 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  radiusFactor: Scalar\n  iterations: Size\n  strength: Scalar\n  updateNeighborsEveryNthIt: Size\n  updateMeshEveryNthIt: Size\n"
+    },
+  "title" : "RelaxPoints",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 4
+        },
+      "name" : "radiusFactor",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Size" : 20
+        },
+      "name" : "iterations",
+      "execPortType" : "In",
+      "typeSpec" : "Size"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.5
+        },
+      "name" : "strength",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Size" : 10
+        },
+      "name" : "updateNeighborsEveryNthIt",
+      "execPortType" : "In",
+      "typeSpec" : "Size"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Size" : 5
+        },
+      "name" : "updateMeshEveryNthIt",
+      "execPortType" : "In",
+      "typeSpec" : "Size"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "2404DD7DDCCBD8FC986A16A57C6EBB81",
+  "code" : "require Scatter;
+
+dfgEntry {
+  this.relaxPoints(radiusFactor, iterations, strength, updateNeighborsEveryNthIt, updateMeshEveryNthIt);
+}
+"
+  }

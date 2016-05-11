@@ -1,0 +1,51 @@
+require Parameters;
+
+object AttrTransferOrderParam : Param {
+  String name;
+  AttrTransferOrder value;
+  Param options[String];
+};
+
+// default constructor
+function AttrTransferOrderParam(String name) {
+  this.name = name;
+  this.value = AttrTransferOrder();
+}
+
+// constructor taking input value
+function AttrTransferOrderParam(String name, AttrTransferOrder value) {
+  this.name = name;
+  this.value = value;
+}
+
+// returns the name of this parameter
+function String AttrTransferOrderParam.getName() {
+  return this.name;
+}
+
+// returns the value type of this parameter
+function String AttrTransferOrderParam.getValueType() {
+  return "AttrTransferOrder";
+}
+
+// getting an option on this param
+function Param AttrTransferOrderParam.getOption(String name)
+{
+  return this.options.get(name, null);
+}
+
+// setting an option on the parameter
+function AttrTransferOrderParam.setOption!(Param option)
+{
+  this.options[option.getName()] = option;
+}
+
+// returns the param's value
+function AttrTransferOrder AttrTransferOrderParam.getValue() {
+  return this.value;
+}
+
+// sets the param's value
+function AttrTransferOrderParam.setValue!(AttrTransferOrder value) {
+  this.value = value;
+}

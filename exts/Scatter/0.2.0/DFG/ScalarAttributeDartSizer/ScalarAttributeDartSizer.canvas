@@ -1,0 +1,34 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  attributeName: String\n  result: ScalarAttributeDartSizer\n"
+    },
+  "title" : "ScalarAttributeDartSizer",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "attributeName",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "ScalarAttributeDartSizer"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "88EC94E03856524B9114899E23D4256E",
+  "code" : "require Scatter;
+
+dfgEntry {
+  result = ScalarAttributeDartSizer(attributeName);
+}
+"
+  }

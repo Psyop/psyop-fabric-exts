@@ -1,0 +1,34 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  radius: Scalar\n  result: ConstantDartSizer\n"
+    },
+  "title" : "ConstantDartSizer",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "radius",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "ConstantDartSizer"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "FF44FE5F15DDFEAD91E06A36AAED9106",
+  "code" : "require Scatter;
+
+dfgEntry {
+  result = ConstantDartSizer(radius);
+}
+"
+  }

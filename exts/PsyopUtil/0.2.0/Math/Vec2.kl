@@ -1,0 +1,10 @@
+
+
+inline Vec2.rotate!(Scalar rotation) {
+  Scalar sint = sin(rotation);
+  Scalar cost = cos(rotation);
+  Scalar x = cost * this.x - sint * this.y;
+  Scalar y = sint * this.x + cost * this.y;
+  this.x = x;
+  this.y = y;
+}

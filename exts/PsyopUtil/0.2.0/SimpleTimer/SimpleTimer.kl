@@ -1,0 +1,129 @@
+///\internal
+/// \dfgAddExecutePort
+inline String paddedInt(Integer n, Size places, String padchar) {
+  String padding;
+  String number = String(n);
+  if (number.length() < places) {
+    padding.fill( padchar, places - number.length() );
+  }
+  return padding+number;
+}
+
+
+struct SimpleTimer{
+  UInt64 start;
+  String msgCategory;
+  private Float64 trials[];
+  private Float64 baselineTrial;
+};
+/// \dfgAddExecutePort
+inline SimpleTimer(String category) {
+  if (category)
+    this.msgCategory = "["+category+"]";
+  else
+    this.msgCategory = "[SimpleTimer]";
+  this.restartTimer();
+}
+
+///\internal
+inline Float64 SimpleTimer.getSecondsSinceStart() {
+  return getSecondsBetweenTicks(this.start, getCurrentTicks());
+}
+
+///\internal
+inline SimpleTimer.restartTimer!() {
+  this.start = getCurrentTicks();
+}
+
+///\internal
+inline String SimpleTimer.getMilisecondsString(Float64 seconds) {
+  return paddedInt(Integer(seconds * 1000), 4, " ");
+}
+
+///\internal
+inline String SimpleTimer.getMicrosecondsString(Float64 seconds) {
+  return paddedInt(Integer(seconds * 1000000), 7, " ");
+}
+
+/// \dfgAddExecutePort
+inline SimpleTimer.reportMS!(String message) {
+  report(this.msgCategory+" "
+    +this.getMilisecondsString(this.getSecondsSinceStart())
+    +" ms:  ("+message+")");
+  this.restartTimer();
+}
+/// \dfgAddExecutePort
+inline SimpleTimer.reportUS!(String message) {
+  report(this.msgCategory+" "
+    +this.getMicrosecondsString(this.getSecondsSinceStart())
+    +" us:  ("+message+")");
+  this.restartTimer();
+}
+/// \dfgAddExecutePort
+inline SimpleTimer.reportMSfSlowerThan!(String message, Scalar threshold) {
+  Float64 elapsed = this.getSecondsSinceStart();
+  if (elapsed > threshold)
+    this.reportMS(message);
+  else
+    this.restartTimer();
+}
+/// \dfgAddExecutePort
+inline SimpleTimer.reportUSfSlowerThan!(String message, Scalar threshold) {
+  Float64 elapsed = this.getSecondsSinceStart();
+  if (elapsed > threshold)
+    this.reportUS(message);
+  else
+    this.restartTimer();
+}
+
+/// \dfgPresetOmit
+inline SimpleTimer.trial!(Boolean printDots, String message) {
+  Float64 time =  this.getSecondsSinceStart();
+  Boolean first = this.trials.size() == 0;
+  this.trials.push(time);
+  if (this.baselineTrial == 0.0)
+    this.baselineTrial = time;
+  if (first) {
+    report(this.msgCategory+" "+message+"Beginning trials. Baseline: "
+      +paddedInt(Integer(this.getSecondsSinceStart() * 1000000), 7, " ")
+      +" us.");
+  }
+  if (printDots) {
+    String dots;
+    Size dotNum = (time / this.baselineTrial) * 50;
+    dots.fill(".", dotNum);
+    report(this.msgCategory+" "+dots);
+  }
+
+  this.restartTimer();
+}
+
+/// \dfgPresetOmit
+inline SimpleTimer.endTrials!(String message) {
+  Size count = this.trials.size();
+  Float64 average, best=SCALARINFINITE, worst, variance;
+  for (Size i = 0; i<count; i++) {
+    average += this.trials[i] / count;
+    best = Math_min(best, this.trials[i]);
+    worst = Math_max(worst, this.trials[i]);
+  }
+  for (Size i = 0; i<count; i++)
+    variance += abs(this.trials[i] - average);
+  variance /= count;
+  variance /= average;
+  variance *= 100;
+  String sAverage =  this.getMicrosecondsString(average);
+  String sBest =     this.getMicrosecondsString(best);
+  String sWorst =    this.getMicrosecondsString(worst);
+  variance = round(variance*1000)/1000;
+  report(this.msgCategory+" "+message+"Average over "+count+" trials: "+sAverage+" us");
+  report("    Best: "+sBest+" Worst: "+sWorst+" us. Average variance: "+variance+"%");
+  this.resetTrials();
+}
+
+///\internal
+inline SimpleTimer.resetTrials!() {
+  this.trials.resize(0);
+  this.baselineTrial = 0.0f;
+  this.restartTimer();
+}

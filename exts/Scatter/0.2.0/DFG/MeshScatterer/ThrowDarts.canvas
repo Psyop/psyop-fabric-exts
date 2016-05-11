@@ -1,0 +1,74 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "-1 means automatic quantity, for estimated good coverage based on radius.\n\nSupported types:\n  this: MeshScatterer\n  quantityPerIteration: Integer\n  iterations: UInt32\n  seed: UInt32\n  sizer: DartSizer\n  filterer: DartFilterer\n"
+    },
+  "title" : "ThrowDarts",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Integer" : -1
+        },
+      "name" : "quantityPerIteration",
+      "execPortType" : "In",
+      "typeSpec" : "Integer"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiRange" : "(0, 1000)"
+        },
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "UInt32" : 2
+        },
+      "name" : "iterations",
+      "execPortType" : "In",
+      "typeSpec" : "UInt32"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "UInt32" : 12345
+        },
+      "name" : "seed",
+      "execPortType" : "In",
+      "typeSpec" : "UInt32"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "sizer",
+      "execPortType" : "In",
+      "typeSpec" : "DartSizer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "filterer",
+      "execPortType" : "In",
+      "typeSpec" : "DartFilterer"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "C0E679D742D3604721A077E82D4905E7",
+  "code" : "require Scatter;
+
+dfgEntry {
+  this.throwDarts(quantityPerIteration, iterations, seed, sizer, filterer);
+}
+"
+  }

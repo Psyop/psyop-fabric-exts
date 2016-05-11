@@ -1,0 +1,27 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  result: StandAloneWeightmap\n"
+    },
+  "title" : "StandAloneWeightmap",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "result",
+      "execPortType" : "Out",
+      "typeSpec" : "StandAloneWeightmap"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "D601E08DDB7A565A1074AD2DA7EBE092",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  result = StandAloneWeightmap();
+}
+"
+  }

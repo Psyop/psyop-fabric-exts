@@ -1,0 +1,50 @@
+// This is a bubble sort. As the name implies, it's stupid. Not for use in performance critical code. 
+
+/// \dfgPresetOmit
+inline swapInArray(io Size indices[], Size i, Size j) {
+  Size temp = indices[i];
+  indices[i] = indices[j];
+  indices[j] = temp;
+}
+
+/// \dfgPresetOmit
+inline swapInArray(io Scalar indices[], Scalar i, Scalar j) {
+  Scalar temp = indices[i];
+  indices[i] = indices[j];
+  indices[j] = temp;
+}
+
+/// \dfgPresetOmit
+function stupidSort(io Scalar array[]) {
+  Boolean incomplete = array.size() > 1;
+  while (incomplete) {
+    incomplete = false;
+    for (Size i=1; i<array.size(); i++) {
+      if (array[i-1] <= array[i])
+        continue;
+      swapInArray(array, i, i-1);
+      incomplete = true;
+    }
+  }
+}
+
+/// \dfgPresetOmit
+function stupidSortIndices(io Scalar array[], out Size indices[]) {
+  Boolean incomplete = array.size() > 1;
+  indices.resize(array.size());
+  for (Size i = 0; i<indices.size(); i++)
+    indices[i] = i;
+
+  while (incomplete) {
+    incomplete = false;
+    for (Size i=1; i<array.size(); i++) {
+      if (array[i-1] <= array[i])
+        continue;
+      swapInArray(array, i, i-1);
+      swapInArray(indices, i, i-1);
+      incomplete = true;
+    }
+  }
+}
+
+

@@ -1,0 +1,2219 @@
+{
+  "objectType" : "Graph",
+  "metadata" : {
+    "camera_mat44" : "{\n  \"row0\" : {\n    \"x\" : 0.9719898700714111,\n    \"y\" : -0.01423169393092394,\n    \"z\" : 0.2346720397472382,\n    \"t\" : 4.422342777252197\n    },\n  \"row1\" : {\n    \"x\" : -1.010037522064522e-05,\n    \"y\" : 0.9980497360229492,\n    \"z\" : 0.06058648228645325,\n    \"t\" : 1.003523826599121\n    },\n  \"row2\" : {\n    \"x\" : -0.2350995093584061,\n    \"y\" : -0.05888205394148827,\n    \"z\" : 0.9702199697494507,\n    \"t\" : 18.96545791625977\n    },\n  \"row3\" : {\n    \"x\" : 0,\n    \"y\" : 0,\n    \"z\" : 0,\n    \"t\" : 1\n    }\n  }",
+    "timeline_start" : "1000",
+    "uiGraphZoom" : "{\n  \"value\" : 0.7633523344993591\n  }",
+    "timeline_loopMode" : "1",
+    "timeline_simMode" : "0",
+    "camera_focalDistance" : "20.20140838623047",
+    "timeline_current" : "1019",
+    "timeline_timerInterval" : "1",
+    "timeline_end" : "1240",
+    "uiGraphPan" : "{\n  \"x\" : -1060.101196289063,\n  \"y\" : -347.3496398925781\n  }"
+    },
+  "title" : "",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiPersistValue" : "true"
+        },
+      "nodePortType" : "IO",
+      "name" : "sawm",
+      "execPortType" : "IO",
+      "typeSpec" : "StandAloneWeightmap"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "handle",
+      "execPortType" : "Out",
+      "typeSpec" : "DrawingHandle"
+      }
+    ],
+  "extDeps" : {
+    "JiggleMush" : "*"
+    },
+  "nodes" : [
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\": -641.899, \"y\": 239.044}"
+        },
+      "name" : "TimeConversion",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "timeline"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 24
+            },
+          "name" : "frameRate"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "frame"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "time"
+          }
+        ],
+      "definition" : {
+        "objectType" : "Graph",
+        "title" : "",
+        "ports" : [
+          {
+            "objectType" : "Port",
+            "nodePortType" : "Out",
+            "name" : "timeline",
+            "execPortType" : "In"
+            },
+          {
+            "objectType" : "Port",
+            "nodePortType" : "Out",
+            "name" : "frameRate",
+            "execPortType" : "In",
+            "typeSpec" : "Float32"
+            },
+          {
+            "objectType" : "Port",
+            "nodePortType" : "In",
+            "name" : "frame",
+            "execPortType" : "Out",
+            "typeSpec" : "Float32"
+            },
+          {
+            "objectType" : "Port",
+            "nodePortType" : "In",
+            "name" : "time",
+            "execPortType" : "Out",
+            "typeSpec" : "Float32"
+            }
+          ],
+        "extDeps" : {},
+        "nodes" : [
+          {
+            "objectType" : "Inst",
+            "metadata" : {
+              "uiGraphPos" : "{\"x\": 53.204, \"y\": 74.0398}"
+              },
+            "name" : "Scalar",
+            "ports" : [
+              {
+                "objectType" : "InstPort",
+                "nodePortType" : "In",
+                "name" : "value"
+                }
+              ],
+            "executable" : "Fabric.Core.Constants.Scalar",
+            "presetGUID" : "E0E96C6E234F70063BC98887B83327DC"
+            },
+          {
+            "objectType" : "Inst",
+            "metadata" : {
+              "uiComment" : "Time",
+              "uiGraphPos" : "{\"x\": 195.696, \"y\": 99.756}",
+              "uiCommentExpanded" : "true"
+              },
+            "name" : "Div",
+            "ports" : [
+              {
+                "objectType" : "InstPort",
+                "nodePortType" : "In",
+                "name" : "lhs"
+                },
+              {
+                "objectType" : "InstPort",
+                "nodePortType" : "In",
+                "name" : "rhs"
+                },
+              {
+                "objectType" : "InstPort",
+                "nodePortType" : "Out",
+                "name" : "result"
+                }
+              ],
+            "executable" : "Fabric.Core.Math.Div",
+            "presetGUID" : "695E8145F8F42293FBC88BD348869892"
+            },
+          {
+            "objectType" : "Inst",
+            "metadata" : {
+              "uiComment" : "Frame Rate",
+              "uiGraphPos" : "{\"x\": 52.9729, \"y\": 184.988}",
+              "uiCommentExpanded" : "true"
+              },
+            "name" : "Scalar_2",
+            "ports" : [
+              {
+                "objectType" : "InstPort",
+                "nodePortType" : "In",
+                "defaultValues" : {
+                  "Float32" : 30
+                  },
+                "name" : "value"
+                }
+              ],
+            "executable" : "Fabric.Core.Constants.Scalar",
+            "presetGUID" : "E0E96C6E234F70063BC98887B83327DC"
+            }
+          ],
+        "connections" : {
+          "timeline" : [
+            "Scalar.value"
+            ],
+          "frameRate" : [
+            "Scalar_2.value"
+            ],
+          "Scalar.value" : [
+            "Div.lhs"
+            ],
+          "Div.lhs" : [
+            "frame"
+            ],
+          "Div.result" : [
+            "time"
+            ],
+          "Scalar_2.value" : [
+            "Div.rhs"
+            ]
+          }
+        }
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2719.27783203125,\"y\":643.4754638671875}"
+        },
+      "name" : "GetPoints",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "this"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "result"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.MeshScatterer.GetPoints",
+      "presetGUID" : "1D9144AAF83E35EE8400351D8E7547DA"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2976.923828125,\"y\":519.3317260742188}"
+        },
+      "name" : "DrawMeshScattererSpheres",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "IO",
+          "name" : "handle"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "points"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "enabled"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 1
+            },
+          "name" : "sizeFactor"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Boolean" : false
+            },
+          "name" : "easter"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Color" : {
+              "r" : 1,
+              "g" : 1,
+              "b" : 1,
+              "a" : 0
+              }
+            },
+          "name" : "color"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.Drawing.DrawMeshScattererSpheres",
+      "presetGUID" : "A27BDAFE5DD88F46C241C998E80BFE27"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\": 2863.73, \"y\": 642.641}"
+        },
+      "name" : "Cache",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "value"
+          }
+        ],
+      "executable" : "Fabric.Core.Data.Cache",
+      "presetGUID" : "D903AFD981FE9214C69943F542D5FD60"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":1145.243530273438,\"y\":555.9192504882813}"
+        },
+      "name" : "EmptyPolygonMesh",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "mesh"
+          }
+        ],
+      "executable" : "Fabric.Exts.Geometry.PolygonMesh.EmptyPolygonMesh",
+      "presetGUID" : "EE0894325519F66F17D265A042545FEB"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":1388.586303710938,\"y\":543.3739624023438}"
+        },
+      "name" : "AddTeapot",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "IO",
+          "name" : "this"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "xfo"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 5
+            },
+          "name" : "size"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "SInt32" : 10
+            },
+          "name" : "detail"
+          }
+        ],
+      "executable" : "Fabric.Exts.Geometry.PolygonMesh.AddTeapot",
+      "presetGUID" : "E917E59AE40A3F497F655EB8F1641317"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2516.915283203125,\"y\":641.4791870117188}"
+        },
+      "name" : "ThrowDarts",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "IO",
+          "name" : "this"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "quantityPerIteration"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "UInt32" : 1000
+            },
+          "name" : "iterations"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "seed"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "sizer"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "filterer"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.MeshScatterer.ThrowDarts",
+      "presetGUID" : "C0E679D742D3604721A077E82D4905E7"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":1567.796508789063,\"y\":501.9726867675781}"
+        },
+      "name" : "StandAloneWeightmapSetup",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "drawHandle"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "IO",
+          "name" : "this"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "IO",
+          "name" : "mesh"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "attributeName"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "paintWeights"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "brushStrength"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "color"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "drawMesh"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "meshColor"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "wireFrame"
+          }
+        ],
+      "executable" : "Psyop.Exts.PsyopUtil.Compounds.StandAloneWeightMap.StandAloneWeightmapSetup",
+      "presetGUID" : "9FCD6961D2D9AC4B64063A6DA991A2DD"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2257.614501953125,\"y\":630.5020141601563}"
+        },
+      "name" : "SetDefaultRadius_1",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "IO",
+          "name" : "this"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 0.1500000059604645
+            },
+          "name" : "radius"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.MeshScatterer.SetDefaultRadius",
+      "presetGUID" : "9EB2A8C9778A24F055FEFA83B70610FC"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2285.77783203125,\"y\":711.4733276367188}"
+        },
+      "name" : "BigToSmallDartSizer_1",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 0.3499999940395355
+            },
+          "name" : "startValue"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 0.009999999776482582
+            },
+          "name" : "endValue"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 0.25
+            },
+          "name" : "bias"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "seed"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "result"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.BigToSmallDartSizer.BigToSmallDartSizer",
+      "presetGUID" : "F984D3565C2398E4D7327507F857C03D"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2290.416748046875,\"y\":863.1267700195313}"
+        },
+      "name" : "MeshAttrSizeFilter_1",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 0.3499999940395355
+            },
+          "name" : "maxRadius"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Float32" : 0.05000000074505806
+            },
+          "name" : "minRadius"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "attrName"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "result"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.MeshAttrSizeFilter.MeshAttrSizeFilter",
+      "presetGUID" : "D8C1F39F4A503112D9EA5453277CA515"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2079.244384765625,\"y\":610.553466796875}"
+        },
+      "name" : "SetVerbose_1",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "IO",
+          "name" : "this"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "verbose"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.MeshScatterer.SetVerbose",
+      "presetGUID" : "BA07E1461FF6BE5AAA9FE19EB82FFB9C"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":1876.068237304688,\"y\":576.8629150390625}"
+        },
+      "name" : "MeshScatterer_1",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "sourceMesh"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "result"
+          }
+        ],
+      "executable" : "Psyop.Exts.Scatter.MeshScatterer.MeshScatterer",
+      "presetGUID" : "42DD8DDCBD89B394AE2A9A2AB25F42DC"
+      }
+    ],
+  "connections" : {
+    "sawm" : [
+      "StandAloneWeightmapSetup.this"
+      ],
+    "GetPoints.result" : [
+      "Cache.value"
+      ],
+    "DrawMeshScattererSpheres.handle" : [
+      "handle"
+      ],
+    "Cache.value" : [
+      "DrawMeshScattererSpheres.points"
+      ],
+    "EmptyPolygonMesh.mesh" : [
+      "AddTeapot.this"
+      ],
+    "AddTeapot.this" : [
+      "StandAloneWeightmapSetup.mesh"
+      ],
+    "ThrowDarts.this" : [
+      "GetPoints.this"
+      ],
+    "StandAloneWeightmapSetup.drawHandle" : [
+      "DrawMeshScattererSpheres.handle"
+      ],
+    "StandAloneWeightmapSetup.this" : [
+      "sawm"
+      ],
+    "StandAloneWeightmapSetup.mesh" : [
+      "MeshScatterer_1.sourceMesh"
+      ],
+    "StandAloneWeightmapSetup.attributeName" : [
+      "MeshAttrSizeFilter_1.attrName"
+      ],
+    "SetDefaultRadius_1.this" : [
+      "ThrowDarts.this"
+      ],
+    "BigToSmallDartSizer_1.result" : [
+      "ThrowDarts.sizer"
+      ],
+    "MeshAttrSizeFilter_1.result" : [
+      "ThrowDarts.filterer"
+      ],
+    "SetVerbose_1.this" : [
+      "SetDefaultRadius_1.this"
+      ],
+    "MeshScatterer_1.result" : [
+      "SetVerbose_1.this"
+      ]
+    },
+  "requiredPresets" : {
+    "Fabric.Core.Constants.Scalar" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiAlwaysShowDaisyChainPorts" : "true"
+        },
+      "title" : "Scalar",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "value",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "E0E96C6E234F70063BC98887B83327DC",
+      "code" : "dfgEntry {
+}
+"
+      },
+    "Fabric.Core.Math.Div" : {
+      "objectType" : "Func",
+      "title" : "Div",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "lhs",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "rhs",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "$TYPE$"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "695E8145F8F42293FBC88BD348869892",
+      "code" : "
+dfgEntry {
+	result = lhs / rhs;
+}
+"
+      },
+    "Psyop.Exts.Scatter.MeshScatterer.GetPoints" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  result: Points\n"
+        },
+      "title" : "GetPoints",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "this",
+          "execPortType" : "In",
+          "typeSpec" : "MeshScatterer"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+            },
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "Points"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "1D9144AAF83E35EE8400351D8E7547DA",
+      "code" : "require Scatter;
+
+dfgEntry {
+  result = this.getPoints();
+}
+"
+      },
+    "Psyop.Exts.Scatter.Drawing.DrawMeshScattererSpheres" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  handle: DrawingHandle\n  points: Points\n  enabled: Boolean\n  sizeFactor: Scalar\n  easter: Boolean\n  color: Color\n"
+        },
+      "title" : "DrawMeshScattererSpheres",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "handle",
+          "execPortType" : "IO",
+          "typeSpec" : "DrawingHandle"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+            },
+          "nodePortType" : "Out",
+          "name" : "points",
+          "execPortType" : "In",
+          "typeSpec" : "Points"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "enabled",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 1
+            },
+          "name" : "sizeFactor",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "easter",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 255,\n  \"g\" : 0,\n  \"b\" : 0\n  }"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Color" : {
+              "r" : 1,
+              "g" : 1,
+              "b" : 1,
+              "a" : 0
+              }
+            },
+          "name" : "color",
+          "execPortType" : "In",
+          "typeSpec" : "Color"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "A27BDAFE5DD88F46C241C998E80BFE27",
+      "code" : "require Scatter;
+
+dfgEntry {
+  drawMeshScattererSpheres(handle, points, enabled, sizeFactor, easter, color);
+}
+"
+      },
+    "Fabric.Core.Data.Cache" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiNodeColor" : "{\n  \"r\" : 214,\n  \"g\" : 191,\n  \"b\" : 103\n  }",
+        "uiAlwaysShowDaisyChainPorts" : "true",
+        "uiHeaderColor" : "{\n  \"r\" : 188,\n  \"g\" : 129,\n  \"b\" : 83\n  }"
+        },
+      "title" : "Cache",
+      "cacheRule" : "always",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "value",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "D903AFD981FE9214C69943F542D5FD60",
+      "code" : "dfgEntry {
+}
+"
+      },
+    "Fabric.Exts.Geometry.PolygonMesh.EmptyPolygonMesh" : {
+      "objectType" : "Graph",
+      "title" : "EmptyPolygonMesh",
+      "cacheRule" : "never",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "mesh",
+          "execPortType" : "Out",
+          "typeSpec" : "PolygonMesh"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "EE0894325519F66F17D265A042545FEB",
+      "nodes" : [
+        {
+          "objectType" : "Inst",
+          "name" : "PolygonMesh",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "debugName"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "float64Positions"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "result"
+              }
+            ],
+          "executable" : "Fabric.Exts.Geometry.PolygonMesh.PolygonMesh",
+          "presetGUID" : "18F3A38BE7497D6BFC18A148A520B66D"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\": 951, \"y\": 145}"
+            },
+          "name" : "Clear",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "this"
+              }
+            ],
+          "executable" : "Fabric.Exts.Geometry.Func.Clear",
+          "presetGUID" : "96D1EC86835296FFDC60533717804EE7",
+          "cacheRule" : "never"
+          },
+        {
+          "objectType" : "Var",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\": 744, \"y\": 122}"
+            },
+          "name" : "meshVar",
+          "ports" : [
+            {
+              "objectType" : "VarPort",
+              "nodePortType" : "IO",
+              "name" : "value"
+              }
+            ],
+          "dataType" : "PolygonMesh",
+          "extDep" : "Geometry:*"
+          }
+        ],
+      "connections" : {
+        "PolygonMesh.result" : [
+          "meshVar.value"
+          ],
+        "Clear.this" : [
+          "mesh"
+          ],
+        "meshVar.value" : [
+          "Clear.this"
+          ]
+        }
+      },
+    "Fabric.Exts.Geometry.PolygonMesh.PolygonMesh" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiDocUrl" : "http://docs.fabric-engine.com/FabricEngine/2.0.1/HTML/KLExtensionsGuide/Geometry/PolygonMesh.html",
+        "uiTooltip" : "Constructor.\n\n Supported by PolygonMesh"
+        },
+      "title" : "PolygonMesh",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "debugName",
+          "execPortType" : "In",
+          "typeSpec" : "String"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "float64Positions",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+            },
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "PolygonMesh"
+          }
+        ],
+      "extDeps" : {
+        "Geometry" : "*"
+        },
+      "presetGUID" : "18F3A38BE7497D6BFC18A148A520B66D",
+      "code" : "require Geometry;
+
+dfgEntry {
+  result = PolygonMesh(debugName, float64Positions);
+}
+"
+      },
+    "Fabric.Exts.Geometry.Func.Clear" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiDocUrl" : "http://docs.fabric-engine.com/FabricEngine/2.0.1/HTML/KLExtensionsGuide/Geometry/GeometryAttributes.html",
+        "uiTooltip" : "Removes all attributes, and resets attribute value array sizes to 0.\n\n Supported by GeometryAttributes,BaseGeometry,Points,Lines,PolygonMesh"
+        },
+      "title" : "Clear",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "$TYPE$"
+          }
+        ],
+      "extDeps" : {
+        "Geometry" : "*"
+        },
+      "presetGUID" : "96D1EC86835296FFDC60533717804EE7",
+      "code" : "require Geometry;
+
+dfgEntry {
+  this.clear();
+}
+"
+      },
+    "Fabric.Exts.Geometry.PolygonMesh.AddTeapot" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiDocUrl" : "http://docs.fabric-engine.com/FabricEngine/2.0.1/HTML/KLExtensionsGuide/Geometry/PolygonMesh.html",
+        "uiTooltip" : "Appends a transformed teapot to this mesh, with normals and UVs.\nBefore applying the transformation, it will be centered at the origin.\n\nWorkaround to kl compilation error.\n'this' is considered readonly when calling the following method\nbut by creating a local variable 'mesh' it call works.\n\n Supported by PolygonMesh"
+        },
+      "title" : "AddTeapot",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+            },
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "PolygonMesh"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 249,\n  \"g\" : 157,\n  \"b\" : 28\n  }"
+            },
+          "nodePortType" : "Out",
+          "name" : "xfo",
+          "execPortType" : "In",
+          "typeSpec" : "Xfo"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiRange" : "(0.0, 5.0)"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 1
+            },
+          "name" : "size",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiRange" : "(2, 12)"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Integer" : 8
+            },
+          "name" : "detail",
+          "execPortType" : "In",
+          "typeSpec" : "Integer"
+          }
+        ],
+      "extDeps" : {
+        "Geometry" : "*"
+        },
+      "presetGUID" : "E917E59AE40A3F497F655EB8F1641317",
+      "code" : "require Geometry;
+
+dfgEntry {
+  this.addTeapot(xfo, size, detail);
+}
+"
+      },
+    "Psyop.Exts.Scatter.MeshScatterer.ThrowDarts" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "-1 means automatic quantity, for estimated good coverage based on radius.\n\nSupported types:\n  this: MeshScatterer\n  quantityPerIteration: Integer\n  iterations: UInt32\n  seed: UInt32\n  sizer: DartSizer\n  filterer: DartFilterer\n"
+        },
+      "title" : "ThrowDarts",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "MeshScatterer"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Integer" : -1
+            },
+          "name" : "quantityPerIteration",
+          "execPortType" : "In",
+          "typeSpec" : "Integer"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiRange" : "(0, 1000)"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "UInt32" : 2
+            },
+          "name" : "iterations",
+          "execPortType" : "In",
+          "typeSpec" : "UInt32"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "UInt32" : 12345
+            },
+          "name" : "seed",
+          "execPortType" : "In",
+          "typeSpec" : "UInt32"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "sizer",
+          "execPortType" : "In",
+          "typeSpec" : "DartSizer"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "filterer",
+          "execPortType" : "In",
+          "typeSpec" : "DartFilterer"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "C0E679D742D3604721A077E82D4905E7",
+      "code" : "require Scatter;
+
+dfgEntry {
+  this.throwDarts(quantityPerIteration, iterations, seed, sizer, filterer);
+}
+"
+      },
+    "Psyop.Exts.PsyopUtil.Compounds.StandAloneWeightMap.StandAloneWeightmapSetup" : {
+      "objectType" : "Graph",
+      "metadata" : {
+        "uiGraphZoom" : "{\n  \"value\" : 0.8229030966758728\n  }",
+        "uiGraphPan" : "{\n  \"x\" : -786.7977905273438,\n  \"y\" : -138.3740844726563\n  }"
+        },
+      "title" : "StandAloneWeightmapSetup",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "drawHandle",
+          "execPortType" : "Out",
+          "typeSpec" : "DrawingHandle"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiPersistValue" : "true"
+            },
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "StandAloneWeightmap"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "mesh",
+          "execPortType" : "IO",
+          "typeSpec" : "PolygonMesh"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "String" : "weightmap"
+            },
+          "name" : "attributeName",
+          "execPortType" : "In",
+          "typeSpec" : "String"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "paintWeights",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Float32" : 0.1264999955892563
+            },
+          "name" : "brushStrength",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Color" : {
+              "r" : 0.8980392217636108,
+              "g" : 0.1764705926179886,
+              "b" : 0.1921568661928177,
+              "a" : 0
+              }
+            },
+          "name" : "color",
+          "execPortType" : "In",
+          "typeSpec" : "Color"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "drawMesh",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Color" : {
+              "r" : 0.364705890417099,
+              "g" : 0.364705890417099,
+              "b" : 0.364705890417099,
+              "a" : 1
+              }
+            },
+          "name" : "meshColor",
+          "execPortType" : "In",
+          "typeSpec" : "Color"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Boolean" : false
+            },
+          "name" : "wireFrame",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "9FCD6961D2D9AC4B64063A6DA991A2DD",
+      "nodes" : [
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":1463.328491210938,\"y\":355.7179870605469}"
+            },
+          "name" : "DrawPolygonMesh",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "exec"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "this"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "defaultValues" : {
+                "String" : "meshForWM"
+                },
+              "name" : "name"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "defaultValues" : {
+                "Color" : {
+                  "r" : 0.364705890417099,
+                  "g" : 0.364705890417099,
+                  "b" : 0.364705890417099,
+                  "a" : 1
+                  }
+                },
+              "name" : "color"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "specular"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "defaultValues" : {
+                "Float32" : 16
+                },
+              "name" : "specFactor"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "transform"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "mesh"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "wireFrame"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "defaultValues" : {
+                "Boolean" : true
+                },
+              "name" : "doubleSided"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "dummyResult"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "instance"
+              }
+            ],
+          "executable" : "Fabric.Exts.InlineDrawing.DrawingHandle.DrawPolygonMesh",
+          "presetGUID" : "88D132945A91B3FEB731B90CE41878AF"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":2013.922607421875,\"y\":312.7857666015625}"
+            },
+          "name" : "If",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "defaultValues" : {
+                "Boolean" : true
+                },
+              "name" : "cond"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "if_true"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "if_false"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "result"
+              }
+            ],
+          "executable" : "Fabric.Core.Control.If",
+          "presetGUID" : "3182A478A21643455D549E483D35F831"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":1716.89794921875,\"y\":644.246826171875}"
+            },
+          "name" : "WeightmapInit",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "this"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "sourceMesh"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "sourceMeshXfo"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "attributeName"
+              }
+            ],
+          "executable" : "Psyop.Exts.PsyopUtil.StandAloneWeightmap.WeightmapInit",
+          "presetGUID" : "8673CAF9C3E45AA1C0E205592A3368F3"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":1935.875244140625,\"y\":693.521728515625}"
+            },
+          "name" : "SetWeightmapSettings",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "this"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "defaultValues" : {
+                "Boolean" : true
+                },
+              "name" : "paintAndDisplay"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "display"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "brushStrength"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "color"
+              }
+            ],
+          "executable" : "Psyop.Exts.PsyopUtil.StandAloneWeightmap.SetWeightmapSettings",
+          "presetGUID" : "61349A480382E509E78822729F5ED2E8"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":1842.3369140625,\"y\":433.8626708984375}"
+            },
+          "name" : "Clear_1",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "this"
+              }
+            ],
+          "executable" : "Fabric.Exts.InlineDrawing.DrawingHandle.Clear",
+          "presetGUID" : "39E8D81FA7C7C4A825877F16EFE3564F"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":1249.990966796875,\"y\":355.315673828125}"
+            },
+          "name" : "EmptyDrawingHandle_1",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "handle"
+              }
+            ],
+          "executable" : "Fabric.Exts.InlineDrawing.DrawingHandle.EmptyDrawingHandle",
+          "presetGUID" : "2440020BA6A1CAB1CEB690A198F99C70"
+          }
+        ],
+      "connections" : {
+        "this" : [
+          "WeightmapInit.this"
+          ],
+        "mesh" : [
+          "DrawPolygonMesh.mesh"
+          ],
+        "attributeName" : [
+          "WeightmapInit.attributeName"
+          ],
+        "paintWeights" : [
+          "SetWeightmapSettings.paintAndDisplay",
+          "SetWeightmapSettings.display"
+          ],
+        "brushStrength" : [
+          "SetWeightmapSettings.brushStrength"
+          ],
+        "color" : [
+          "SetWeightmapSettings.color"
+          ],
+        "drawMesh" : [
+          "If.cond"
+          ],
+        "meshColor" : [
+          "DrawPolygonMesh.color"
+          ],
+        "wireFrame" : [
+          "DrawPolygonMesh.wireFrame"
+          ],
+        "DrawPolygonMesh.this" : [
+          "Clear_1.this",
+          "If.if_true"
+          ],
+        "DrawPolygonMesh.mesh" : [
+          "WeightmapInit.sourceMesh"
+          ],
+        "If.result" : [
+          "drawHandle"
+          ],
+        "WeightmapInit.this" : [
+          "SetWeightmapSettings.this"
+          ],
+        "WeightmapInit.sourceMesh" : [
+          "mesh"
+          ],
+        "SetWeightmapSettings.this" : [
+          "this"
+          ],
+        "Clear_1.this" : [
+          "If.if_false"
+          ],
+        "EmptyDrawingHandle_1.handle" : [
+          "DrawPolygonMesh.this"
+          ]
+        }
+      },
+    "Fabric.Exts.InlineDrawing.DrawingHandle.DrawPolygonMesh" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiDocUrl" : "http://docs.fabric-engine.com/FabricEngine/2.0.1/HTML/KLExtensionsGuide/InlineDrawing/DrawingHandle.html",
+        "uiTooltip" : "helper function to draw a mesh given a color + a single transform\n\n Supported by DrawingHandle"
+        },
+      "title" : "DrawPolygonMesh",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "exec",
+          "execPortType" : "IO",
+          "typeSpec" : "Execute"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "DrawingHandle"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "name",
+          "execPortType" : "In",
+          "typeSpec" : "String"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 255,\n  \"g\" : 0,\n  \"b\" : 0\n  }"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Color" : {
+              "r" : 0,
+              "g" : 1,
+              "b" : 0,
+              "a" : 1
+              }
+            },
+          "name" : "color",
+          "execPortType" : "In",
+          "typeSpec" : "Color"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 255,\n  \"g\" : 0,\n  \"b\" : 0\n  }"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Color" : {
+              "r" : 0.2000000029802322,
+              "g" : 0.2000000029802322,
+              "b" : 0.2000000029802322,
+              "a" : 1
+              }
+            },
+          "name" : "specular",
+          "execPortType" : "In",
+          "typeSpec" : "Color"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Float32" : 16
+            },
+          "name" : "specFactor",
+          "execPortType" : "In",
+          "typeSpec" : "Float32"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 249,\n  \"g\" : 157,\n  \"b\" : 28\n  }"
+            },
+          "nodePortType" : "Out",
+          "name" : "transform",
+          "execPortType" : "In",
+          "typeSpec" : "Xfo"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+            },
+          "nodePortType" : "Out",
+          "name" : "mesh",
+          "execPortType" : "In",
+          "typeSpec" : "PolygonMesh"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "wireFrame",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "doubleSided",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 255,\n  \"g\" : 242,\n  \"b\" : 0\n  }"
+            },
+          "nodePortType" : "In",
+          "name" : "dummyResult",
+          "execPortType" : "Out",
+          "typeSpec" : "Vec3"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "instance",
+          "execPortType" : "Out",
+          "typeSpec" : "InlineInstance"
+          }
+        ],
+      "extDeps" : {
+        "InlineDrawing" : "*",
+        "FabricInterfaces" : "*"
+        },
+      "presetGUID" : "88D132945A91B3FEB731B90CE41878AF",
+      "code" : "require InlineDrawing;
+
+dfgEntry {
+  this.drawPolygonMesh(name, color, specular, specFactor, transform, mesh, wireFrame, doubleSided, dummyResult, instance);
+}
+"
+      },
+    "Fabric.Core.Control.If" : {
+      "objectType" : "Func",
+      "title" : "If",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "cond",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "if_true",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "if_false",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "$TYPE$"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "3182A478A21643455D549E483D35F831",
+      "code" : "
+dfgEntry {
+	result = cond ? if_true : if_false;
+}
+"
+      },
+    "Psyop.Exts.PsyopUtil.StandAloneWeightmap.WeightmapInit" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  this: StandAloneWeightmap\n  sourceMesh: PolygonMesh\n  sourceMeshXfo: Xfo\n  attributeName: String\n"
+        },
+      "title" : "WeightmapInit",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "StandAloneWeightmap"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+            },
+          "nodePortType" : "IO",
+          "name" : "sourceMesh",
+          "execPortType" : "IO",
+          "typeSpec" : "PolygonMesh"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 249,\n  \"g\" : 157,\n  \"b\" : 28\n  }"
+            },
+          "nodePortType" : "Out",
+          "name" : "sourceMeshXfo",
+          "execPortType" : "In",
+          "typeSpec" : "Xfo"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "String" : "weightmap"
+            },
+          "name" : "attributeName",
+          "execPortType" : "In",
+          "typeSpec" : "String"
+          }
+        ],
+      "extDeps" : {
+        "PsyopUtil" : "*"
+        },
+      "presetGUID" : "8673CAF9C3E45AA1C0E205592A3368F3",
+      "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.weightmapInit(sourceMesh, sourceMeshXfo, attributeName);
+}
+"
+      },
+    "Psyop.Exts.PsyopUtil.StandAloneWeightmap.SetWeightmapSettings" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  this: StandAloneWeightmap\n  paintAndDisplay: Boolean\n  display: Boolean\n  brushStrength: Scalar\n  color: Color\n"
+        },
+      "title" : "SetWeightmapSettings",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "StandAloneWeightmap"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Boolean" : true
+            },
+          "name" : "paintAndDisplay",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "display",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 0.25
+            },
+          "name" : "brushStrength",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 255,\n  \"g\" : 0,\n  \"b\" : 0\n  }"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Color" : {
+              "r" : 0.8899999856948853,
+              "g" : 0.25,
+              "b" : 0.25,
+              "a" : 0
+              }
+            },
+          "name" : "color",
+          "execPortType" : "In",
+          "typeSpec" : "Color"
+          }
+        ],
+      "extDeps" : {
+        "PsyopUtil" : "*"
+        },
+      "presetGUID" : "61349A480382E509E78822729F5ED2E8",
+      "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.setWeightmapSettings(paintAndDisplay, display, brushStrength, color);
+}
+"
+      },
+    "Fabric.Exts.InlineDrawing.DrawingHandle.Clear" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiDocUrl" : "http://docs.fabric-engine.com/FabricEngine/2.0.1/HTML/KLExtensionsGuide/InlineDrawing/DrawingHandle.html",
+        "uiTooltip" : "removes all contents from the DrawingHandle\n\n Supported by DrawingHandle"
+        },
+      "title" : "Clear",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "DrawingHandle"
+          }
+        ],
+      "extDeps" : {
+        "InlineDrawing" : "*"
+        },
+      "presetGUID" : "39E8D81FA7C7C4A825877F16EFE3564F",
+      "code" : "require InlineDrawing;
+
+dfgEntry {
+  this.clear();
+}
+"
+      },
+    "Fabric.Exts.InlineDrawing.DrawingHandle.EmptyDrawingHandle" : {
+      "objectType" : "Graph",
+      "title" : "EmptyDrawingHandle",
+      "cacheRule" : "never",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "handle",
+          "execPortType" : "Out",
+          "typeSpec" : "DrawingHandle"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "2440020BA6A1CAB1CEB690A198F99C70",
+      "nodes" : [
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\": 894, \"y\": 100}"
+            },
+          "name" : "Clear",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "IO",
+              "name" : "this"
+              }
+            ],
+          "executable" : "Fabric.Exts.InlineDrawing.DrawingHandle.Clear",
+          "presetGUID" : "39E8D81FA7C7C4A825877F16EFE3564F",
+          "cacheRule" : "never"
+          },
+        {
+          "objectType" : "Var",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":567.0,\"y\":56.0}",
+            "uiCollapsedState" : "0"
+            },
+          "name" : "handleVar",
+          "ports" : [
+            {
+              "objectType" : "VarPort",
+              "nodePortType" : "IO",
+              "name" : "value"
+              }
+            ],
+          "dataType" : "DrawingHandle",
+          "extDep" : "InlineDrawing:*"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":287.0,\"y\":56.0}"
+            },
+          "name" : "CreateDrawingHandle",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "handle"
+              }
+            ],
+          "definition" : {
+            "objectType" : "Func",
+            "title" : "Create DrawingHandle",
+            "ports" : [
+              {
+                "objectType" : "Port",
+                "nodePortType" : "In",
+                "name" : "handle",
+                "execPortType" : "Out",
+                "typeSpec" : "DrawingHandle"
+                }
+              ],
+            "extDeps" : {
+              "InlineDrawing" : "*"
+              },
+            "code" : "dfgEntry {
+  handle = DrawingHandle();
+}
+"
+            }
+          }
+        ],
+      "connections" : {
+        "Clear.this" : [
+          "handle"
+          ],
+        "handleVar.value" : [
+          "Clear.this"
+          ],
+        "CreateDrawingHandle.handle" : [
+          "handleVar.value"
+          ]
+        }
+      },
+    "Psyop.Exts.Scatter.MeshScatterer.SetDefaultRadius" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  radius: Scalar\n"
+        },
+      "title" : "SetDefaultRadius",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "MeshScatterer"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 0.5
+            },
+          "name" : "radius",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "9EB2A8C9778A24F055FEFA83B70610FC",
+      "code" : "require Scatter;
+
+dfgEntry {
+  this.setDefaultRadius(radius);
+}
+"
+      },
+    "Psyop.Exts.Scatter.BigToSmallDartSizer.BigToSmallDartSizer" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  startValue: Scalar\n  endValue: Scalar\n  bias: Scalar\n  seed: Size\n  result: BigToSmallDartSizer\n"
+        },
+      "title" : "BigToSmallDartSizer",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 0.5
+            },
+          "name" : "startValue",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 0.1000000014901161
+            },
+          "name" : "endValue",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiRange" : "(0.0, 2.0)"
+            },
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 1
+            },
+          "name" : "bias",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Size" : 23456
+            },
+          "name" : "seed",
+          "execPortType" : "In",
+          "typeSpec" : "Size"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "BigToSmallDartSizer"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "F984D3565C2398E4D7327507F857C03D",
+      "code" : "require Scatter;
+
+dfgEntry {
+  result = BigToSmallDartSizer(startValue, endValue, bias, seed);
+}
+"
+      },
+    "Psyop.Exts.Scatter.MeshAttrSizeFilter.MeshAttrSizeFilter" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  maxRadius: Scalar\n  minRadius: Scalar\n  attrName: String\n  result: MeshAttrSizeFilter\n"
+        },
+      "title" : "MeshAttrSizeFilter",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 0.5
+            },
+          "name" : "maxRadius",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Scalar" : 0.1000000014901161
+            },
+          "name" : "minRadius",
+          "execPortType" : "In",
+          "typeSpec" : "Scalar"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "String" : "weightmap"
+            },
+          "name" : "attrName",
+          "execPortType" : "In",
+          "typeSpec" : "String"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "MeshAttrSizeFilter"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "D8C1F39F4A503112D9EA5453277CA515",
+      "code" : "require Scatter;
+
+dfgEntry {
+  result = MeshAttrSizeFilter(maxRadius, minRadius, attrName);
+}
+"
+      },
+    "Psyop.Exts.Scatter.MeshScatterer.SetVerbose" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  verbose: Boolean\n"
+        },
+      "title" : "SetVerbose",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "IO",
+          "name" : "this",
+          "execPortType" : "IO",
+          "typeSpec" : "MeshScatterer"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "verbose",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "BA07E1461FF6BE5AAA9FE19EB82FFB9C",
+      "code" : "require Scatter;
+
+dfgEntry {
+  this.setVerbose(verbose);
+}
+"
+      },
+    "Psyop.Exts.Scatter.MeshScatterer.MeshScatterer" : {
+      "objectType" : "Func",
+      "metadata" : {
+        "uiTooltip" : "Supported types:\n  sourceMesh: PolygonMesh\n  result: MeshScatterer\n"
+        },
+      "title" : "MeshScatterer",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "metadata" : {
+            "uiColor" : "{\n  \"r\" : 51,\n  \"g\" : 1,\n  \"b\" : 106\n  }"
+            },
+          "nodePortType" : "Out",
+          "name" : "sourceMesh",
+          "execPortType" : "In",
+          "typeSpec" : "PolygonMesh"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "MeshScatterer"
+          }
+        ],
+      "extDeps" : {
+        "Scatter" : "*"
+        },
+      "presetGUID" : "42DD8DDCBD89B394AE2A9A2AB25F42DC",
+      "code" : "require Scatter;
+
+dfgEntry {
+  result = MeshScatterer(sourceMesh);
+}
+"
+      }
+    },
+  "args" : [
+    {
+      "type" : "StandAloneWeightmap",
+      "value" : "{\"_weightmap_values\": [0.14459, 0.186424, 0.316059, 0.504023, 0.680898, 0.80882, 0.874004, 0.883507, 0.85227, 0.797997, 0.737418, 0.677547, 0.138898, 0.186738, 0.320622, 0.508033, 0.678646, 0.800669, 0.861424, 0.868083, 0.835014, 0.782235, 0.72748, 0.672565, 0.133988, 0.185155, 0.320605, 0.507324, 0.674328, 0.792779, 0.850717, 0.855243, 0.820187, 0.768513, 0.71886, 0.668189, 0.12963, 0.181982, 0.317118, 0.503513, 0.669118, 0.786072, 0.842644, 0.845862, 0.809161, 0.758258, 0.712511, 0.664939, 0.125953, 0.177744, 0.311285, 0.497869, 0.663951, 0.781186, 0.837678, 0.840477, 0.802833, 0.752412, 0.709056, 0.663215, 0.123288, 0.173079, 0.304103, 0.491349, 0.659468, 0.778508, 0.836055, 0.839337, 0.801605, 0.751397, 0.708763, 0.663193, 0.12205, 0.16859, 0.296403, 0.48462, 0.656058, 0.778199, 0.837795, 0.842399, 0.805457, 0.755186, 0.711562, 0.664826, 0.122669, 0.164838, 0.288866, 0.478083, 0.653875, 0.780215, 0.842691, 0.849328, 0.813951, 0.763319, 0.717066, 0.667862, 0.125572, 0.162342, 0.281972, 0.471881, 0.652815, 0.784302, 0.850309, 0.859547, 0.826261, 0.774951, 0.724645, 0.671885, 0.131036, 0.16147, 0.275997, 0.465906, 0.652553, 0.790002, 0.860052, 0.872278, 0.841203, 0.788874, 0.733487, 0.676425, 0.139125, 0.162437, 0.270891, 0.459807, 0.652623, 0.796665, 0.871186, 0.886561, 0.857381, 0.803659, 0.742692, 0.680977, 0.149495, 0.165337, 0.266448, 0.45299, 0.652305, 0.803512, 0.882906, 0.901302, 0.873368, 0.817868, 0.751509, 0.685056, 0.677547, 0.623021, 0.579891, 0.547912, 0.521184, 0.498315, 0.464302, 0.410624, 0.354066, 0.331714, 0.326757, 0.342404, 0.672565, 0.620729, 0.579392, 0.547973, 0.521793, 0.500228, 0.467793, 0.416197, 0.36038, 0.334715, 0.325378, 0.33887, 0.668189, 0.618516, 0.578504, 0.547323, 0.521372, 0.500448, 0.468624, 0.417868, 0.362282, 0.335037, 0.322983, 0.334969, 0.664939, 0.616734, 0.577467, 0.546265, 0.520219, 0.499367, 0.46742, 0.41646, 0.360646, 0.332802, 0.319414, 0.330591, 0.663215, 0.615641, 0.576539, 0.545082, 0.518701, 0.497406, 0.464743, 0.412724, 0.35632, 0.328546, 0.314949, 0.32596, 0.663193, 0.61537, 0.575901, 0.544008, 0.517124, 0.494989, 0.461092, 0.407318, 0.350069, 0.322968, 0.310144, 0.321495, 0.664826, 0.615929, 0.575627, 0.543175, 0.515698, 0.49243, 0.456889, 0.4008, 0.34255, 0.316791, 0.305671, 0.317722, 0.667862, 0.617202, 0.575688, 0.542609, 0.514526, 0.48991, 0.452468, 0.39364, 0.334326, 0.310719, 0.30222, 0.315201, 0.671885, 0.61899, 0.575976, 0.542262, 0.513588, 0.48753, 0.448032, 0.386219, 0.325865, 0.305396, 0.300454, 0.314479, 0.676425, 0.621039, 0.576353, 0.542037, 0.512787, 0.485377, 0.443675, 0.37882, 0.317577, 0.301406, 0.300869, 0.316045, 0.680977, 0.623084, 0.576697, 0.541818, 0.512031, 0.483396, 0.439387, 0.37163, 0.309828, 0.29928, 0.303844, 0.320266, 0.685056, 0.624874, 0.576952, 0.541552, 0.511256, 0.481586, 0.435044, 0.364721, 0.303069, 0.299432, 0.30956, 0.327287, 0.342404, 0.379611, 0.437339, 0.499986, 0.552552, 0.583485, 0.588601, 0.567715, 0.519653, 0.456076, 0.402126, 0.393545, 0.33887, 0.376685, 0.434514, 0.496462, 0.548363, 0.579608, 0.585168, 0.564605, 0.517143, 0.454474, 0.400923, 0.391871, 0.334969, 0.373158, 0.430941, 0.492712, 0.544507, 0.576139, 0.582053, 0.561586, 0.51435, 0.452005, 0.398447, 0.388988, 0.330591, 0.369007, 0.427068, 0.489199, 0.541417, 0.573517, 0.579701, 0.559141, 0.511808, 0.449299, 0.395411, 0.385649, 0.32596, 0.364524, 0.423308, 0.486279, 0.539361, 0.571984, 0.578356, 0.557556, 0.509855, 0.446777, 0.392307, 0.382368, 0.321495, 0.360146, 0.420017, 0.484198, 0.538473, 0.571626, 0.578111, 0.556956, 0.508668, 0.444687, 0.389439, 0.379459, 0.317722, 0.356361, 0.417468, 0.483106, 0.538767, 0.572402, 0.578934, 0.557334, 0.508293, 0.443141, 0.386968, 0.377082, 0.315201, 0.353644, 0.415822, 0.483055, 0.540128, 0.574174, 0.580687, 0.558582, 0.508666, 0.442151, 0.384946, 0.375277, 0.314479, 0.352439, 0.415187, 0.484014, 0.542359, 0.576722, 0.583148, 0.560501, 0.509633, 0.441639, 0.383347, 0.373997, 0.316045, 0.353148, 0.415666, 0.485865, 0.545206, 0.57976, 0.586024, 0.562824, 0.510971, 0.441458, 0.382081, 0.373124, 0.320266, 0.35615, 0.417239, 0.488416, 0.548355, 0.582944, 0.588966, 0.565228, 0.512394, 0.441397, 0.381014, 0.372488, 0.327287, 0.361658, 0.420043, 0.491474, 0.551512, 0.585951, 0.591645, 0.567442, 0.513635, 0.441186, 0.379988, 0.37187, 0.393545, 0.432105, 0.482768, 0.509825, 0.501608, 0.462375, 0.398964, 0.321986, 0.246029, 0.189907, 0.156411, 0.14459, 0.391871, 0.428973, 0.477887, 0.503809, 0.495151, 0.455655, 0.39192, 0.314668, 0.23837, 0.181252, 0.147685, 0.138898, 0.388988, 0.425347, 0.47338, 0.498661, 0.489574, 0.449717, 0.385578, 0.307985, 0.231502, 0.173977, 0.14076, 0.133988, 0.385649, 0.421907, 0.469817, 0.494863, 0.485339, 0.445001, 0.380338, 0.302299, 0.225617, 0.168071, 0.135346, 0.12963, 0.382368, 0.41909, 0.467533, 0.492704, 0.482722, 0.441795, 0.376491, 0.297895, 0.220944, 0.163656, 0.131463, 0.125953, 0.379459, 0.41714, 0.46667, 0.492294, 0.481841, 0.440252, 0.374222, 0.294984, 0.217703, 0.160924, 0.12931, 0.123288, 0.377082, 0.416137, 0.467208, 0.493594, 0.482674, 0.440403, 0.373621, 0.293707, 0.216103, 0.16009, 0.129176, 0.12205, 0.375277, 0.416036, 0.469001, 0.49638, 0.485086, 0.442181, 0.374696, 0.294142, 0.216332, 0.161373, 0.13134, 0.122669, 0.373997, 0.416695, 0.471806, 0.50033, 0.488849, 0.445437, 0.377389, 0.296313, 0.218535, 0.164991, 0.135978, 0.125572, 0.373124, 0.417897, 0.475301, 0.505064, 0.49366, 0.449949, 0.381579, 0.300189, 0.222797, 0.171065, 0.143224, 0.131036, 0.372488, 0.419364, 0.479107, 0.510154, 0.499151, 0.455438, 0.387088, 0.305684, 0.229133, 0.17961, 0.153065, 0.139125, 0.37187, 0.420765, 0.482791, 0.515135, 0.504901, 0.461566, 0.393681, 0.312649, 0.237516, 0.190577, 0.16528, 0.149495, 0.149495, 0.165337, 0.266448, 0.45299, 0.652305, 0.803512, 0.882906, 0.901302, 0.873368, 0.817868, 0.751509, 0.685056, 0.197825, 0.184107, 0.241235, 0.402126, 0.622566, 0.811534, 0.914398, 0.941868, 0.914162, 0.852391, 0.773575, 0.695721, 0.247787, 0.212183, 0.214196, 0.321166, 0.538836, 0.779497, 0.920411, 0.959255, 0.933461, 0.870739, 0.788608, 0.706712, 0.290017, 0.247836, 0.202875, 0.238101, 0.412046, 0.698745, 0.89934, 0.960401, 0.944242, 0.887874, 0.808999, 0.726031, 0.316195, 0.273527, 0.212779, 0.184686, 0.279154, 0.562461, 0.84559, 0.947283, 0.949161, 0.904341, 0.835508, 0.755538, 0.32524, 0.284817, 0.22267, 0.16659, 0.186436, 0.394548, 0.748555, 0.917053, 0.947418, 0.918865, 0.863542, 0.792178, 0.318107, 0.282033, 0.222418, 0.165146, 0.147509, 0.262089, 0.608254, 0.863924, 0.935565, 0.928389, 0.889002, 0.830536, 0.29707, 0.267224, 0.213186, 0.162893, 0.138897, 0.194782, 0.452377, 0.778255, 0.908477, 0.92948, 0.908195, 0.863275, 0.265946, 0.243781, 0.197572, 0.155213, 0.137687, 0.165605, 0.331632, 0.661342, 0.865117, 0.919493, 0.916774, 0.882835, 0.229467, 0.2158, 0.178383, 0.142971, 0.133149, 0.154205, 0.267525, 0.534664, 0.806474, 0.897361, 0.911075, 0.882791, 0.192869, 0.186643, 0.15747, 0.127399, 0.124854, 0.151452, 0.227713, 0.419808, 0.727789, 0.863834, 0.890839, 0.863831, 0.159274, 0.158919, 0.135295, 0.109802, 0.113746, 0.146931, 0.202563, 0.327557, 0.628014, 0.816086, 0.85724, 0.834867, 0.685056, 0.624874, 0.576952, 0.541552, 0.511256, 0.481586, 0.435044, 0.364721, 0.303069, 0.299432, 0.30956, 0.327287, 0.695721, 0.63048, 0.57876, 0.53839, 0.504259, 0.47033, 0.411741, 0.330597, 0.283111, 0.314031, 0.347117, 0.36821, 0.706712, 0.641351, 0.588339, 0.539036, 0.496328, 0.451755, 0.378596, 0.292966, 0.28407, 0.355898, 0.408413, 0.428054, 0.726031, 0.661658, 0.609313, 0.548989, 0.495493, 0.437323, 0.345885, 0.272535, 0.319242, 0.423577, 0.488292, 0.499558, 0.755538, 0.691431, 0.640187, 0.569119, 0.509926, 0.441797, 0.335995, 0.284675, 0.376153, 0.494893, 0.564254, 0.565984, 0.792178, 0.729115, 0.678073, 0.60448, 0.552714, 0.487383, 0.376144, 0.327553, 0.431978, 0.55521, 0.624346, 0.620289, 0.830536, 0.770293, 0.718248, 0.650211, 0.617712, 0.566955, 0.461819, 0.398645, 0.48455, 0.601231, 0.667881, 0.658985, 0.863275, 0.807047, 0.753688, 0.700978, 0.694582, 0.659617, 0.565616, 0.48942, 0.534928, 0.634212, 0.695333, 0.68201, 0.882835, 0.828666, 0.780322, 0.756283, 0.771345, 0.746274, 0.664657, 0.578434, 0.581212, 0.656089, 0.707728, 0.691676, 0.882791, 0.829568, 0.80097, 0.81355, 0.836194, 0.817253, 0.746157, 0.65226, 0.619334, 0.668666, 0.706528, 0.689341, 0.863831, 0.819096, 0.825127, 0.863784, 0.885697, 0.868536, 0.805138, 0.707992, 0.648981, 0.672703, 0.695936, 0.676208, 0.834867, 0.81436, 0.852345, 0.900773, 0.918392, 0.901244, 0.842714, 0.746381, 0.671033, 0.670567, 0.678785, 0.653662, 0.327287, 0.361658, 0.420043, 0.491474, 0.551512, 0.585951, 0.591645, 0.567442, 0.513635, 0.441186, 0.379988, 0.37187, 0.36821, 0.394365, 0.437059, 0.499162, 0.556467, 0.58893, 0.592182, 0.565225, 0.50759, 0.429883, 0.366206, 0.358453, 0.428054, 0.436099, 0.453282, 0.496146, 0.545482, 0.574558, 0.574668, 0.543975, 0.481546, 0.399203, 0.333692, 0.327907, 0.499558, 0.480269, 0.461953, 0.47813, 0.517159, 0.542501, 0.539146, 0.503303, 0.436679, 0.351609, 0.286185, 0.28812, 0.565984, 0.519954, 0.464734, 0.44738, 0.471417, 0.491869, 0.486429, 0.445256, 0.37366, 0.289018, 0.229706, 0.243916, 0.620289, 0.551907, 0.462284, 0.407315, 0.410748, 0.423846, 0.417894, 0.372889, 0.298598, 0.216663, 0.169498, 0.200734, 0.658985, 0.575453, 0.454984, 0.362454, 0.340049, 0.343437, 0.33725, 0.292368, 0.218281, 0.144346, 0.112154, 0.164769, 0.68201, 0.590514, 0.444685, 0.317726, 0.266242, 0.258063, 0.251904, 0.210539, 0.142154, 0.081742, 0.0673, 0.129734, 0.691676, 0.59488, 0.433315, 0.278175, 0.197488, 0.177156, 0.171171, 0.135975, 0.079903, 0.036663, 0.038622, 0.094518, 0.689341, 0.589089, 0.418923, 0.247101, 0.141522, 0.110382, 0.10436, 0.077399, 0.038583, 1.203176e-2, 2.0777e-2, 0.062247, 0.676208, 0.574412, 0.401671, 0.221819, 0.101167, 0.06365, 0.057466, 0.039032, 1.550773e-2, 1.494234e-3, 0.923873e-2, 0.035495, 0.653662, 0.551883, 0.382167, 0.200516, 0.072651, 0.033179, 2.790058e-2, 1.643872e-2, 0.402606e-2, 0.0, 2.540902e-3, 1.597268e-2, 0.37187, 0.420765, 0.482791, 0.515135, 0.504901, 0.461566, 0.393681, 0.312649, 0.237516, 0.190577, 0.16528, 0.149495, 0.358453, 0.414914, 0.485692, 0.52336, 0.518181, 0.478684, 0.415045, 0.338411, 0.274511, 0.240253, 0.21962, 0.197825, 0.327907, 0.391903, 0.470462, 0.513363, 0.515277, 0.482644, 0.425438, 0.359487, 0.310959, 0.287591, 0.272345, 0.247787, 0.28812, 0.360096, 0.443083, 0.490971, 0.501048, 0.47751, 0.430603, 0.378063, 0.339279, 0.322661, 0.313294, 0.290017, 0.243916, 0.328117, 0.409729, 0.462079, 0.480711, 0.468226, 0.431594, 0.385902, 0.351673, 0.340345, 0.336582, 0.316195, 0.200734, 0.294192, 0.375418, 0.431507, 0.458264, 0.452862, 0.42308, 0.381013, 0.348007, 0.340332, 0.341361, 0.32524, 0.164769, 0.255825, 0.336408, 0.396296, 0.429222, 0.429691, 0.404482, 0.363068, 0.329882, 0.324078, 0.328709, 0.318107, 0.129734, 0.214955, 0.294168, 0.357547, 0.394361, 0.398452, 0.374808, 0.334108, 0.300141, 0.294234, 0.301275, 0.29707, 0.094518, 0.171274, 0.2484, 0.313196, 0.35214, 0.358698, 0.336327, 0.296984, 0.262605, 0.254729, 0.263274, 0.265946, 0.062247, 0.128085, 0.200995, 0.264352, 0.3036, 0.312558, 0.291921, 0.254681, 0.221541, 0.210984, 0.220443, 0.229467, 0.035495, 0.088844, 0.154309, 0.214259, 0.252075, 0.262857, 0.244535, 0.210376, 0.179932, 0.167907, 0.178896, 0.192869, 1.597268e-2, 0.05586, 0.111321, 0.165451, 0.200993, 0.212716, 0.197292, 0.167151, 0.140131, 0.129644, 0.142015, 0.159274, 0.159274, 0.158919, 0.135295, 0.109802, 0.113746, 0.146931, 0.202563, 0.327557, 0.628014, 0.816086, 0.85724, 0.834867, 0.131544, 0.134099, 0.113416, 0.092418, 0.101725, 0.139543, 0.189774, 0.267136, 0.519924, 0.747793, 0.815559, 0.808345, 0.109112, 0.11165, 0.093525, 0.076803, 0.09017, 0.130542, 0.180928, 0.228088, 0.420661, 0.664078, 0.765003, 0.787821, 0.089182, 0.091347, 0.075816, 0.062909, 0.079042, 0.120203, 0.169104, 0.204437, 0.338811, 0.573218, 0.703391, 0.768816, 0.071489, 0.073312, 0.060289, 0.050565, 0.068247, 0.10878, 0.154809, 0.186164, 0.271636, 0.481613, 0.635562, 0.743196, 0.056096, 0.057614, 0.04692, 0.039663, 0.057831, 0.096521, 0.13888, 0.167393, 0.214958, 0.394689, 0.565163, 0.71246, 0.043071, 0.044324, 0.035707, 3.022266e-2, 0.048038, 0.083906, 0.122322, 0.147804, 0.173919, 0.316525, 0.495888, 0.678655, 0.032459, 0.033486, 2.664541e-2, 2.235331e-2, 0.039247, 0.071732, 0.106187, 0.128746, 0.145454, 0.256836, 0.435493, 0.642897, 2.422817e-2, 2.5066e-2, 1.967315e-2, 1.615791e-2, 0.031832, 0.060801, 0.091574, 0.111526, 0.122196, 0.215071, 0.386547, 0.60614, 1.822313e-2, 1.891058e-2, 1.463315e-2, 1.163472e-2, 2.58349e-2, 0.051783, 0.079428, 0.097245, 0.104238, 0.183883, 0.346902, 0.572319, 1.417636e-2, 1.475277e-2, 1.126967e-2, 0.86274e-2, 2.138854e-2, 0.045128, 0.070432, 0.086711, 0.091822, 0.161526, 0.317986, 0.544915, 1.175996e-2, 1.226602e-2, 0.927396e-2, 0.685275e-2, 1.854949e-2, 0.041058, 0.06501, 0.080442, 0.08451, 0.147627, 0.299942, 0.526943, 0.834867, 0.81436, 0.852345, 0.900773, 0.918392, 0.901244, 0.842714, 0.746381, 0.671033, 0.670567, 0.678785, 0.653662, 0.808345, 0.820794, 0.877877, 0.922518, 0.936388, 0.919658, 0.864977, 0.77151, 0.686266, 0.666171, 0.657716, 0.624994, 0.787821, 0.832734, 0.897, 0.935115, 0.944914, 0.927416, 0.877074, 0.787889, 0.69672, 0.661112, 0.636341, 0.594972, 0.768816, 0.84304, 0.907854, 0.941268, 0.947264, 0.929461, 0.8822, 0.796761, 0.702182, 0.653405, 0.615214, 0.56406, 0.743196, 0.844887, 0.911533, 0.941931, 0.94503, 0.926861, 0.880979, 0.798242, 0.702092, 0.642175, 0.592725, 0.532539, 0.71246, 0.838315, 0.90886, 0.937714, 0.939417, 0.919755, 0.873622, 0.792376, 0.69543, 0.627595, 0.568159, 0.500465, 0.678655, 0.824674, 0.900514, 0.929626, 0.930169, 0.908196, 0.860451, 0.77928, 0.682222, 0.609622, 0.542152, 0.46876, 0.642897, 0.805526, 0.887464, 0.917825, 0.917159, 0.892362, 0.842094, 0.760115, 0.663885, 0.587871, 0.515131, 0.437618, 0.60614, 0.782406, 0.87055, 0.902787, 0.90095, 0.873195, 0.820008, 0.737167, 0.64221, 0.564131, 0.487772, 0.407634, 0.572319, 0.757891, 0.851855, 0.886098, 0.883322, 0.852953, 0.797049, 0.713575, 0.620009, 0.540983, 0.462524, 0.381068, 0.544915, 0.736166, 0.834811, 0.870776, 0.86739, 0.834978, 0.776923, 0.692987, 0.60069, 0.521426, 0.441996, 0.360125, 0.526943, 0.721407, 0.823337, 0.860466, 0.856779, 0.823045, 0.763486, 0.679004, 0.587426, 0.508154, 0.428417, 0.346599, 0.653662, 0.551883, 0.382167, 0.200516, 0.072651, 0.033179, 2.790058e-2, 1.643872e-2, 0.402606e-2, 0.0, 2.540902e-3, 1.597268e-2, 0.624994, 0.524558, 0.361369, 0.183442, 0.054947, 1.498249e-2, 1.108184e-2, 0.502233e-2, 2.461825e-4, 0.0, 1.114523e-4, 0.485578e-2, 0.594972, 0.495855, 0.340191, 0.170486, 0.045501, 0.573871e-2, 3.143131e-3, 0.648103e-3, 0.0, 0.0, 0.0, 0.668915e-3, 0.56406, 0.466186, 0.318358, 0.159042, 0.041109, 1.830718e-3, 3.10983e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.532539, 0.434675, 0.296156, 0.147513, 0.038334, 0.886863e-3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.500465, 0.401988, 0.272343, 0.135006, 0.035189, 0.571685e-3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.46876, 0.369094, 0.247803, 0.121823, 0.031289, 2.996045e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.437618, 0.336601, 0.223439, 0.109051, 2.69745e-2, 1.104229e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.407634, 0.306777, 0.200334, 0.096946, 2.277243e-2, 2.150781e-5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.381068, 0.281207, 0.180318, 0.086144, 1.898277e-2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.360125, 0.261521, 0.165099, 0.077412, 1.587074e-2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.346599, 0.249024, 0.155489, 0.071431, 1.358291e-2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.597268e-2, 0.05586, 0.111321, 0.165451, 0.200993, 0.212716, 0.197292, 0.167151, 0.140131, 0.129644, 0.142015, 0.159274, 0.485578e-2, 0.031331, 0.076118, 0.122523, 0.155078, 0.166924, 0.154808, 0.128483, 0.105376, 0.099294, 0.112888, 0.131544, 0.668915e-3, 1.533656e-2, 0.049775, 0.087981, 0.116911, 0.128424, 0.119284, 0.096649, 0.077478, 0.075725, 0.090602, 0.109112, 0.0, 0.595003e-2, 3.06776e-2, 0.061061, 0.086008, 0.096814, 0.089664, 0.070969, 0.055612, 0.056706, 0.07208, 0.089182, 0.0, 1.543127e-3, 1.753762e-2, 0.040848, 0.061591, 0.070821, 0.065405, 0.050474, 0.038888, 0.041621, 0.056385, 0.071489, 0.0, 1.374484e-4, 0.908952e-2, 2.610335e-2, 0.042337, 0.049876, 0.046, 0.03458, 2.617437e-2, 2.967628e-2, 0.043204, 0.056096, 0.0, 0.0, 0.391263e-2, 1.547126e-2, 2.76234e-2, 0.033631, 3.108163e-2, 2.2799e-2, 1.690905e-2, 2.050237e-2, 0.032477, 0.043071, 0.0, 0.0, 1.230841e-3, 0.835827e-2, 1.703237e-2, 2.171312e-2, 2.026525e-2, 1.429518e-2, 1.063292e-2, 1.388609e-2, 2.400052e-2, 0.032459, 0.0, 0.0, 1.717271e-4, 0.410387e-2, 1.004054e-2, 1.361301e-2, 1.28226e-2, 0.855585e-2, 0.633983e-2, 0.933283e-2, 1.753151e-2, 2.422817e-2, 0.0, 0.0, 0.0, 1.74378e-3, 0.571289e-2, 0.837271e-2, 0.794064e-2, 0.507896e-2, 3.62045e-3, 0.64519e-2, 1.290347e-2, 1.822313e-2, 0.0, 0.0, 0.0, 0.667198e-3, 3.231124e-3, 0.522751e-2, 0.505608e-2, 3.063435e-3, 2.09835e-3, 0.484587e-2, 0.985112e-2, 1.417636e-2, 0.0, 0.0, 0.0, 2.236619e-4, 1.999883e-3, 3.570687e-3, 3.52309e-3, 1.984263e-3, 1.281611e-3, 0.390917e-2, 0.805827e-2, 1.175996e-2, 0.445258, 0.439315, 0.428843, 0.415408, 0.400748, 0.386535, 0.374209, 0.364738, 0.35873, 0.356533, 0.358316, 0.36451, 0.512703, 0.514271, 0.509667, 0.500242, 0.48762, 0.473564, 0.459442, 0.446204, 0.434466, 0.424768, 0.418309, 0.415942, 0.571764, 0.579208, 0.579113, 0.573838, 0.565398, 0.555512, 0.545393, 0.535714, 0.526593, 0.517551, 0.507724, 0.496413, 0.616317, 0.625936, 0.62783, 0.624654, 0.618597, 0.611229, 0.603567, 0.596103, 0.588756, 0.580943, 0.571559, 0.55885, 0.644898, 0.655183, 0.65785, 0.655617, 0.650543, 0.644083, 0.637186, 0.6302, 0.622988, 0.615101, 0.605712, 0.593178, 0.661195, 0.671185, 0.67383, 0.671653, 0.666585, 0.660076, 0.652948, 0.6456, 0.638039, 0.629837, 0.620157, 0.607682, 0.669142, 0.678836, 0.681112, 0.678526, 0.673077, 0.666075, 0.658381, 0.650346, 0.642086, 0.6332, 0.622981, 0.61025, 0.67203, 0.681488, 0.683371, 0.680343, 0.674345, 0.666695, 0.658166, 0.649303, 0.640186, 0.630555, 0.619737, 0.606675, 0.672542, 0.681838, 0.683423, 0.68001, 0.673456, 0.665102, 0.655819, 0.646139, 0.636254, 0.625987, 0.614728, 0.601431, 0.672779, 0.681994, 0.683389, 0.67968, 0.672699, 0.663765, 0.65385, 0.643502, 0.633018, 0.62227, 0.610698, 0.597292, 0.674252, 0.683499, 0.684859, 0.681015, 0.673773, 0.664419, 0.653944, 0.643069, 0.632038, 0.620824, 0.608921, 0.595434, 0.678022, 0.687424, 0.688896, 0.685052, 0.677699, 0.668109, 0.657213, 0.645711, 0.634044, 0.622238, 0.609914, 0.596245, 0.36451, 0.374265, 0.385419, 0.39683, 0.407472, 0.416705, 0.424659, 0.431656, 0.437801, 0.442894, 0.445984, 0.445258, 0.415942, 0.417955, 0.423246, 0.430691, 0.439498, 0.44924, 0.45975, 0.47095, 0.48272, 0.494536, 0.50518, 0.512703, 0.496413, 0.486226, 0.480423, 0.479047, 0.481827, 0.488376, 0.498229, 0.510863, 0.525715, 0.541847, 0.557846, 0.571764, 0.55885, 0.544169, 0.532309, 0.524846, 0.522605, 0.525774, 0.533993, 0.546551, 0.562586, 0.58091, 0.599719, 0.616317, 0.593178, 0.578732, 0.566405, 0.557774, 0.553978, 0.555597, 0.562651, 0.574584, 0.590405, 0.608772, 0.627787, 0.644898, 0.607682, 0.593625, 0.58188, 0.573872, 0.570544, 0.572368, 0.579408, 0.591318, 0.607171, 0.62553, 0.644418, 0.661195, 0.61025, 0.596475, 0.585303, 0.578136, 0.575723, 0.578489, 0.586329, 0.598845, 0.615122, 0.633673, 0.652549, 0.669142, 0.606675, 0.593081, 0.582515, 0.576198, 0.57476, 0.578453, 0.587245, 0.600546, 0.617444, 0.636436, 0.655483, 0.67203, 0.601431, 0.587932, 0.577854, 0.572221, 0.571592, 0.576125, 0.585688, 0.599748, 0.617267, 0.636687, 0.655965, 0.672542, 0.597292, 0.583896, 0.574159, 0.569018, 0.568952, 0.574118, 0.584291, 0.59892, 0.616899, 0.636649, 0.656138, 0.672779, 0.595434, 0.582258, 0.572794, 0.567944, 0.56826, 0.573847, 0.584528, 0.599584, 0.617884, 0.63787, 0.65753, 0.674252, 0.596245, 0.582946, 0.573464, 0.568837, 0.569599, 0.575764, 0.58695, 0.602406, 0.621039, 0.641298, 0.661139, 0.678022, 0.678022, 0.687424, 0.688896, 0.685052, 0.677699, 0.668109, 0.657213, 0.645711, 0.634044, 0.622238, 0.609914, 0.596245, 0.68347, 0.693041, 0.694661, 0.6908, 0.683301, 0.673401, 0.662031, 0.649892, 0.637446, 0.624869, 0.611945, 0.597872, 0.689152, 0.698878, 0.7006, 0.696742, 0.689057, 0.678864, 0.66707, 0.654386, 0.641328, 0.628161, 0.614707, 0.600004, 0.694427, 0.704311, 0.706147, 0.702383, 0.694759, 0.684503, 0.672568, 0.659686, 0.646425, 0.633028, 0.619203, 0.604043, 0.69874, 0.708796, 0.710819, 0.707323, 0.699985, 0.690008, 0.678345, 0.665713, 0.652584, 0.639148, 0.62517, 0.609758, 0.701616, 0.711873, 0.714227, 0.711095, 0.704134, 0.694557, 0.68332, 0.671141, 0.658475, 0.645431, 0.631641, 0.616127, 0.702708, 0.713153, 0.715763, 0.712914, 0.706304, 0.697223, 0.68663, 0.675203, 0.66332, 0.650981, 0.637691, 0.622272, 0.701145, 0.71179, 0.714597, 0.711983, 0.705752, 0.697228, 0.6874, 0.676867, 0.665892, 0.654347, 0.641623, 0.626464, 0.696365, 0.707178, 0.710066, 0.707591, 0.70171, 0.693782, 0.684677, 0.674919, 0.664678, 0.653734, 0.641377, 0.62624, 0.687653, 0.698509, 0.701358, 0.698963, 0.693254, 0.685534, 0.676682, 0.66718, 0.65717, 0.646392, 0.63405, 0.618801, 0.67388, 0.684758, 0.687467, 0.684775, 0.678609, 0.670331, 0.661036, 0.651147, 0.640652, 0.629304, 0.616592, 0.60118, 0.653662, 0.664515, 0.666806, 0.664025, 0.658165, 0.650467, 0.64136, 0.630855, 0.618697, 0.60461, 0.588354, 0.569717, 0.596245, 0.582946, 0.573464, 0.568837, 0.569599, 0.575764, 0.58695, 0.602406, 0.621039, 0.641298, 0.661139, 0.678022, 0.597872, 0.584236, 0.574783, 0.57051, 0.571813, 0.578625, 0.59049, 0.606588, 0.625729, 0.646334, 0.666405, 0.68347, 0.600004, 0.585906, 0.576346, 0.572305, 0.574102, 0.581562, 0.594116, 0.610852, 0.63052, 0.651522, 0.671876, 0.689152, 0.604043, 0.58948, 0.57961, 0.575441, 0.577284, 0.584929, 0.597814, 0.614957, 0.635006, 0.656332, 0.676944, 0.694427, 0.609758, 0.594859, 0.58458, 0.579977, 0.581473, 0.588905, 0.601648, 0.61871, 0.638804, 0.660288, 0.681076, 0.69874, 0.616127, 0.600927, 0.59022, 0.585108, 0.586035, 0.592888, 0.605116, 0.621824, 0.641696, 0.663043, 0.683827, 0.701616, 0.622272, 0.606717, 0.595412, 0.589536, 0.589632, 0.595705, 0.607283, 0.623472, 0.642985, 0.664143, 0.68488, 0.702708, 0.626464, 0.610641, 0.598661, 0.591917, 0.591053, 0.596185, 0.60695, 0.622523, 0.641634, 0.662581, 0.683249, 0.701145, 0.62624, 0.610215, 0.597744, 0.590262, 0.588582, 0.592918, 0.602986, 0.618035, 0.636822, 0.657627, 0.678303, 0.696365, 0.618801, 0.602537, 0.589758, 0.581977, 0.57998, 0.583998, 0.593824, 0.608742, 0.627526, 0.648455, 0.669359, 0.687653, 0.60118, 0.584801, 0.572025, 0.564382, 0.562714, 0.567219, 0.577559, 0.59302, 0.612384, 0.633895, 0.655305, 0.67388, 0.569717, 0.55255, 0.541, 0.534962, 0.534799, 0.540678, 0.552321, 0.569087, 0.589715, 0.612348, 0.634615, 0.653662, 0.261319, 0.247251, 0.230121, 0.210661, 0.190773, 0.171045, 0.151908, 0.134302, 0.119469, 0.107558, 0.098303, 0.090717, 0.303866, 0.287681, 0.263201, 0.235513, 0.209067, 0.185793, 0.16626, 0.149932, 0.136369, 0.125276, 0.116172, 0.108222, 0.349099, 0.329533, 0.299258, 0.264909, 0.231931, 0.203084, 0.179539, 0.160902, 0.146402, 0.135461, 0.127466, 0.121481, 0.394327, 0.373221, 0.341229, 0.304974, 0.269459, 0.237644, 0.211029, 0.190157, 0.175033, 0.16542, 0.160963, 0.160957, 0.43715, 0.416251, 0.386228, 0.352877, 0.320273, 0.291006, 0.266648, 0.248132, 0.235993, 0.230475, 0.231417, 0.23779, 0.474932, 0.455555, 0.429795, 0.402224, 0.37594, 0.352995, 0.334762, 0.322186, 0.315894, 0.316155, 0.322625, 0.333831, 0.505175, 0.48798, 0.467295, 0.446412, 0.427522, 0.412098, 0.401164, 0.395457, 0.395347, 0.400837, 0.411339, 0.42516, 0.526024, 0.511166, 0.495208, 0.480332, 0.467948, 0.459045, 0.454332, 0.454218, 0.458738, 0.467549, 0.479795, 0.493839, 0.537036, 0.524225, 0.511902, 0.50137, 0.493517, 0.489079, 0.488329, 0.491164, 0.497422, 0.506927, 0.519061, 0.532369, 0.539121, 0.527727, 0.517535, 0.509482, 0.50416, 0.501442, 0.501079, 0.503381, 0.508445, 0.516107, 0.526108, 0.537721, 0.533933, 0.523204, 0.514001, 0.506664, 0.500749, 0.496207, 0.492733, 0.490144, 0.489143, 0.490722, 0.495855, 0.505047, 0.523541, 0.513003, 0.502861, 0.493002, 0.482231, 0.469845, 0.455925, 0.441475, 0.428382, 0.419134, 0.416365, 0.422274, 0.090717, 0.086951, 0.092231, 0.108265, 0.134068, 0.165983, 0.198878, 0.228454, 0.25152, 0.265477, 0.26883, 0.261319, 0.108222, 0.102228, 0.103034, 0.113069, 0.133136, 0.162359, 0.197637, 0.234409, 0.267821, 0.292909, 0.30579, 0.303866, 0.121481, 0.118087, 0.12115, 0.133385, 0.15596, 0.188309, 0.227186, 0.267951, 0.305242, 0.334086, 0.350216, 0.349099, 0.160957, 0.164374, 0.173112, 0.189785, 0.214998, 0.247478, 0.28454, 0.322265, 0.356335, 0.382576, 0.396891, 0.394327, 0.23779, 0.246702, 0.258594, 0.275728, 0.298437, 0.325914, 0.355925, 0.385697, 0.412151, 0.432076, 0.441918, 0.43715, 0.333831, 0.345601, 0.35754, 0.371536, 0.388421, 0.407622, 0.428026, 0.447823, 0.464976, 0.477216, 0.481839, 0.474932, 0.42516, 0.437613, 0.447841, 0.457617, 0.467875, 0.478788, 0.489817, 0.500142, 0.508614, 0.513778, 0.513621, 0.505175, 0.493839, 0.505524, 0.5138, 0.520253, 0.525693, 0.530404, 0.534504, 0.537721, 0.53955, 0.5392, 0.535417, 0.526024, 0.532369, 0.542927, 0.549789, 0.554447, 0.557538, 0.559288, 0.559807, 0.558991, 0.556798, 0.552982, 0.546865, 0.537036, 0.537721, 0.547855, 0.555206, 0.560452, 0.563856, 0.565749, 0.56607, 0.564607, 0.56125, 0.556041, 0.548913, 0.539121, 0.505047, 0.516117, 0.527093, 0.537426, 0.546148, 0.552316, 0.555544, 0.556206, 0.554366, 0.55015, 0.543425, 0.533933, 0.422274, 0.43589, 0.454358, 0.475433, 0.496352, 0.514542, 0.528137, 0.536248, 0.538953, 0.537221, 0.532117, 0.523541, 0.523541, 0.513003, 0.502861, 0.493002, 0.482231, 0.469845, 0.455925, 0.441475, 0.428382, 0.419134, 0.416365, 0.422274, 0.520578, 0.509977, 0.49938, 0.488206, 0.475378, 0.460265, 0.443071, 0.425057, 0.408461, 0.396163, 0.391192, 0.396133, 0.517953, 0.507448, 0.496393, 0.484125, 0.469641, 0.452354, 0.432599, 0.411842, 0.39258, 0.37796, 0.371251, 0.375278, 0.515718, 0.505376, 0.494019, 0.481004, 0.46536, 0.446569, 0.425078, 0.402501, 0.381488, 0.365323, 0.357353, 0.360533, 0.513893, 0.503851, 0.492446, 0.479068, 0.462811, 0.443241, 0.420884, 0.397428, 0.375573, 0.358624, 0.349866, 0.352388, 0.512674, 0.503057, 0.491855, 0.47851, 0.462204, 0.442581, 0.420215, 0.396789, 0.374953, 0.35793, 0.348918, 0.350988, 0.512266, 0.503171, 0.492404, 0.479474, 0.46366, 0.444677, 0.423105, 0.400552, 0.379528, 0.363098, 0.354344, 0.356174, 0.512845, 0.504331, 0.494199, 0.482028, 0.467199, 0.449481, 0.429423, 0.408497, 0.389003, 0.373769, 0.365729, 0.367532, 0.51452, 0.506604, 0.49726, 0.486138, 0.472711, 0.456789, 0.438856, 0.420207, 0.402875, 0.389387, 0.382412, 0.384376, 0.517293, 0.509949, 0.501488, 0.491628, 0.479923, 0.46621, 0.450885, 0.435037, 0.420394, 0.409132, 0.403582, 0.405863, 0.521015, 0.514167, 0.506615, 0.498137, 0.488361, 0.477131, 0.464749, 0.452079, 0.440524, 0.431877, 0.428075, 0.430871, 0.525331, 0.518851, 0.512154, 0.505074, 0.497301, 0.488682, 0.479411, 0.470132, 0.461916, 0.456157, 0.454361, 0.457865, 0.422274, 0.43589, 0.454358, 0.475433, 0.496352, 0.514542, 0.528137, 0.536248, 0.538953, 0.537221, 0.532117, 0.523541, 0.396133, 0.410345, 0.430813, 0.454905, 0.479405, 0.501268, 0.518233, 0.529145, 0.533963, 0.533473, 0.528878, 0.520578, 0.375278, 0.389704, 0.411435, 0.437599, 0.464688, 0.489333, 0.508965, 0.522205, 0.528887, 0.529754, 0.525897, 0.517953, 0.360533, 0.37487, 0.397233, 0.424517, 0.453142, 0.479561, 0.501019, 0.515972, 0.524132, 0.526176, 0.523163, 0.515718, 0.352388, 0.366374, 0.388739, 0.41628, 0.44541, 0.472579, 0.494963, 0.51093, 0.520097, 0.52305, 0.520783, 0.513893, 0.350988, 0.364418, 0.386207, 0.413196, 0.441882, 0.46882, 0.491238, 0.507495, 0.517147, 0.520687, 0.519012, 0.512674, 0.356174, 0.36889, 0.389609, 0.415322, 0.442721, 0.468537, 0.490153, 0.505997, 0.515601, 0.519371, 0.518098, 0.512266, 0.367532, 0.379414, 0.398645, 0.422497, 0.447883, 0.471802, 0.491873, 0.506657, 0.515702, 0.519339, 0.51825, 0.512845, 0.384376, 0.395349, 0.412819, 0.434339, 0.457115, 0.478496, 0.496398, 0.509561, 0.517585, 0.520741, 0.519606, 0.51452, 0.405863, 0.415911, 0.431411, 0.450223, 0.469934, 0.488289, 0.503538, 0.514632, 0.521242, 0.523603, 0.522196, 0.517293, 0.430871, 0.440006, 0.453389, 0.469249, 0.4856, 0.500611, 0.512878, 0.52158, 0.526476, 0.527779, 0.525888, 0.521015, 0.457865, 0.466158, 0.477393, 0.490212, 0.503086, 0.514613, 0.523739, 0.529867, 0.532854, 0.532902, 0.530344, 0.525331, 1.494765e-2, 1.494767e-2, 1.494765e-2, 1.494761e-2, 1.494761e-2, 1.494767e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 0.032221, 0.034773, 0.036526, 0.037434, 0.037531, 0.036901, 0.035817, 0.034423, 0.032862, 0.031286, 2.984895e-2, 2.876894e-2, 0.055274, 0.062005, 0.067112, 0.070069, 0.070447, 0.068512, 0.065083, 0.060687, 0.055916, 0.05168, 0.048568, 0.046778, 0.077349, 0.08808, 0.096118, 0.100662, 0.101316, 0.098565, 0.093574, 0.087047, 0.080297, 0.074072, 0.069125, 0.066402, 0.098492, 0.11171, 0.121434, 0.12679, 0.127377, 0.124319, 0.118832, 0.112106, 0.104695, 0.097345, 0.090925, 0.086842, 0.116754, 0.130677, 0.140694, 0.146056, 0.14709, 0.144717, 0.139913, 0.133938, 0.126929, 0.119366, 0.112276, 0.10724, 0.129357, 0.142357, 0.151618, 0.157099, 0.159129, 0.157979, 0.154675, 0.149885, 0.143999, 0.13723, 0.13075, 0.125388, 0.135509, 0.146768, 0.155341, 0.161028, 0.163764, 0.163927, 0.162139, 0.158743, 0.154433, 0.149489, 0.144299, 0.139464, 0.139182, 0.148884, 0.156484, 0.161777, 0.164741, 0.165778, 0.165244, 0.16346, 0.160794, 0.157566, 0.153847, 0.150021, 0.145195, 0.153739, 0.1605, 0.165375, 0.168512, 0.170175, 0.170496, 0.16968, 0.167981, 0.165675, 0.162942, 0.15985, 0.157419, 0.16606, 0.172968, 0.178019, 0.181447, 0.183358, 0.183878, 0.183202, 0.181548, 0.179183, 0.176406, 0.173297, 0.181777, 0.192675, 0.201236, 0.207326, 0.211243, 0.213074, 0.21301, 0.21129, 0.208269, 0.204369, 0.200041, 0.195613, 1.494765e-2, 1.494767e-2, 1.494765e-2, 1.494761e-2, 1.494761e-2, 1.494767e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 2.876894e-2, 2.843586e-2, 2.88191e-2, 2.965258e-2, 3.076369e-2, 0.031826, 0.032735, 0.033399, 0.033738, 0.033694, 0.033229, 0.032333, 0.046778, 0.046816, 0.04859, 0.051515, 0.054366, 0.057127, 0.059778, 0.062017, 0.063469, 0.063984, 0.063385, 0.061678, 0.066402, 0.066781, 0.069397, 0.073518, 0.077509, 0.081081, 0.084592, 0.087787, 0.090236, 0.09085, 0.08954, 0.08686, 0.086842, 0.086447, 0.088746, 0.092876, 0.097574, 0.102054, 0.106123, 0.109342, 0.11151, 0.11199, 0.110256, 0.106824, 0.10724, 0.105241, 0.106265, 0.109022, 0.113299, 0.118012, 0.121923, 0.124675, 0.126007, 0.125881, 0.123906, 0.120114, 0.125388, 0.122035, 0.121209, 0.1221, 0.124429, 0.127934, 0.131242, 0.133271, 0.133783, 0.1329, 0.130533, 0.126412, 0.139464, 0.135721, 0.133533, 0.132865, 0.133283, 0.134496, 0.135857, 0.136685, 0.136496, 0.135123, 0.132558, 0.128429, 0.150021, 0.146629, 0.143991, 0.142185, 0.141336, 0.140864, 0.140377, 0.139631, 0.138364, 0.136269, 0.133358, 0.129396, 0.15985, 0.1568, 0.154079, 0.151844, 0.150261, 0.148943, 0.147506, 0.145782, 0.143617, 0.140984, 0.137741, 0.133777, 0.173297, 0.170098, 0.167119, 0.164575, 0.162634, 0.161046, 0.159297, 0.157196, 0.154633, 0.151575, 0.147988, 0.143791, 0.195613, 0.191331, 0.187716, 0.185068, 0.183312, 0.182118, 0.180705, 0.178719, 0.176051, 0.172668, 0.168557, 0.163585, 1.494765e-2, 1.494767e-2, 1.494765e-2, 1.494761e-2, 1.494761e-2, 1.494767e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 0.032333, 3.108039e-2, 2.958149e-2, 2.792092e-2, 2.619279e-2, 2.44979e-2, 2.291812e-2, 2.139513e-2, 1.996434e-2, 1.872833e-2, 1.759948e-2, 1.662183e-2, 0.061678, 0.059277, 0.056476, 0.053446, 0.050244, 0.04694, 0.043405, 0.039459, 0.035352, 0.031378, 2.750409e-2, 2.370939e-2, 0.08686, 0.083672, 0.080285, 0.076494, 0.072367, 0.067894, 0.062812, 0.056875, 0.050536, 0.044469, 0.038429, 0.032314, 0.106824, 0.102569, 0.098178, 0.093624, 0.088442, 0.082652, 0.076241, 0.068819, 0.060952, 0.053386, 0.046377, 0.03951, 0.120114, 0.115113, 0.109662, 0.104035, 0.097686, 0.090573, 0.082824, 0.074589, 0.066018, 0.057837, 0.050668, 0.044438, 0.126412, 0.120989, 0.11489, 0.108427, 0.1013, 0.093412, 0.084968, 0.076404, 0.068232, 0.060485, 0.053577, 0.048078, 0.128429, 0.123046, 0.116893, 0.110292, 0.10312, 0.095323, 0.087133, 0.078938, 0.071139, 0.064042, 0.058022, 0.053573, 0.129396, 0.124427, 0.118762, 0.112625, 0.105974, 0.098846, 0.091499, 0.084279, 0.077543, 0.071609, 0.066828, 0.063558, 0.133777, 0.129021, 0.123727, 0.118058, 0.112024, 0.105704, 0.099335, 0.093176, 0.08749, 0.082526, 0.078548, 0.076026, 0.143791, 0.138886, 0.133427, 0.127601, 0.121518, 0.115215, 0.108895, 0.1028, 0.097148, 0.092186, 0.088287, 0.086011, 0.163585, 0.157782, 0.151156, 0.143881, 0.136247, 0.128519, 0.120696, 0.11299, 0.105688, 0.099117, 0.093998, 0.090978, 1.494765e-2, 1.494767e-2, 1.494765e-2, 1.494761e-2, 1.494761e-2, 1.494767e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.494765e-2, 1.662183e-2, 1.581672e-2, 1.526836e-2, 1.506545e-2, 1.546175e-2, 1.653222e-2, 1.823893e-2, 2.049585e-2, 2.317119e-2, 2.60971e-2, 2.919718e-2, 0.032221, 2.370939e-2, 2.046785e-2, 1.806401e-2, 1.650477e-2, 1.605531e-2, 1.737657e-2, 2.060051e-2, 2.561348e-2, 0.031987, 0.039424, 0.047464, 0.055274, 0.032314, 2.707332e-2, 2.318133e-2, 2.05779e-2, 1.975616e-2, 2.169108e-2, 2.633602e-2, 0.033425, 0.042662, 0.053782, 0.065575, 0.077349, 0.03951, 0.033479, 2.905743e-2, 2.671427e-2, 2.69673e-2, 3.017701e-2, 0.036175, 0.044667, 0.055872, 0.069277, 0.083686, 0.098492, 0.044438, 0.039011, 0.03536, 0.034573, 0.036673, 0.041422, 0.048615, 0.058243, 0.07058, 0.084912, 0.100736, 0.116754, 0.048078, 0.044134, 0.042837, 0.044314, 0.048213, 0.054191, 0.062197, 0.072548, 0.084849, 0.098778, 0.114139, 0.129357, 0.053573, 0.051472, 0.052262, 0.055365, 0.060375, 0.067017, 0.075482, 0.085503, 0.096734, 0.109251, 0.122487, 0.135509, 0.063558, 0.062573, 0.063978, 0.06738, 0.072642, 0.079399, 0.087405, 0.096387, 0.106328, 0.117091, 0.128226, 0.139182, 0.076026, 0.075457, 0.076881, 0.080215, 0.085205, 0.091529, 0.098881, 0.107093, 0.116153, 0.12577, 0.135595, 0.145195, 0.086011, 0.085652, 0.087336, 0.090908, 0.096085, 0.102593, 0.110104, 0.118631, 0.127967, 0.137786, 0.147729, 0.157419, 0.090978, 0.090462, 0.092463, 0.096904, 0.10349, 0.111794, 0.12141, 0.132337, 0.144274, 0.156812, 0.169484, 0.181777, 0.181777, 0.192675, 0.201236, 0.207326, 0.211243, 0.213074, 0.21301, 0.21129, 0.208269, 0.204369, 0.200041, 0.195613, 0.222602, 0.238315, 0.250482, 0.258667, 0.263217, 0.26422, 0.261932, 0.257032, 0.250253, 0.242414, 0.234578, 0.227959, 0.274326, 0.296854, 0.314071, 0.325486, 0.331334, 0.331302, 0.325348, 0.314414, 0.300331, 0.285796, 0.273872, 0.266003, 0.320907, 0.35572, 0.384347, 0.40285, 0.411188, 0.409974, 0.399378, 0.380261, 0.355413, 0.331106, 0.313097, 0.303923, 0.348, 0.399651, 0.44438, 0.474421, 0.490134, 0.491162, 0.476609, 0.447488, 0.408093, 0.369143, 0.341422, 0.330028, 0.345696, 0.41444, 0.477001, 0.525962, 0.555978, 0.562655, 0.543999, 0.503258, 0.447448, 0.39394, 0.358397, 0.348414, 0.313968, 0.396722, 0.481256, 0.55688, 0.607925, 0.627673, 0.613195, 0.565532, 0.496086, 0.432438, 0.407527, 0.409275, 0.263523, 0.354001, 0.464066, 0.570848, 0.64761, 0.686505, 0.683581, 0.64233, 0.569849, 0.509943, 0.498891, 0.500449, 0.21201, 0.302221, 0.434164, 0.569587, 0.67216, 0.733107, 0.749402, 0.722345, 0.66055, 0.607126, 0.59248, 0.580293, 0.175215, 0.257425, 0.401132, 0.559053, 0.684078, 0.765924, 0.799127, 0.785944, 0.737555, 0.686755, 0.657242, 0.628197, 0.159227, 0.229966, 0.376008, 0.547301, 0.689012, 0.78666, 0.831555, 0.827792, 0.788245, 0.737127, 0.694361, 0.652214, 0.159098, 0.222061, 0.366365, 0.541727, 0.69184, 0.797877, 0.849287, 0.850353, 0.815221, 0.762943, 0.71192, 0.662118, 0.195613, 0.191331, 0.187716, 0.185068, 0.183312, 0.182118, 0.180705, 0.178719, 0.176051, 0.172668, 0.168557, 0.163585, 0.227959, 0.222817, 0.220035, 0.219203, 0.219614, 0.220627, 0.220716, 0.219375, 0.216566, 0.212366, 0.207012, 0.200679, 0.266003, 0.263055, 0.264667, 0.269386, 0.275577, 0.281307, 0.285066, 0.285457, 0.281541, 0.27436, 0.265413, 0.255889, 0.303923, 0.30551, 0.315438, 0.329216, 0.343892, 0.356222, 0.364356, 0.366135, 0.361, 0.35072, 0.337602, 0.324362, 0.330028, 0.33695, 0.357986, 0.383618, 0.406894, 0.424442, 0.435168, 0.437703, 0.431704, 0.418702, 0.402709, 0.386923, 0.348414, 0.36108, 0.392251, 0.427783, 0.456738, 0.475861, 0.485582, 0.484552, 0.475236, 0.460635, 0.443963, 0.427228, 0.409275, 0.422577, 0.446027, 0.469069, 0.490298, 0.507246, 0.513828, 0.507469, 0.491746, 0.473949, 0.454824, 0.439784, 0.500449, 0.50145, 0.505749, 0.506915, 0.510779, 0.518886, 0.521965, 0.509188, 0.485855, 0.46328, 0.440791, 0.429111, 0.580293, 0.561841, 0.54668, 0.531685, 0.522037, 0.520132, 0.515165, 0.495714, 0.463798, 0.436738, 0.413176, 0.40587, 0.628197, 0.594832, 0.567133, 0.543478, 0.525995, 0.517127, 0.502969, 0.475131, 0.435259, 0.405691, 0.38402, 0.382579, 0.652214, 0.609529, 0.575137, 0.547582, 0.526167, 0.512665, 0.491969, 0.456789, 0.411554, 0.381996, 0.363515, 0.368064, 0.662118, 0.61473, 0.576954, 0.54788, 0.524911, 0.509179, 0.485994, 0.447901, 0.401094, 0.372904, 0.35785, 0.366229, 0.163585, 0.157782, 0.151156, 0.143881, 0.136247, 0.128519, 0.120696, 0.11299, 0.105688, 0.099117, 0.093998, 0.090978, 0.200679, 0.193356, 0.184665, 0.174806, 0.164242, 0.153541, 0.142746, 0.13158, 0.120492, 0.110098, 0.101762, 0.096578, 0.255889, 0.245993, 0.235358, 0.223308, 0.210183, 0.196678, 0.182985, 0.168319, 0.15304, 0.13785, 0.124679, 0.115649, 0.324362, 0.311524, 0.299499, 0.28612, 0.271715, 0.257673, 0.243243, 0.226588, 0.207189, 0.186746, 0.169101, 0.157647, 0.386923, 0.37263, 0.361368, 0.349797, 0.337497, 0.326149, 0.314206, 0.296722, 0.274842, 0.251933, 0.231469, 0.215987, 0.427228, 0.414995, 0.40913, 0.404218, 0.399275, 0.394075, 0.384709, 0.36807, 0.345356, 0.320073, 0.294282, 0.276617, 0.439784, 0.434564, 0.438573, 0.445074, 0.450817, 0.452483, 0.447273, 0.43294, 0.409012, 0.377374, 0.346081, 0.328121, 0.429111, 0.43529, 0.45216, 0.471931, 0.489212, 0.498174, 0.497914, 0.485655, 0.456554, 0.418088, 0.381798, 0.365028, 0.40587, 0.42512, 0.454921, 0.487102, 0.515124, 0.531237, 0.535463, 0.52175, 0.487359, 0.442444, 0.401786, 0.387215, 0.382579, 0.412338, 0.452221, 0.495331, 0.5314, 0.553492, 0.559311, 0.543494, 0.504844, 0.454451, 0.410021, 0.397879, 0.368064, 0.403204, 0.450061, 0.500157, 0.541279, 0.567136, 0.572643, 0.555298, 0.51377, 0.459643, 0.412531, 0.401928, 0.366229, 0.402773, 0.452069, 0.504367, 0.54703, 0.573623, 0.578591, 0.5607, 0.518139, 0.462801, 0.415004, 0.405122, 0.090978, 0.090462, 0.092463, 0.096904, 0.10349, 0.111794, 0.12141, 0.132337, 0.144274, 0.156812, 0.169484, 0.181777, 0.096578, 0.095244, 0.097639, 0.10333, 0.111977, 0.123095, 0.136114, 0.151255, 0.168256, 0.186399, 0.204798, 0.222602, 0.115649, 0.112524, 0.114427, 0.120145, 0.129044, 0.141057, 0.155912, 0.173824, 0.195825, 0.22118, 0.248034, 0.274326, 0.157647, 0.151341, 0.149586, 0.152617, 0.159742, 0.169517, 0.181591, 0.197661, 0.219965, 0.249503, 0.284211, 0.320907, 0.215987, 0.207201, 0.20465, 0.205738, 0.208317, 0.211671, 0.215363, 0.222328, 0.236876, 0.262597, 0.299902, 0.348, 0.276617, 0.27001, 0.270462, 0.272408, 0.272035, 0.265268, 0.255275, 0.247138, 0.245173, 0.256507, 0.288915, 0.345696, 0.328121, 0.326194, 0.333358, 0.339996, 0.337817, 0.322399, 0.297956, 0.269652, 0.245803, 0.236444, 0.255279, 0.313968, 0.365028, 0.36981, 0.385051, 0.39685, 0.393902, 0.372354, 0.334998, 0.288872, 0.243755, 0.213655, 0.21288, 0.263523, 0.387215, 0.399731, 0.423253, 0.439597, 0.435248, 0.408611, 0.361804, 0.30232, 0.243064, 0.197082, 0.178404, 0.21201, 0.397879, 0.418215, 0.449014, 0.468689, 0.463177, 0.432008, 0.37855, 0.311583, 0.24369, 0.189372, 0.159365, 0.175215, 0.401928, 0.428138, 0.464887, 0.486633, 0.480544, 0.446636, 0.389602, 0.318832, 0.247448, 0.189132, 0.15575, 0.159227, 0.405122, 0.433535, 0.472903, 0.495718, 0.489975, 0.455738, 0.39828, 0.327073, 0.255017, 0.196233, 0.161264, 0.159098, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.225296e-4, 1.282061e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.897878e-3, 1.067387e-3, 1.858343e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.603066e-3, 2.290237e-3, 0.708992e-3, 0.0, 0.0, 4.902122e-5, 3.094411e-5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.52172e-2, 3.496096e-3, 1.317541e-3, 3.314578e-5, 1.180195e-4, 3.84381e-4, 3.258707e-4, 3.978474e-5, 0.0, 0.0, 0.0, 0.0, 0.680238e-2, 0.462429e-2, 1.941309e-3, 1.466375e-4, 4.16671e-4, 0.914167e-3, 0.875297e-3, 2.518185e-4, 0.0, 0.0, 0.0, 0.0, 0.843288e-2, 0.570015e-2, 2.575523e-3, 3.867039e-4, 0.81226e-3, 1.647444e-3, 1.638219e-3, 0.671789e-3, 2.035796e-7, 0.0, 0.0, 0.0, 1.00803e-2, 0.683781e-2, 3.228637e-3, 0.7709e-3, 1.326401e-3, 2.524395e-3, 2.543604e-3, 1.264583e-3, 5.015222e-5, 0.0, 0.0, 0.0, 1.175996e-2, 0.805827e-2, 0.390917e-2, 1.281611e-3, 1.984263e-3, 3.523101e-3, 3.570668e-3, 1.999883e-3, 2.236619e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.390373e-5, 0.858593e-3, 3.629341e-3, 0.826009e-2, 1.456822e-2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.274697e-3, 0.906204e-2, 2.585106e-2, 0.05108, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.986138e-3, 2.176043e-2, 0.059462, 0.109711, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.693531e-3, 1.478564e-2, 0.048548, 0.104637, 0.173755, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.652917e-3, 2.894378e-2, 0.075966, 0.144417, 0.225349, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.486578e-2, 0.040526, 0.098794, 0.175216, 0.262937, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.673536e-2, 0.049291, 0.11652, 0.198267, 0.289863, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.839994e-2, 0.05613, 0.129923, 0.215654, 0.309587, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.004037e-2, 0.06181, 0.1402, 0.229103, 0.32462, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.175834e-2, 0.066821, 0.148459, 0.239891, 0.336578, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.358291e-2, 0.071431, 0.155489, 0.249024, 0.346599, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.456822e-2, 2.198424e-2, 2.923245e-2, 0.035395, 0.039763, 0.041861, 0.04147, 0.038633, 0.033651, 2.707174e-2, 1.966328e-2, 1.237877e-2, 0.05108, 0.079928, 0.106966, 0.12913, 0.144464, 0.152286, 0.151688, 0.142899, 0.125827, 0.101637, 0.072854, 0.043271, 0.109711, 0.161008, 0.204405, 0.242542, 0.27388, 0.299288, 0.319279, 0.325589, 0.307261, 0.260983, 0.189295, 0.106324, 0.173755, 0.239703, 0.298767, 0.355112, 0.407679, 0.459261, 0.505364, 0.531548, 0.525608, 0.474851, 0.371349, 0.225485, 0.225349, 0.29947, 0.370226, 0.437818, 0.507325, 0.575297, 0.634412, 0.670876, 0.672374, 0.624262, 0.509766, 0.330986, 0.262937, 0.341392, 0.417849, 0.491789, 0.571123, 0.648307, 0.711474, 0.750261, 0.754204, 0.709622, 0.59417, 0.401633, 0.289863, 0.370209, 0.449036, 0.526102, 0.611037, 0.693017, 0.756703, 0.794962, 0.79933, 0.757294, 0.644139, 0.44614, 0.309587, 0.390686, 0.470299, 0.548767, 0.637005, 0.721272, 0.784305, 0.82135, 0.825585, 0.785276, 0.675, 0.475765, 0.32462, 0.406037, 0.485842, 0.564888, 0.655022, 0.740114, 0.802093, 0.8379, 0.841933, 0.802881, 0.695483, 0.497044, 0.336578, 0.418206, 0.498012, 0.577262, 0.66839, 0.753425, 0.81421, 0.848912, 0.852765, 0.814738, 0.710169, 0.513455, 0.346599, 0.428417, 0.508154, 0.587426, 0.679004, 0.763486, 0.823045, 0.856779, 0.860466, 0.823337, 0.721407, 0.526943, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.237877e-2, 0.647306e-2, 2.415753e-3, 3.424398e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.043271, 1.909598e-2, 0.53987e-2, 2.455225e-4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.106324, 0.039587, 0.713331e-2, 1.578616e-3, 1.49236e-3, 0.622837e-3, 0.640898e-7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.225485, 0.093422, 2.341164e-2, 1.360791e-2, 1.325676e-2, 0.943465e-2, 0.409728e-2, 3.18965e-4, 2.031334e-6, 2.271311e-4, 4.733359e-4, 4.225296e-4, 0.330986, 0.152948, 0.051604, 2.943423e-2, 2.874763e-2, 2.192323e-2, 1.180645e-2, 2.909414e-3, 4.322129e-4, 1.365361e-3, 2.020075e-3, 1.897878e-3, 0.401633, 0.197534, 0.077524, 0.044288, 0.043054, 0.033627, 1.938458e-2, 0.617403e-2, 1.197982e-3, 2.756613e-3, 3.786444e-3, 3.603066e-3, 0.44614, 0.228603, 0.097479, 0.056491, 0.054723, 0.043235, 2.572591e-2, 0.924498e-2, 2.203909e-3, 0.409869e-2, 0.545332e-2, 0.52172e-2, 0.475765, 0.252161, 0.113067, 0.066047, 0.063785, 0.050759, 3.079538e-2, 1.19272e-2, 3.300475e-3, 0.533736e-2, 0.712406e-2, 0.680238e-2, 0.497044, 0.270892, 0.126199, 0.073502, 0.070727, 0.056601, 0.034853, 1.430042e-2, 0.443489e-2, 0.658771e-2, 0.882617e-2, 0.843288e-2, 0.513455, 0.286475, 0.13754, 0.079466, 0.076097, 0.061208, 0.038183, 1.647642e-2, 0.561462e-2, 0.789945e-2, 1.053403e-2, 1.00803e-2, 0.526943, 0.299942, 0.147627, 0.08451, 0.080442, 0.06501, 0.041058, 1.85495e-2, 0.685274e-2, 0.927396e-2, 1.226602e-2, 1.175996e-2]}",
+      "ext" : "PsyopUtil"
+      },
+    {
+      "type" : "DrawingHandle",
+      "value" : null,
+      "ext" : "InlineDrawing"
+      }
+    ]
+  }

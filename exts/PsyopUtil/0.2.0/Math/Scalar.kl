@@ -1,0 +1,12 @@
+require Math;
+
+// Give it a min, a max, and a value between those, and it'll tell you where
+// between the two it was. Example: Min = 8, max = 10, value = 9, returns 0.5
+inline Scalar reverseLinearInterpolate(Scalar min, Scalar max, Scalar value) {
+  // between 1 and 3, so 2 should become 0.5
+  //   (max - min) = range
+  //   value - min = value from 0-to range
+  //   value along range / range = value from 0-1
+
+  return ((value - min) / (max - min));
+}

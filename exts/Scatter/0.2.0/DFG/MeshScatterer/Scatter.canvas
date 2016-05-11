@@ -1,0 +1,50 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: MeshScatterer\n  quantity: UInt32\n  seed: UInt32\n"
+    },
+  "title" : "Scatter",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "MeshScatterer"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiRange" : "(0, 2000)"
+        },
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "UInt32" : 200
+        },
+      "name" : "quantity",
+      "execPortType" : "In",
+      "typeSpec" : "UInt32"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "UInt32" : 12345
+        },
+      "name" : "seed",
+      "execPortType" : "In",
+      "typeSpec" : "UInt32"
+      }
+    ],
+  "extDeps" : {
+    "Scatter" : "*"
+    },
+  "presetGUID" : "05044ABB1F88331E4070F126D3FE39F8",
+  "code" : "require Scatter;
+
+dfgEntry {
+  this.scatter(quantity, seed);
+}
+"
+  }

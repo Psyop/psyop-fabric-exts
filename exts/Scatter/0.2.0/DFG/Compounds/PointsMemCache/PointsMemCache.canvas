@@ -1,0 +1,508 @@
+{
+  "objectType" : "Graph",
+  "metadata" : {
+    "uiGraphZoom" : "{\n  \"value\" : 0.8936030268669128\n  }",
+    "uiGraphPan" : "{\n  \"x\" : -1966.958740234375,\n  \"y\" : -724.4886474609375\n  }"
+    },
+  "title" : "PointsMemCache",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Boolean" : false
+        },
+      "name" : "live",
+      "execPortType" : "In"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "points",
+      "execPortType" : "In"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "In",
+      "name" : "pointsOut",
+      "execPortType" : "Out",
+      "typeSpec" : "Points"
+      }
+    ],
+  "extDeps" : {},
+  "presetGUID" : "9AEF56E0EDB4206BB8389BF5B3F9FDD8",
+  "nodes" : [
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":3063.972412109375,\"y\":1028.058349609375}"
+        },
+      "name" : "If_2",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "cond"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "if_true"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "if_false"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "result"
+          }
+        ],
+      "executable" : "Fabric.Core.Control.If",
+      "presetGUID" : "3182A478A21643455D549E483D35F831"
+      },
+    {
+      "objectType" : "Var",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2978.443359375,\"y\":858.1295166015625}"
+        },
+      "name" : "pointsCache",
+      "ports" : [
+        {
+          "objectType" : "VarPort",
+          "nodePortType" : "IO",
+          "name" : "value"
+          }
+        ],
+      "dataType" : "Points",
+      "extDep" : "Geometry:*"
+      },
+    {
+      "objectType" : "Get",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2824.103271484375,\"y\":1168.867065429688}"
+        },
+      "name" : "get",
+      "ports" : [
+        {
+          "objectType" : "GetPort",
+          "nodePortType" : "Out",
+          "name" : "value"
+          }
+        ],
+      "varPath" : "pointsCache"
+      },
+    {
+      "objectType" : "Set",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2820.58837890625,\"y\":1105.016723632813}",
+        "uiCollapsedState" : "1"
+        },
+      "name" : "set",
+      "ports" : [
+        {
+          "objectType" : "SetPort",
+          "nodePortType" : "IO",
+          "name" : "value"
+          }
+        ],
+      "varPath" : "pointsCache"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2808.80712890625,\"y\":917.0610961914063}"
+        },
+      "name" : "Or_1",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "lhs"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "rhs"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "result"
+          }
+        ],
+      "executable" : "Fabric.Core.Logic.Or",
+      "presetGUID" : "B28E608A429639388E1CF1933AAB645A"
+      },
+    {
+      "objectType" : "Get",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2461.8974609375,\"y\":967.4188842773438}"
+        },
+      "name" : "get_2",
+      "ports" : [
+        {
+          "objectType" : "GetPort",
+          "nodePortType" : "Out",
+          "name" : "value"
+          }
+        ],
+      "varPath" : "pointsCache"
+      },
+    {
+      "objectType" : "Inst",
+      "metadata" : {
+        "uiGraphPos" : "{\"x\":2655.494140625,\"y\":977.4906616210938}"
+        },
+      "name" : "IsNull_2",
+      "ports" : [
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "In",
+          "name" : "obj"
+          },
+        {
+          "objectType" : "InstPort",
+          "nodePortType" : "Out",
+          "name" : "result"
+          }
+        ],
+      "executable" : "Fabric.Core.Object.IsNull",
+      "presetGUID" : "84AEE2708BDEAAFDEBA207A1733A052F"
+      }
+    ],
+  "connections" : {
+    "live" : [
+      "Or_1.lhs"
+      ],
+    "points" : [
+      "set.value"
+      ],
+    "If_2.result" : [
+      "pointsOut"
+      ],
+    "get.value" : [
+      "If_2.if_false"
+      ],
+    "set.value" : [
+      "If_2.if_true"
+      ],
+    "Or_1.result" : [
+      "If_2.cond"
+      ],
+    "get_2.value" : [
+      "IsNull_2.obj"
+      ],
+    "IsNull_2.result" : [
+      "Or_1.rhs"
+      ]
+    },
+  "requiredPresets" : {
+    "Psyop.Exts.Scatter.Compounds.PointsMemCache.PointsMemCache" : {
+      "objectType" : "Graph",
+      "metadata" : {
+        "uiGraphZoom" : "{\n  \"value\" : 0.8936030268669128\n  }",
+        "uiGraphPan" : "{\n  \"x\" : -1966.958740234375,\n  \"y\" : -724.4886474609375\n  }"
+        },
+      "title" : "PointsMemCache",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "defaultValues" : {
+            "Boolean" : false
+            },
+          "name" : "live",
+          "execPortType" : "In"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "points",
+          "execPortType" : "In"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "pointsOut",
+          "execPortType" : "Out",
+          "typeSpec" : "Points"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "9AEF56E0EDB4206BB8389BF5B3F9FDD8",
+      "nodes" : [
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":3063.972412109375,\"y\":1028.058349609375}"
+            },
+          "name" : "If_2",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "cond"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "if_true"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "if_false"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "result"
+              }
+            ],
+          "executable" : "Fabric.Core.Control.If",
+          "presetGUID" : "3182A478A21643455D549E483D35F831"
+          },
+        {
+          "objectType" : "Var",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":2978.443359375,\"y\":858.1295166015625}"
+            },
+          "name" : "pointsCache",
+          "ports" : [
+            {
+              "objectType" : "VarPort",
+              "nodePortType" : "IO",
+              "name" : "value"
+              }
+            ],
+          "dataType" : "Points",
+          "extDep" : "Geometry:*"
+          },
+        {
+          "objectType" : "Get",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":2824.103271484375,\"y\":1168.867065429688}"
+            },
+          "name" : "get",
+          "ports" : [
+            {
+              "objectType" : "GetPort",
+              "nodePortType" : "Out",
+              "name" : "value"
+              }
+            ],
+          "varPath" : "pointsCache"
+          },
+        {
+          "objectType" : "Set",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":2820.58837890625,\"y\":1105.016723632813}",
+            "uiCollapsedState" : "1"
+            },
+          "name" : "set",
+          "ports" : [
+            {
+              "objectType" : "SetPort",
+              "nodePortType" : "IO",
+              "name" : "value"
+              }
+            ],
+          "varPath" : "pointsCache"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":2808.80712890625,\"y\":917.0610961914063}"
+            },
+          "name" : "Or_1",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "lhs"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "rhs"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "result"
+              }
+            ],
+          "executable" : "Fabric.Core.Logic.Or",
+          "presetGUID" : "B28E608A429639388E1CF1933AAB645A"
+          },
+        {
+          "objectType" : "Get",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":2461.8974609375,\"y\":967.4188842773438}"
+            },
+          "name" : "get_2",
+          "ports" : [
+            {
+              "objectType" : "GetPort",
+              "nodePortType" : "Out",
+              "name" : "value"
+              }
+            ],
+          "varPath" : "pointsCache"
+          },
+        {
+          "objectType" : "Inst",
+          "metadata" : {
+            "uiGraphPos" : "{\"x\":2655.494140625,\"y\":977.4906616210938}"
+            },
+          "name" : "IsNull_2",
+          "ports" : [
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "In",
+              "name" : "obj"
+              },
+            {
+              "objectType" : "InstPort",
+              "nodePortType" : "Out",
+              "name" : "result"
+              }
+            ],
+          "executable" : "Fabric.Core.Object.IsNull",
+          "presetGUID" : "84AEE2708BDEAAFDEBA207A1733A052F"
+          }
+        ],
+      "connections" : {
+        "live" : [
+          "Or_1.lhs"
+          ],
+        "points" : [
+          "set.value"
+          ],
+        "If_2.result" : [
+          "pointsOut"
+          ],
+        "get.value" : [
+          "If_2.if_false"
+          ],
+        "set.value" : [
+          "If_2.if_true"
+          ],
+        "Or_1.result" : [
+          "If_2.cond"
+          ],
+        "get_2.value" : [
+          "IsNull_2.obj"
+          ],
+        "IsNull_2.result" : [
+          "Or_1.rhs"
+          ]
+        }
+      },
+    "Fabric.Core.Control.If" : {
+      "objectType" : "Func",
+      "title" : "If",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "cond",
+          "execPortType" : "In",
+          "typeSpec" : "Boolean"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "if_true",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "if_false",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "$TYPE$"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "3182A478A21643455D549E483D35F831",
+      "code" : "
+dfgEntry {
+	result = cond ? if_true : if_false;
+}
+"
+      },
+    "Fabric.Core.Logic.Or" : {
+      "objectType" : "Func",
+      "title" : "Or ||",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "lhs",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "rhs",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "Boolean"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "B28E608A429639388E1CF1933AAB645A",
+      "code" : "
+dfgEntry {
+	result = lhs || rhs;
+}
+"
+      },
+    "Fabric.Core.Object.IsNull" : {
+      "objectType" : "Func",
+      "title" : "IsNull",
+      "ports" : [
+        {
+          "objectType" : "Port",
+          "nodePortType" : "Out",
+          "name" : "obj",
+          "execPortType" : "In",
+          "typeSpec" : "$TYPE$"
+          },
+        {
+          "objectType" : "Port",
+          "nodePortType" : "In",
+          "name" : "result",
+          "execPortType" : "Out",
+          "typeSpec" : "Boolean"
+          }
+        ],
+      "extDeps" : {},
+      "presetGUID" : "84AEE2708BDEAAFDEBA207A1733A052F",
+      "code" : "
+dfgEntry {
+  result = !obj;
+}
+"
+      }
+    }
+  }

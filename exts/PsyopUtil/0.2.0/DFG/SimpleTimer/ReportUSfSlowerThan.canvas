@@ -1,0 +1,49 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: SimpleTimer\n  message: String\n  threshold: Scalar\n"
+    },
+  "title" : "ReportUSfSlowerThan",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "exec",
+      "execPortType" : "IO",
+      "typeSpec" : "Execute"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "SimpleTimer"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "message",
+      "execPortType" : "In",
+      "typeSpec" : "String"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "threshold",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*",
+    "FabricInterfaces" : "*"
+    },
+  "presetGUID" : "BE832D703E4675690985F13204DBDC24",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.reportUSfSlowerThan(message, threshold);
+}
+"
+  }

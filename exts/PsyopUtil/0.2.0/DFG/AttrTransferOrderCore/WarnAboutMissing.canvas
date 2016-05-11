@@ -1,0 +1,35 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: AttrTransferOrderCore\n  sourceAttrs: Ref<GeometryAttribute>[String]\n"
+    },
+  "title" : "WarnAboutMissing",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "this",
+      "execPortType" : "In",
+      "typeSpec" : "AttrTransferOrderCore"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "sourceAttrs",
+      "execPortType" : "In",
+      "typeSpec" : "GeometryAttribute"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "AD910BAD87D02CD1953C373D937D1D13",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  Ref<GeometryAttribute> sourceAttrs_ref = sourceAttrs;
+  this.warnAboutMissing(sourceAttrs_ref);
+}
+"
+  }

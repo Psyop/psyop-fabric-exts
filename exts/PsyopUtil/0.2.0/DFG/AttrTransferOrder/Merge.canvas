@@ -1,0 +1,34 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Combines two attribute transfer orders. They'll go in order, this one first,\nother one second. Any number can be combined by daisy chaining or branching.\n\nSupported types:\n  this: AttrTransferOrder\n  other: AttrTransferOrder\n"
+    },
+  "title" : "Merge",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "AttrTransferOrder"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "other",
+      "execPortType" : "In",
+      "typeSpec" : "AttrTransferOrder"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "2EDD9241660B97BA9400E9F6037764AA",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.merge(other);
+}
+"
+  }

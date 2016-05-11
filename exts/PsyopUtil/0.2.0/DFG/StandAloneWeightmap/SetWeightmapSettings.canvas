@@ -1,0 +1,72 @@
+// Created by kl2dfg (processFunction)
+{
+  "objectType" : "Func",
+  "metadata" : {
+    "uiTooltip" : "Supported types:\n  this: StandAloneWeightmap\n  paintAndDisplay: Boolean\n  display: Boolean\n  brushStrength: Scalar\n  color: Color\n"
+    },
+  "title" : "SetWeightmapSettings",
+  "ports" : [
+    {
+      "objectType" : "Port",
+      "nodePortType" : "IO",
+      "name" : "this",
+      "execPortType" : "IO",
+      "typeSpec" : "StandAloneWeightmap"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Boolean" : true
+        },
+      "name" : "paintAndDisplay",
+      "execPortType" : "In",
+      "typeSpec" : "Boolean"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "name" : "display",
+      "execPortType" : "In",
+      "typeSpec" : "Boolean"
+      },
+    {
+      "objectType" : "Port",
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Scalar" : 0.25
+        },
+      "name" : "brushStrength",
+      "execPortType" : "In",
+      "typeSpec" : "Scalar"
+      },
+    {
+      "objectType" : "Port",
+      "metadata" : {
+        "uiColor" : "{\n  \"r\" : 255,\n  \"g\" : 0,\n  \"b\" : 0\n  }"
+        },
+      "nodePortType" : "Out",
+      "defaultValues" : {
+        "Color" : {
+          "r" : 0.8899999856948853,
+          "g" : 0.25,
+          "b" : 0.25,
+          "a" : 0
+          }
+        },
+      "name" : "color",
+      "execPortType" : "In",
+      "typeSpec" : "Color"
+      }
+    ],
+  "extDeps" : {
+    "PsyopUtil" : "*"
+    },
+  "presetGUID" : "61349A480382E509E78822729F5ED2E8",
+  "code" : "require PsyopUtil;
+
+dfgEntry {
+  this.setWeightmapSettings(paintAndDisplay, display, brushStrength, color);
+}
+"
+  }
