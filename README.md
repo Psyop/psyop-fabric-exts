@@ -9,4 +9,6 @@ Dart throwing is an iterative process that places points, checking for overlap a
 
 Please see /examples for canvas examples, and /scatter/test/test.kl for some code examples. 
 
+## PsyopUtil
 
+Some utility stuff Scatter relies on. There's some other goodies in there too, undocumented for now...
